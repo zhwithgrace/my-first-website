@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>沖繩郵輪之旅</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-slate-50">
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+    
+    // 定義圖示元件 (使用 Emoji 替代，避免複雜安裝)
+    const IconWrapper = ({children, className}) => <span className={className} style={{fontStyle:'normal', marginRight:'4px'}}>{children}</span>;
+    const Calendar = (p) => <IconWrapper {...p}>📅</IconWrapper>;
+    const MapPin = (p) => <IconWrapper {...p}>📍</IconWrapper>;
+    const Clock = (p) => <IconWrapper {...p}>🕒</IconWrapper>;
+    const CheckCircle = (p) => <IconWrapper {...p}>✅</IconWrapper>;
+    const Circle = (p) => <IconWrapper {...p}>⚪</IconWrapper>;
+    const AlertCircle = (p) => <IconWrapper {...p}>⚠️</IconWrapper>;
+    const Plane = (p) => <IconWrapper {...p}>✈️</IconWrapper>;
+    const Ship = (p) => <IconWrapper {...p}>🚢</IconWrapper>;
+    const Car = (p) => <IconWrapper {...p}>🚗</IconWrapper>;
+    const Coffee = (p) => <IconWrapper {...p}>☕</IconWrapper>;
+    const Camera = (p) => <IconWrapper {...p}>📷</IconWrapper>;
+    const ShoppingBag = (p) => <IconWrapper {...p}>🛍️</IconWrapper>;
+    const Sun = (p) => <IconWrapper {...p}>☀️</IconWrapper>;
+    const Moon = (p) => <IconWrapper {...p}>🌙</IconWrapper>;
+    const CreditCard = (p) => <IconWrapper {...p}>💳</IconWrapper>;
+    const RefreshCw = (p) => <IconWrapper {...p}>🔄</IconWrapper>;
+    const Info = (p) => <IconWrapper {...p}>ℹ️</IconWrapper>;
+    const ExternalLink = (p) => <IconWrapper {...p}>🔗</IconWrapper>;
+    const Ticket = (p) => <IconWrapper {...p}>🎫</IconWrapper>;
+    const Utensils = (p) => <IconWrapper {...p}>🍴</IconWrapper>;
+    const Flame = (p) => <IconWrapper {...p}>🔥</IconWrapper>;
+
+    // --- 下面接著你原本剩下的程式碼 (從 const OkinawaTrip = ... 開始) --- 
+const OkinawaTrip = () => {
+  const [activeTab, setActiveTab] = useState('itinerary');
+  const [isTwd, setIsTwd] = useState(false);
+  const [exchangeRate, setExchangeRate] = useState(0.215);
+  const [modalContent, setModalContent] = useState(null);
+ 
+  useEffect(() => {
+    const fetchRate = async () => {
+      try {
+        const response = await fetch('https://open.er-api.com/v6/latest/JPY');
+        const data = await response.json();
+        if (data && data.rates && data.rates.TWD) {
+          setExchangeRate(data.rates.TWD);
+        }
+      } catch (error) {
+        console.error("匯率抓取失敗，使用預設值");
+      }
+    };
+    fetchRate();
+  }, []);
+ 
+  const formatPrice = (jpy) => {
+    if (isTwd) {
+      return `NT$ ${Math.round(jpy * exchangeRate).toLocaleString()}`;
+    }
+    return `¥${jpy.toLocaleString()}`;
+  };
+ 
+  const openModal = (title, desc, guideTips, link) => {
+    setModalContent({ title, desc, guideTips, link });
+  };
+ 
+  const closeModal = () => {
+    setModalContent(null);
+  };
+ 
+  // --- 資料結構 ---
+  const itineraryData = [
+    {
+      day: 1,
+      date: "4/24 (五)",
+      title: "基隆登船・啟航日",
+      icon: <Ship className="w-6 h-6 text-white" />,
+      color: "bg-blue-500",
+      events: [
+        { time: "12:00", icon: <MapPin />, text: "抵達基隆港東岸旅客中心", desc: "基隆火車站旁", mapLink: "https://www.google.com/maps/search/?api=1&query=Keelung+Port+East+Passenger+Terminal" },
+        { time: "14:00", icon: <Ship />, text: "登船（莎倫娜號），啟航！", desc: "開始海上假期" },
+        { time: "15:00", icon: <AlertCircle />, text: "強制安全演習", desc: "務必參加" },
+        { time: "18:00", icon: <Coffee />, text: "郵輪晚餐", desc: "主餐廳或自助餐" },
+        { time: "20:00", icon: <Sun />, text: "欣賞郵輪表演 Show", desc: "" },
+      ],
+      aiTips: "登船後手機請開飛航模式。爸媽若擔心暈船，建議晚餐不要吃太飽，並提早服用暈船藥。",
+      weather: "海上風浪",
+    },
+    {
+      day: 2,
+      date: "4/25 (六)",
+      title: "抵達那霸・南部海港巡禮",
+      icon: <Car className="w-6 h-6 text-white" />,
+      color: "bg-emerald-500",
+      events: [
+        { time: "13:00", icon: <MapPin />, text: "抵達那霸港，下船入境", desc: "", mapLink: "https://www.google.com/maps/search/?api=1&query=Naha+Port" },
+        { time: "14:00", icon: <Car />, text: "租車公司取車", desc: "Times / Orix，需駕照譯本", mapLink: "https://www.google.com/maps/search/?api=1&query=Car+Rental+Naha+Port" },
+        { 
+          time: "15:00", 
+          icon: <Camera />, 
+          text: "波上宮 & 波之上海灘", 
+          desc: "琉球八社之首", 
+          aiTitle: "波上宮 (Naminoue-gu)", 
+          aiDesc: "沖繩地位最崇高的神社，建在斷崖之上，是連結神界「儀來河內」的聖地。", 
+          guideTips: "【導遊說書】跟爸媽介紹：這裡之所以蓋在懸崖，是因為古人相信神明從海的彼岸而來，要在最突出的地方迎接。屋頂的紅瓦是典型的琉球風格，跟日本本島不同喔！",
+          blogLink: "https://anrine910070.pixnet.net/blog/post/221836686",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Naminoue-gu"
+        },
+        { 
+          time: "16:00", 
+          icon: <ShoppingBag />, 
+          text: "買海鹽麵包 (Pain de Kaito)", 
+          desc: "那霸店", 
+          aiTitle: "海鹽麵包", 
+          aiDesc: "外酥內軟，充滿奶油與海鹽的鹹香。",
+          guideTips: "【美食重點】沖繩的海鹽很有名，這家的麵包底部烤得酥脆，中間還有融化的奶油洞，一定要趁熱吃。", 
+          blogLink: "https://suni.tw/pain-de-kaito/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Pain+de+Kaito+Naha"
+        },
+        { 
+          time: "17:15", 
+          icon: <Coffee />, 
+          text: "系滿魚市場 晚餐", 
+          desc: "現挑現吃海鮮", 
+          aiTitle: "系滿魚市場", 
+          aiDesc: "沖繩南部最大的漁港市場，以高CP值生魚片、焗烤龍蝦聞名。",
+          guideTips: "【長輩提醒】這裡多為戶外座位或立食，先找好有椅子的位子讓爸媽坐，兄弟倆負責去各攤位採買端過來。", 
+          blogLink: "https://hanblog.tw/itoman-fish-center/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Itoman+Fish+Market"
+        },
+        { time: "18:30", icon: <Moon />, text: "Check-in Yuinchi Hotel 南城", desc: "已全額付款 (Trip.com)", mapLink: "https://www.google.com/maps/search/?api=1&query=Yuinchi+Hotel+Nanjo" },
+      ],
+      aiTips: "系滿魚市場約 18:00-19:00 陸續打烊，請抓緊時間。Yuinchi Hotel 有很棒的溫泉，晚上可以帶爸媽去泡湯放鬆。",
+      weather: "晴時多雲",
+    },
+    {
+      day: 3,
+      date: "4/26 (日)",
+      title: "聖地探訪・南部絕景",
+      icon: <Sun className="w-6 h-6 text-white" />,
+      color: "bg-amber-500",
+      events: [
+        { 
+          time: "10:00", 
+          icon: <MapPin />, 
+          text: "Gangala 之谷", 
+          desc: "需預約導覽，原始森林", 
+          aiTitle: "Gangala之谷", 
+          aiDesc: "數十萬年前鐘乳石洞崩塌形成的亞熱帶森林，也是古代港川人居住地。", 
+          guideTips: "【導遊說書】為什麼叫 Gangala？因為以前人丟石頭進洞穴會發出「Gan-ga-la」的聲音！這棵大榕樹是森林的守護神。 (注意：路面較原始，提醒爸媽慢慢走)",
+          blogLink: "https://whokatrina.com/okinawa-gangala-cave-cafe/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Valley+of+Gangala"
+        },
+        { 
+          time: "12:30", 
+          icon: <Coffee />, 
+          text: "午餐：沖繩麵 (八重山そば処 やぎや)", 
+          desc: "古民家餐廳", 
+          aiTitle: "沖繩麵", 
+          aiDesc: "Okinawa Soba，登錄有形文化財的古民家。", 
+          guideTips: "【美食重點】這裡的建築是真正的古蹟喔！麵條不是蕎麥做的，是小麥，口感像拉麵，湯頭是豬骨加柴魚，很有沖繩家鄉味。",
+          blogLink: "https://1817box.tw/yagiya/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Okinawa+Soba+Yagiya"
+        },
+        { 
+          time: "14:00", 
+          icon: <Camera />, 
+          text: "沖繩世界 (玉泉洞)", 
+          desc: "Eisa 太鼓舞表演 (FunPass)", 
+          aiTitle: "玉泉洞", 
+          aiDesc: "日本最大級鐘乳石洞，歷經30萬年歲月形成。", 
+          guideTips: "【體力預警】玉泉洞裡面很長且濕滑，走完要 30 分鐘且不能回頭。如果爸媽早上累了，可以只逛上面的王國村看太鼓舞，略過地下洞穴。",
+          blogLink: "https://bobbyfun.tw/2024-01-11-2733/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Okinawa+World"
+        },
+        { time: "16:30", icon: <ShoppingBag />, text: "奧武島 吃天婦羅", desc: "中本天婦羅店", aiTitle: "奧武島天婦羅", aiDesc: "貓咪之島，沖繩式天婦羅麵衣較厚，口感Q彈。", blogLink: "https://momotravel.tw/ojima-nakamoto-tempura/", mapLink: "https://www.google.com/maps/search/?api=1&query=Ojima+Island+Nakamoto+Tempura" },
+        { time: "17:30", icon: <Coffee />, text: "晚餐：Cafe Yabusachi", desc: "海景夕陽餐廳", aiTitle: "Cafe Yabusachi", aiDesc: "南部的海景秘境，適合放空賞景。", blogLink: "https://atm0710.pixnet.net/blog/post/122270936", mapLink: "https://www.google.com/maps/search/?api=1&query=Cafe+Yabusachi" },
+        { time: "19:30", icon: <Moon />, text: "回飯店 (可順路去 Costco)", desc: "Yuinchi Hotel 南城", mapLink: "https://www.google.com/maps/search/?api=1&query=Costco+Wholesale+Okinawa+Nanjo" },
+      ],
+      aiTips: "今天步行量最大 (Gangala + 玉泉洞)，請隨時注意爸媽體力。若太累，下午行程可彈性縮減。",
+      weather: "多雲",
+    },
+    {
+      day: 4,
+      date: "4/27 (一)",
+      title: "北上・海中公園・夜間燈光秀",
+      icon: <Car className="w-6 h-6 text-white" />,
+      color: "bg-indigo-500",
+      events: [
+        { time: "10:00", icon: <CheckCircle />, text: "飯店 Check-out", desc: "駕車北上" },
+        { 
+          time: "11:00", 
+          icon: <Camera />, 
+          text: "識名園", 
+          desc: "世界遺產", 
+          aiTitle: "識名園", 
+          aiDesc: "琉球王家別墅，融合中國與琉球風格的迴遊式庭園。", 
+          guideTips: "【導遊說書】這是以前國王招待中國外交官的地方。注意看，走進去的路是彎彎曲曲的，這是為了讓別墅看起來比較大，不讓外國人一眼看穿沖繩很小的小心機喔！",
+          blogLink: "https://pfse64289.pixnet.net/blog/post/347220449",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Shikinaen"
+        },
+        { time: "13:30", icon: <Coffee />, text: "午餐：美國村 (Taco Rice)", desc: "感受美式風情", aiTitle: "塔可飯", aiDesc: "美軍文化影響下的混血美食。", blogLink: "https://anrine910070.pixnet.net/blog/post/227504804", mapLink: "https://www.google.com/maps/search/?api=1&query=American+Village+Okinawa" },
+        { 
+          time: "16:15", 
+          icon: <Camera />, 
+          text: "部瀨名海中公園", 
+          desc: "海中觀景塔 + 玻璃船", 
+          aiTitle: "部瀨名海中公園", 
+          aiDesc: "唯一海中展望塔，360度欣賞海底世界。", 
+          guideTips: "【膝蓋預警】海中展望塔需要走很陡的螺旋樓梯下去，沒有電梯。如果爸媽膝蓋不舒服，建議「只搭玻璃底船」看魚就好，不要下塔。",
+          blogLink: "https://purpleswallow.pixnet.net/blog/post/48631568",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Busena+Marine+Park"
+        },
+        { time: "18:00", icon: <Moon />, text: "Check-in TWIN-LINE HOTEL", desc: "名護市，Agoda 已訂購 (4/21 扣款)", mapLink: "https://www.google.com/maps/search/?api=1&query=TWIN-LINE+HOTEL+YANBARU" },
+        { 
+          time: "20:15", 
+          icon: <Sun />, 
+          text: "東南植物園 (夜間燈光秀)", 
+          desc: "FunPass，往返沖繩市需 1.5hr", 
+          aiTitle: "東南植物園", 
+          aiDesc: "獲獎無數的熱帶植物園燈光秀，浪漫唯美。", 
+          guideTips: "【行程提醒】這趟從名護開車往返約需 1.5 小時。如果是為了帶爸媽看燈，請先確認爸媽是否還有體力。如果累了，在飯店休息也是好選擇。",
+          blogLink: "https://wanlu937.pixnet.net/blog/post/227222146",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Southeast+Botanical+Gardens"
+        },
+      ],
+      aiTips: "部瀨名海中公園最後入場約 17:00，請準時。晚上去東南植物園車程較遠（名護往返沖繩市），請評估駕駛精神。",
+      weather: "晴朗",
+    },
+    {
+      day: 5,
+      date: "4/28 (二)",
+      title: "海洋博公園・古宇利藍",
+      icon: <Sun className="w-6 h-6 text-white" />,
+      color: "bg-cyan-500",
+      events: [
+        { 
+          time: "10:15", 
+          icon: <Camera />, 
+          text: "古宇利島", 
+          desc: "跨海大橋、心型岩", 
+          aiTitle: "古宇利島", 
+          aiDesc: "傳說中的戀之島，擁有絕美的「古宇利藍」海色。", 
+          guideTips: "【拍照重點】開過大橋時，請爸媽準備好相機拍影片，兩邊的海水顏色是沖繩最美的！心型岩在沙灘上，下去的路有點陡，爸媽可以考慮在上面看就好。",
+          blogLink: "https://traveler80s.pixnet.net/blog/post/347602421",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Kouri+Island"
+        },
+        { time: "13:00", icon: <Coffee />, text: "午餐", desc: "水族館周邊或園區內" },
+        { 
+          time: "14:00", 
+          icon: <Camera />, 
+          text: "美麗海水族館", 
+          desc: "FunPass，黑潮之海", 
+          aiTitle: "美麗海水族館", 
+          aiDesc: "擁有世界最大級水槽，必看鯨鯊與鬼蝠魟。", 
+          guideTips: "【導遊說書】這個大水槽的玻璃厚度有 60 公分喔！裡面那隻鯨鯊吃飯是「垂直站立」的，非常壯觀。如果走累了，水槽旁有「Ocean Blue」咖啡廳可以坐著看魚。",
+          blogLink: "https://spirit0926.pixnet.net/blog/post/50318668",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Okinawa+Churaumi+Aquarium"
+        },
+        { 
+          time: "18:00", 
+          icon: <Flame className="w-4 h-4" />, 
+          text: "晚餐：燒肉五苑 名護店", 
+          desc: "不限時吃到飽 (離飯店10分鐘)", 
+          aiTitle: "燒肉五苑 (Yakiniku Goen)", 
+          aiDesc: "沖繩老牌燒肉吃到飽，以不限時、價格實惠、生啤酒便宜聞名。", 
+          guideTips: "【必吃重點】這家最棒的就是「不限時」！不用吃得很有壓力。點餐用平板(有中文)，除了肉，他們的霜淇淋也是必吃。就在我們名護飯店附近，吃完回去剛好。",
+          blogLink: "https://flyblog.cc/post-48489393/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Yakiniku+Goen+Nago"
+        },
+      ],
+      aiTips: "今天行程最輕鬆，晚餐吃燒肉不限時，可以慢慢享受家族聚餐時光。水族館很大，建議租借輪椅或善用遊園車減少長輩步行。",
+      weather: "晴朗",
+    },
+    {
+      day: 6,
+      date: "4/29 (三)",
+      title: "殘波岬・國際通・返程",
+      icon: <Plane className="w-6 h-6 text-white" />,
+      color: "bg-rose-500",
+      events: [
+        { time: "09:00", icon: <CheckCircle />, text: "飯店 Check-out", desc: "準時出發南下" },
+        { 
+          time: "10:00", 
+          icon: <Camera />, 
+          text: "殘波岬燈塔", 
+          desc: "斷崖絕景", 
+          aiTitle: "殘波岬", 
+          aiDesc: "沖繩著名斷崖，純白燈塔與碧海藍天。", 
+          guideTips: "【導遊說書】這裡有 30 公尺高的斷崖，風很大！那個手指著海那一邊的雕像是「泰期」，他是琉球商業之神，手指的方向就是中國福建，象徵大貿易時代。",
+          blogLink: "https://blackcoffee00l.pixnet.net/blog/post/574326292",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Cape+Zanpa+Lighthouse"
+        },
+        { 
+          time: "11:30", 
+          icon: <ShoppingBag />, 
+          text: "國際通 唐吉訶德", 
+          desc: "最後採買", 
+          aiTitle: "國際通", 
+          aiDesc: "奇蹟的一英里，伴手禮的一級戰區。", 
+          blogLink: "https://niniyeh.com/donki-kokusaidori-naha-okinawa/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Don+Quijote+Kokusai+Dori"
+        },
+        { 
+          time: "13:00", 
+          icon: <Utensils />, 
+          text: "午餐：漁師食堂 大ばんぶる舞", 
+          desc: "大統漁 海鮮丼 (現金)", 
+          aiTitle: "漁師食堂 大ばんぶる舞", 
+          aiDesc: "漁港直送的新鮮漁獲，以驚人的大份量和超高CP值聞名。", 
+          guideTips: "【必吃推薦】這家店就在港口旁，特色就是「大」！生魚片多到滿出來，奶油烤魚也是一絕。記得這家通常只收現金，要把剩下的日幣拿出來用喔！",
+          blogLink: "https://plumpyblog.com/ryoshi-shokudo/",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Ryoushi+Shokudo+Daibanburumai+Kume"
+        },
+        { time: "14:00", icon: <Car />, text: "還車 (機場附近)", desc: "記得加滿油", mapLink: "https://www.google.com/maps/search/?api=1&query=Naha+Airport+Car+Rental+Return" },
+        { time: "15:00", icon: <Plane />, text: "那霸機場 報到", desc: "OD883 (16:50 起飛)" },
+        { time: "17:30", icon: <MapPin />, text: "抵達台北 (TPE)", desc: "溫暖的家" },
+      ],
+      aiTips: "今日車程長且有繞路 (名護->殘波岬->那霸)，請務必注意時間，14:00 前一定要還車。",
+      weather: "多雲",
+    },
+  ];
+ 
+  const budgetItems = [
+    { category: "交通", name: "郵輪船票 (莎倫娜號)", price: 60000, note: "估算 (每人)", paid: false },
+    { category: "交通", name: "租車 5 天 (含保險)", price: 35000, note: "估算", paid: false },
+    { category: "交通", name: "回程機票 (Batik Air OD883)", price: 0, note: "已訂購 (PNR: SMPYNJ)", paid: true, highlight: true },
+    { category: "住宿", name: "Yuinchi Hotel 南城 (2晚)", price: 47000, note: "已全額付款 (Trip.com)", paid: true, highlight: true },
+    { category: "住宿", name: "TWIN-LINE HOTEL YANBARU (2晚)", price: 62975, note: "已訂購 - 4/21 台新雙幣卡扣款 (Agoda)", paid: true, highlight: true, warning: true },
+    { category: "門票", name: "Gangala 之谷", price: 2500, note: "需預約", paid: false },
+    { category: "門票", name: "Okinawa Fun Pass (3合1)", price: 5025, note: "含水族館+植物園+玉泉洞 (約 NT$1080)", paid: false, highlight: true, link: "https://okinawa.funpass.app/#recommendedItineraryList" },
+    { category: "門票", name: "沖繩世界 (玉泉洞)", price: 0, note: "使用 Fun Pass", paid: false },
+    { category: "門票", name: "識名園", price: 400, note: "", paid: false },
+    { category: "門票", name: "部瀨名海中公園 (套票)", price: 2100, note: "", paid: false },
+    { category: "門票", name: "東南植物園 (夜間)", price: 0, note: "使用 Fun Pass", paid: false },
+    { category: "門票", name: "美麗海水族館", price: 0, note: "使用 Fun Pass", paid: false },
+    { category: "餐飲", name: "漁師食堂午餐", price: 1500, note: "現場付 (現金)", paid: false },
+    { category: "餐飲", name: "燒肉五苑 (吃到飽)", price: 4000, note: "現場付 (刷卡/現金)", paid: false },
+  ];
+ 
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
+      {/* Hero Header */}
+      <div className="relative bg-gradient-to-br from-blue-600 via-blue-500 to-cyan-400 text-white pb-16 pt-10 px-6 rounded-b-[3rem] shadow-xl overflow-hidden">
+        <div className="absolute top-0 right-0 opacity-10 transform translate-x-1/4 -translate-y-1/4">
+          <Sun size={400} />
+        </div>
+        <div className="max-w-3xl mx-auto relative z-10 text-center">
+          <div className="inline-flex items-center bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm font-medium mb-4 border border-white/30">
+            <span>2026/4/24 - 4/29</span>
+            <span className="mx-2">•</span>
+            <span>6 天 5 夜</span>
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight drop-shadow-md">
+            🌺 沖繩蔚藍海岸之旅
+          </h1>
+          <p className="text-blue-50 text-lg md:text-xl font-light">
+            郵輪漫遊・南部探險・北部絕景・購物美食
+          </p>
+        </div>
+      </div>
+ 
+      {/* Tabs Navigation */}
+      <div className="max-w-3xl mx-auto px-4 -mt-8 relative z-20">
+        <div className="bg-white rounded-2xl shadow-lg p-2 flex justify-center space-x-2">
+          <button
+            onClick={() => setActiveTab('itinerary')}
+            className={`flex-1 py-3 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+              activeTab === 'itinerary'
+                ? 'bg-blue-600 text-white shadow-md transform scale-105'
+                : 'text-slate-500 hover:bg-slate-100'
+            }`}
+          >
+            <Calendar size={20} /> 行程總覽
+          </button>
+          <button
+            onClick={() => setActiveTab('checklist')}
+            className={`flex-1 py-3 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+              activeTab === 'checklist'
+                ? 'bg-rose-500 text-white shadow-md transform scale-105'
+                : 'text-slate-500 hover:bg-slate-100'
+            }`}
+          >
+            <CheckCircle size={20} /> 預算清單
+          </button>
+        </div>
+      </div>
+ 
+      {/* Main Content */}
+      <div className="max-w-3xl mx-auto px-4 mt-8">
+        
+        {/* 行程 Tab */}
+        <div className={`${activeTab === 'itinerary' ? 'block' : 'hidden'} space-y-8`}>
+          {itineraryData.map((day, index) => (
+            <div key={index} className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-md transition-shadow duration-300">
+              {/* Day Header */}
+              <div className={`${day.color} px-6 py-4 text-white flex items-center justify-between`}>
+                <div>
+                  <span className="text-sm font-medium opacity-90 block mb-1">{day.date}</span>
+                  <h3 className="text-xl font-bold flex items-center gap-2">
+                    {day.icon} {day.title}
+                  </h3>
+                </div>
+                <div className="text-3xl opacity-20 font-black">DAY {day.day}</div>
+              </div>
+ 
+              {/* Timeline Content */}
+              <div className="p-6">
+                <div className="space-y-6 relative pl-4 border-l-2 border-slate-100 ml-2">
+                  {day.events.map((event, idx) => (
+                    <div key={idx} className="relative pl-6">
+                      {/* Timeline Dot */}
+                      <div className={`absolute -left-[21px] top-1 w-3 h-3 rounded-full border-2 border-white ring-2 ${idx === 0 ? 'bg-rose-500 ring-rose-100' : 'bg-blue-400 ring-blue-100'}`}></div>
+                      
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 text-blue-600 font-bold text-lg">
+                            <span className="font-mono text-slate-400 text-base font-normal">{event.time}</span>
+                            {event.text}
+                          </div>
+                          {event.desc && <p className="text-slate-500 text-sm mt-1">{event.desc}</p>}
+                          
+                          {/* Action Buttons */}
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {event.mapLink && (
+                              <a href={event.mapLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded-md hover:bg-slate-200 transition-colors">
+                                <MapPin size={12} /> 導航
+                              </a>
+                            )}
+                            {event.aiTitle && (
+                              <button 
+                                onClick={() => openModal(event.aiTitle, event.aiDesc, event.guideTips, event.blogLink)}
+                                className="inline-flex items-center gap-1 text-xs bg-blue-50 text-blue-600 px-2 py-1 rounded-md hover:bg-blue-100 transition-colors border border-blue-100"
+                              >
+                                <Sun size={12} /> 導覽 & 介紹
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+ 
+                {/* AI Tips Footer */}
+                <div className="mt-6 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
+                  <div className="flex items-start gap-3">
+                    <div className="bg-amber-100 p-2 rounded-full text-amber-600">
+                      <AlertCircle size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-amber-800 text-sm mb-1">AI 貼心提醒</h4>
+                      <p className="text-amber-700 text-sm leading-relaxed">{day.aiTips}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+ 
+        {/* 清單 Tab */}
+        <div className={`${activeTab === 'checklist' ? 'block' : 'hidden'}`}>
+          <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 sm:p-8">
+            
+            {/* Currency Toggle */}
+            <div className="flex justify-between items-center mb-8 border-b border-slate-100 pb-6">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-800">預算與訂購清單</h2>
+                <p className="text-slate-400 text-sm mt-1">確認您的所有預訂與預算</p>
+              </div>
+              <button 
+                onClick={() => setIsTwd(!isTwd)}
+                className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-2 rounded-full font-bold transition-all active:scale-95"
+              >
+                <RefreshCw size={16} />
+                {isTwd ? '顯示日幣 (JPY)' : '顯示台幣 (TWD)'}
+              </button>
+            </div>
+ 
+            {/* Rate Info */}
+            <div className="bg-blue-50 text-blue-700 text-sm px-4 py-2 rounded-lg mb-6 flex items-center gap-2">
+              <CreditCard size={16} />
+              <span>當前參考匯率: 1 JPY ≈ {exchangeRate.toFixed(3)} TWD</span>
+            </div>
+ 
+            {/* List Items */}
+            <div className="space-y-6">
+              {['交通', '住宿', '門票', '餐飲'].map(cat => (
+                <div key={cat}>
+                  <h3 className="text-lg font-bold text-slate-700 mb-3 border-l-4 border-blue-500 pl-3">{cat}</h3>
+                  <div className="space-y-3">
+                    {budgetItems.filter(i => i.category === cat).map((item, idx) => (
+                      <div key={idx} className={`p-4 rounded-xl border ${item.highlight ? 'bg-emerald-50 border-emerald-200' : 'bg-white border-slate-200'} flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-all hover:shadow-sm`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`mt-1 ${item.paid ? 'text-emerald-500' : 'text-slate-300'}`}>
+                            {item.paid ? <CheckCircle size={20} /> : <Circle size={20} />}
+                          </div>
+                          <div className="flex-1">
+                            <div className="font-bold text-slate-800 text-lg flex items-center gap-2">
+                              {item.name}
+                              {item.link && (
+                                <a 
+                                  href={item.link} 
+                                  target="_blank" 
+                                  rel="noreferrer"
+                                  className="inline-flex items-center text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700 transition-colors"
+                                >
+                                  <ExternalLink size={10} className="mr-1" /> 訂購連結
+                                </a>
+                              )}
+                            </div>
+                            <div className="text-slate-500 text-sm mt-1">{item.note}</div>
+                            {item.warning && (
+                              <div className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-rose-600 bg-rose-100 px-2 py-1 rounded-md">
+                                <AlertCircle size={12} /> 重要提醒
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div className="text-right pl-9 sm:pl-0 min-w-[120px]">
+                          <div className="font-mono font-bold text-xl text-slate-700">{formatPrice(item.price)}</div>
+                          <div className={`text-xs font-bold mt-1 ${item.paid ? 'text-emerald-600' : 'text-amber-500'}`}>
+                            {item.paid ? '已付款 / 訂購' : '尚未付款 / 現場付'}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+ 
+          </div>
+        </div>
+ 
+      </div>
+ 
+      {/* Modal Overlay */}
+      {modalContent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full overflow-hidden transform transition-all scale-100 flex flex-col max-h-[80vh]">
+            <div className="bg-gradient-to-r from-blue-500 to-cyan-400 p-4 text-white flex justify-between items-center shrink-0">
+              <h3 className="font-bold text-lg flex items-center gap-2">
+                <Sun size={18} /> {modalContent.title}
+              </h3>
+              <button onClick={closeModal} className="text-white/80 hover:text-white">✕</button>
+            </div>
+            <div className="p-6 overflow-y-auto">
+              <div className="mb-6">
+                <h4 className="text-blue-600 font-bold text-sm mb-2 flex items-center gap-1"><Info size={16}/> 景點介紹</h4>
+                <p className="text-slate-600 leading-relaxed">
+                  {modalContent.desc}
+                </p>
+              </div>
+              
+              {modalContent.guideTips && (
+                <div className="mb-6 bg-amber-50 p-4 rounded-xl border border-amber-100">
+                  <h4 className="text-amber-700 font-bold text-sm mb-2 flex items-center gap-1"><AlertCircle size={16}/> 導遊小抄 (給爸媽聽的)</h4>
+                  <p className="text-slate-700 text-sm leading-relaxed italic">
+                    {modalContent.guideTips}
+                  </p>
+                </div>
+              )}
+ 
+              {modalContent.link && (
+                <a 
+                  href={modalContent.link} 
+                  target="_blank" 
+                  rel="noreferrer"
+                  className="block w-full text-center bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition-colors"
+                >
+                  📖 閱讀網友旅遊心得 (網誌)
+                </a>
+              )}
+            </div>
+            <div className="p-4 border-t border-slate-100 shrink-0">
+              <button 
+                onClick={closeModal}
+                className="block w-full text-center text-slate-400 hover:text-slate-600 text-sm py-2"
+              >
+                關閉視窗
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+ 
+// --- 原本程式碼結束 --- 
+const root = ReactDOM.createRoot(document.getElementById('root')); root.render(<OkinawaTrip />); </script> </body> </html>
