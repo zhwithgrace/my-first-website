@@ -1,230 +1,702 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 韓國 Solo Trip (旗艦版)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <title>2025 韓國 Solo Trip (旗艦精簡版 V3.7)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ice-blue': '#e0f2fe',
+                        'deep-navy': '#1e3a8a',
+                        'snow-white': '#f8fafc',
+                        'alert-red': '#ef4444',
+                        'cash-green': '#10b981',
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #e74c3c;
-            --success-color: #27ae60;
-            --bg-color: #f4f7f6;
-            --card-bg: #ffffff;
-        }
-
         body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: var(--bg-color);
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
-        /* 標題區塊 */
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #2c3e50, #3498db);
-            color: white;
-            padding: 30px 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        .timeline-connector {
+            position: absolute;
+            left: 1.25rem;
+            top: 3rem;
+            bottom: -1rem;
+            width: 2px;
+            background-color: #cbd5e1;
+            z-index: 0;
         }
-
-        h1 { margin: 0; font-size: 1.8rem; }
-        .subtitle { font-size: 0.9rem; opacity: 0.9; margin-top: 5px; }
-        .dates { background: rgba(255,255,255,0.2); display: inline-block; padding: 5px 15px; border-radius: 20px; margin-top: 15px; font-weight: bold; }
-
-        /* 卡片樣式 */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        .nav-scroll::-webkit-scrollbar {
+            height: 4px;
         }
-
-        h2 { border-left: 5px solid var(--accent-color); padding-left: 10px; font-size: 1.3rem; margin-top: 0; color: var(--primary-color); }
-        h3 { font-size: 1.1rem; color: #555; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
-
-        /* 重要提醒區塊 */
-        .alert-box {
-            background-color: #fff5f5;
-            border: 1px solid #feb2b2;
-            color: #c53030;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+        .nav-scroll::-webkit-scrollbar-track {
+            background: transparent;
         }
-        .highlight { font-weight: bold; color: var(--accent-color); }
-
-        /* 列表樣式 */
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; }
-
-        /* 連結按鈕 */
-        .btn-link {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: white;
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            margin-top: 5px;
+        .nav-scroll::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
         }
-        .btn-link:hover { background-color: #34495e; }
-
-        /* 預算表格 */
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background-color: #f8f9fa; color: #666; font-size: 0.9rem; }
-        
-        /* 狀態標籤 */
-        .tag { padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
-        .tag-done { background-color: #e6fffa; color: #2c7a7b; }
-        .tag-pending { background-color: #fffaf0; color: #c05621; }
-
-        /* 頁尾 */
-        footer { text-align: center; font-size: 0.8rem; color: #888; margin-top: 40px; }
+        /* 連結樣式 */
+        .link-hover {
+            color: #2563eb;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+        .link-hover:hover {
+            color: #1e40af;
+        }
     </style>
 </head>
-<body>
+<body class="text-slate-800">
 
-<div class="container">
-
-    <header>
-        <h1>2025 韓國 Solo Trip</h1>
-        <div class="subtitle">Flagship Edition v3.7 (Clean)</div>
-        <div class="dates"><i class="far fa-calendar-alt"></i> 12/17 - 12/25</div>
+    <!-- 頂部 Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-30 shadow-sm border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-deep-navy tracking-tight">
+                    <i class="fa-regular fa-snowflake text-blue-400 mr-2"></i>2025 韓國 Solo Trip
+                </h1>
+                <p class="text-xs text-slate-500">Flagship Edition v3.7</p>
+            </div>
+            <!-- 簡單的日期顯示或其他資訊 -->
+            <div class="text-xs text-slate-500 font-mono">12/17 - 12/25</div>
+        </div>
+        <!-- 快速導覽列 -->
+        <div class="max-w-5xl mx-auto px-2">
+            <div id="nav-container" class="flex space-x-2 overflow-x-auto nav-scroll py-2">
+                <!-- JS 生成按鈕 -->
+            </div>
+        </div>
     </header>
 
-    <div class="card">
-        <h2><i class="fas fa-coins"></i> 重要！12/18 滑雪現金流規劃</h2>
-        
-        <div class="alert-box">
-            <strong><i class="fas fa-exclamation-circle"></i> 當日必需支付現金： ₩660,000</strong>
+    <main class="max-w-5xl mx-auto p-4 space-y-6">
+
+        <!-- 🔴 超級重要：現金準備提醒 (置頂) -->
+        <section class="bg-white rounded-2xl shadow-lg border-l-8 border-alert-red p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-red-100 rounded-full opacity-50 blur-xl"></div>
+            <div class="relative z-10">
+                <h2 class="text-2xl font-bold text-red-600 mb-4 flex items-center">
+                    <i class="fa-solid fa-triangle-exclamation mr-3"></i>
+                    重要！12/18 滑雪現金流規劃
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 rounded-xl p-4 border border-red-100">
+                        <p class="text-lg font-bold text-slate-800 mb-2">
+                            當日必需支付現金： <span class="text-3xl text-red-600 font-mono">₩660,000</span>
+                        </p>
+                        <ul class="space-y-2 text-sm text-slate-700">
+                            <li class="flex justify-between border-b border-red-200 pb-1">
+                                <span>1. 教練課尾款 (1對3):</span>
+                                <span class="font-mono font-bold text-slate-500">₩55萬 - 訂金10萬 = ₩450,000</span>
+                            </li>
+                            <li class="flex justify-between border-b border-red-200 pb-1">
+                                <span>2. 教練代訂 3 日票 (纜車+雪具):</span>
+                                <span class="font-mono font-bold text-slate-500">₩210,000</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="bg-green-50 rounded-xl p-4 border border-green-100">
+                        <h4 class="font-bold text-green-800 mb-2"><i class="fa-solid fa-money-bill-transfer mr-2"></i>首爾站換匯策略 (12/17)</h4>
+                        <ul class="space-y-2 text-sm text-slate-700">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-check text-green-600 mt-1 mr-2"></i>
+                                <span>前往 Wowpass 機台，將 <strong>$600 美金</strong> 兌換為韓元。</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-calculator text-green-600 mt-1 mr-2"></i>
+                                <span>預計獲得：約 <strong>₩880,000</strong></span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-piggy-bank text-green-600 mt-1 mr-2"></i>
+                                <span>支付完 66 萬後，約剩 <strong>₩220,000</strong> (約 4786 TWD) 作為備用金。</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 資訊儀表板 -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- 預算圖表 -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm lg:col-span-1 flex flex-col">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-slate-700 flex items-center">
+                        <i class="fa-solid fa-chart-pie mr-2 text-blue-500"></i> 預算分析
+                    </h3>
+                    <div class="flex space-x-1">
+                        <button onclick="changeCurrency('TWD')" class="text-[10px] bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded transition">TWD</button>
+                        <button onclick="changeCurrency('USD')" class="text-[10px] bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded transition">USD</button>
+                        <button onclick="changeCurrency('KRW')" class="text-[10px] bg-blue-600 text-white px-2 py-1 rounded transition">KRW</button>
+                    </div>
+                </div>
+                
+                <div class="relative h-48 mb-4 flex-shrink-0">
+                    <canvas id="budgetChart"></canvas>
+                    <!-- 圓餅圖中央顯示總金額 -->
+                    <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                        <span class="text-xs text-slate-400">Total</span>
+                        <span id="total-budget-display" class="text-sm font-bold text-slate-700">計算中...</span>
+                    </div>
+                </div>
+                
+                <div id="budget-legend" class="space-y-2 text-xs text-slate-600 max-h-32 overflow-y-auto mb-2"></div>
+                <div id="exchange-rate-display" class="text-[10px] text-center text-slate-400 mb-2 h-4"></div>
+                
+                <!-- 可展開的詳細備註 -->
+                <div class="mt-auto pt-2 border-t border-slate-100">
+                    <button onclick="document.getElementById('budget-details').classList.toggle('hidden')" class="text-xs text-blue-500 hover:underline w-full text-center">
+                        <i class="fa-solid fa-circle-info mr-1"></i> 查看各項花費細節
+                    </button>
+                    <div id="budget-details" class="hidden mt-2 text-[10px] text-slate-500 space-y-1 bg-slate-50 p-2 rounded">
+                        <p><strong>• 滑雪教練 (55萬):</strong> 1對3課程。訂金10萬+尾款45萬。</p>
+                        <p><strong>• 纜車&雪具 (21萬):</strong> 教練代訂 3 日套票 (12/18-20)。</p>
+                        <p><strong>• Alpensia (5萬):</strong> 12/22 單獨購票預估。</p>
+                        <p><strong>• 交通 (7萬):</strong> KTX + AREX + Uber 等預估。</p>
+                        <p><strong>• 雜支 (10萬):</strong> 含 Skizone 雪服租賃 (1.5萬*4天) + 門票。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 關鍵預訂狀態 -->
+            <div class="glass-card rounded-2xl p-6 shadow-sm lg:col-span-2">
+                <h3 class="text-lg font-bold text-slate-700 mb-4 flex items-center">
+                    <i class="fa-solid fa-clipboard-check mr-2 text-green-500"></i> 關鍵預訂狀態
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    
+                    <!-- Column 1: 交通 -->
+                    <div class="space-y-3">
+                         <!-- AREX -->
+                         <div class="bg-green-50 p-3 rounded-lg border border-green-100 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-green-600 px-1.5 py-0.5 rounded">已兌換</span>
+                                <p class="text-sm font-bold text-slate-800">AREX (機場➔首爾)</p>
+                                <a href="https://drive.google.com/file/d/1PPAQ8RJLGCzFkThn330rhgneWexkw50D/view?usp=sharing" target="_blank" class="text-xs text-blue-600 hover:underline flex items-center mt-1">
+                                    <i class="fa-brands fa-google-drive mr-1"></i> 查看票券 (掃QR入場)
+                                </a>
+                            </div>
+                        </div>
+                         <!-- KTX Go -->
+                        <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded">已購買</span>
+                                <p class="text-sm font-bold text-slate-800">KTX 801 (去程)</p>
+                                <p class="text-xs text-slate-500">12/18 05:56 首爾➔珍富</p>
+                                <a href="https://drive.google.com/file/d/1WC43XsuMHRPTq_U4jsN2S-fnWnYPZehK/view?usp=sharing" target="_blank" class="text-xs text-blue-600 hover:underline flex items-center mt-1">
+                                    <i class="fa-brands fa-google-drive mr-1"></i> 查看車票
+                                </a>
+                            </div>
+                        </div>
+                         <!-- KTX Back -->
+                         <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded">已購買</span>
+                                <p class="text-sm font-bold text-slate-800">KTX (回程)</p>
+                                <p class="text-xs text-slate-500">12/24 11:28 江陵➔首爾</p>
+                                <div class="mt-1 text-[10px] text-slate-500 bg-white p-1 rounded border border-blue-200">
+                                    <p>帳: warmwater1991@gmail.com</p>
+                                    <p>密: 800827</p>
+                                    <a href="https://www.korail.com/global/tw/myReservation" target="_blank" class="text-blue-600 underline">Korail 官網查票</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: 住宿 & 教練 -->
+                    <div class="space-y-3">
+                        <div class="bg-green-50 p-3 rounded-lg border border-green-100">
+                            <div class="flex justify-between items-center">
+                                <span class="text-[10px] font-bold text-white bg-green-600 px-1.5 py-0.5 rounded">訂金已付</span>
+                                <span class="text-xs font-mono font-bold text-red-500">尾款 ₩450,000 現場付</span>
+                            </div>
+                            <p class="text-sm font-bold text-slate-800 mt-1">滑雪教練 (1對3)</p>
+                            <p class="text-xs text-slate-500">12/18-20 上午課程</p>
+                        </div>
+                        
+                        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-[10px] font-bold text-white bg-indigo-500 px-1.5 py-0.5 rounded">住宿總覽</span>
+                            </div>
+                            <ul class="text-xs text-slate-600 space-y-1">
+                                <li class="flex justify-between"><span>Hotelette (1晚)</span> <span class="font-mono">₩39,447</span></li>
+                                <li class="flex justify-between"><span>AM Hotel (5晚)</span> <span class="font-mono">₩283,911</span></li>
+                                <li class="flex justify-between"><span>St. John's (1晚)</span> <span class="font-mono">₩111,331</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <ul>
-            <li>
-                <strong>1. 教練課尾款 (1對3):</strong><br>
-                總額 ₩55萬 - 訂金10萬 = <span class="highlight">₩450,000</span>
-            </li>
-            <li>
-                <strong>2. 教練代訂 3 日票 (纜車+雪具):</strong><br>
-                <span class="highlight">₩210,000</span> (12/18-20)
-            </li>
-        </ul>
+        <!-- 每日行程卡片 (JS 渲染) -->
+        <div id="daily-plan-container" class="space-y-8 relative pb-12"></div>
 
-        <h3><i class="fas fa-exchange-alt"></i> 首爾站換匯策略 (12/17)</h3>
-        <ul>
-            <li>前往 Wowpass 機台，將 <strong>$600 美金</strong> 兌換為韓元。</li>
-            <li>預計獲得：約 <strong>₩880,000</strong></li>
-            <li>支付完 66 萬現金後，約剩 <strong>₩220,000</strong> (約 4786 TWD) 作為備用金。</li>
-        </ul>
-    </div>
+    </main>
 
-    <div class="card">
-        <h2><i class="fas fa-chart-pie"></i> 預算分析</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>項目</th>
-                    <th>預估金額 (KRW)</th>
-                    <th>備註</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>滑雪教練</td>
-                    <td>₩550,000</td>
-                    <td>1對3課程 (訂金已付)</td>
-                </tr>
-                <tr>
-                    <td>纜車&雪具</td>
-                    <td>₩210,000</td>
-                    <td>3日套票 (教練代訂)</td>
-                </tr>
-                <tr>
-                    <td>Alpensia</td>
-                    <td>₩50,000</td>
-                    <td>12/22 單獨購票預估</td>
-                </tr>
-                <tr>
-                    <td>交通</td>
-                    <td>₩70,000</td>
-                    <td>KTX + AREX + Uber</td>
-                </tr>
-                <tr>
-                    <td>雜支</td>
-                    <td>₩100,000</td>
-                    <td>雪服租賃 + 門票</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="card">
-        <h2><i class="fas fa-ticket-alt"></i> 關鍵預訂狀態</h2>
-        
-        <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #eee;">
-            <span class="tag tag-done">已兌換</span> <strong>AREX (機場➔首爾)</strong><br>
-            <a href="https://drive.google.com/file/d/1PPAQ8RJLGCzFkThn330rhgneWexkw50D/view?usp=sharing" target="_blank" class="btn-link">
-                <i class="fas fa-qrcode"></i> 查看票券 (掃QR入場)
-            </a>
-        </div>
-
-        <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #eee;">
-            <span class="tag tag-done">已購買</span> <strong>KTX 801 (去程)</strong><br>
-            <span style="font-size:0.9rem; color:#666;">12/18 05:56 首爾➔珍富</span><br>
-            <a href="https://drive.google.com/file/d/1WC43XsuMHRPTq_U4jsN2S-fnWnYPZehK/view?usp=sharing" target="_blank" class="btn-link">
-                <i class="fas fa-file-pdf"></i> 查看車票
-            </a>
-        </div>
-
-        <div style="margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px dashed #eee;">
-            <span class="tag tag-done">已購買</span> <strong>KTX (回程)</strong><br>
-            <span style="font-size:0.9rem; color:#666;">12/24 11:28 江陵➔首爾</span><br>
-            <div style="background:#f1f1f1; padding:5px; border-radius:4px; font-size:0.85rem; margin-top:5px; display:inline-block;">
-                帳: warmwater1991@gmail.com<br>
-                密: 800827
-            </div><br>
-            <a href="https://www.korail.com/global/tw/myReservation" target="_blank" class="btn-link">
-                <i class="fas fa-external-link-alt"></i> Korail 官網查票
-            </a>
-        </div>
-        
-        <div>
-            <span class="tag tag-pending">尾款未付</span> <strong>滑雪教練 (1對3)</strong><br>
-            <span style="font-size:0.9rem; color:#666;">12/18-20 上午課程 | 現場付尾款 ₩450,000</span>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2><i class="fas fa-bed"></i> 住宿總覽</h2>
-        <ul>
-            <li><strong>Hotelette (1晚):</strong> ₩39,447</li>
-            <li><strong>AM Hotel (5晚):</strong> ₩283,911 (珍富)</li>
-            <li><strong>St. John's (1晚):</strong> ₩111,331 (江陵)</li>
-        </ul>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 韓國 Solo Trip | Flagship Edition v3.7</p>
+    <!-- Footer -->
+    <footer class="bg-white py-6 text-center text-slate-400 text-xs border-t mt-12">
+        <p>© 2025 韓國 Solo Trip</p>
     </footer>
 
-</div>
+    <!-- JavaScript 邏輯 -->
+    <script>
+        // 全域變數
+        let currentCurrency = 'KRW';
+        let rates = { KRW: 1, TWD: 0.023, USD: 0.00075 }; // 預設值，稍後更新
 
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // --- 0. 共用 HTML 區塊 (公車時刻表) ---
+            const detailedBusScheduleHTML = `
+                <div class="mt-4 pt-4 border-t border-slate-200">
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="flex items-center text-xs font-bold text-slate-500 hover:text-blue-600 transition w-full">
+                        <i class="fa-solid fa-bus mr-2"></i> 點此查看/隱藏：AM Hotel ↔ 龍平 接駁時刻表
+                        <i class="fa-solid fa-chevron-down ml-auto"></i>
+                    </button>
+                    <div class="hidden mt-2 space-y-2 text-xs bg-slate-50 p-3 rounded-lg border border-slate-200">
+                        <div>
+                            <p class="font-bold text-slate-700">【橫溪巴士站 (郵局) → 龍平滑雪場】</p>
+                            <p class="text-slate-500 mt-1">05:20, 06:20, 07:20, 08:00, 08:30, 09:40, 10:20, 12:00, 14:00, 15:30, 16:20, 17:40, 18:50, 20:00, 21:00, 23:30</p>
+                        </div>
+                        <div class="border-t border-slate-200 pt-2">
+                            <p class="font-bold text-slate-700">【龍平滑雪場 (Blisshill) → 橫溪巴士站】</p>
+                            <p class="text-slate-500 mt-1">09:00, 10:00, 11:00, 13:00, 15:00, 16:00, 17:00, 18:20, 19:30, 20:30, 21:40, 22:40, 00:30, 00:50</p>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-1">* 實際班次以現場公告為準 (2019資料參考)</p>
+                    </div>
+                </div>
+            `;
+
+            // --- 1. 核心數據 ---
+            const tripData = {
+                budget: [
+                    { label: '機票 (TWD 6983)', amount: 298000, color: '#cbd5e1' }, 
+                    { label: '住宿 (未付)', amount: 395242, color: '#94a3b8' },
+                    { label: '交通 (KTX/AREX)', amount: 70000, color: '#3b82f6' },
+                    { label: '滑雪教練 (1對3)', amount: 550000, color: '#ef4444' }, // Updated cost
+                    { label: '纜車&雪具 (3日)', amount: 210000, color: '#f59e0b' },
+                    { label: 'Alpensia (預估)', amount: 50000, color: '#10b981' }, 
+                    { label: '餐飲預估', amount: 350000, color: '#8b5cf6' },
+                    { label: '雜支/門票', amount: 100000, color: '#64748b' }
+                ],
+                daily: [
+                    {
+                        day: 1, date: "12/17 (三)", title: "抵達首爾 & 換匯任務", icon: "fa-plane-arrival",
+                        color: "blue",
+                        tags: ["AREX", "Wowpass", "首爾站"],
+                        content: `
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm font-bold"><i class="fa-solid fa-plane-arrival mr-2 text-blue-500"></i>TR896 (18:15 TPE - 21:45 ICN)</span>
+                                </div>
+                                <div class="bg-orange-50 border-l-4 border-orange-400 p-3 rounded-r-lg">
+                                    <p class="text-sm font-bold text-orange-800">⚠️ AREX 進城</p>
+                                    <p class="text-xs text-orange-700 mt-1">
+                                        使用已兌換的憑證 (QR Code) 掃描入場。目標 <strong>22:48</strong> 末班車。
+                                    </p>
+                                    <a href="https://drive.google.com/file/d/1PPAQ8RJLGCzFkThn330rhgneWexkw50D/view?usp=sharing" target="_blank" class="text-xs text-blue-600 hover:underline font-bold mt-1 block">
+                                        <i class="fa-brands fa-google-drive mr-1"></i> 開啟 AREX 憑證
+                                    </a>
+                                </div>
+                                
+                                <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                                    <h4 class="font-bold text-green-800 text-sm"><i class="fa-solid fa-money-bill-wave mr-2"></i>首爾站換匯任務</h4>
+                                    <p class="text-xs text-green-700 mt-1">尋找 Wowpass 機台，投入 <strong>$600 美金</strong> 兌換韓元現金 (約 88 萬)。此為明天滑雪費用的來源！</p>
+                                </div>
+
+                                <p class="text-sm"><i class="fa-solid fa-hotel mr-2 text-slate-400"></i>住宿：<strong>Hotelette Seoul Station</strong></p>
+                            </div>
+                        `
+                    },
+                    {
+                        day: 2, date: "12/18 (四)", title: "早安 KTX & 滑雪特訓 Day 1", icon: "fa-person-skiing",
+                        color: "red",
+                        tags: ["KTX 05:56", "教練課", "Skizone"],
+                        content: `
+                            <div class="space-y-4">
+                                <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    <div class="flex justify-between">
+                                        <span class="font-bold text-blue-800"><i class="fa-solid fa-train mr-2"></i>KTX 801 (已買)</span>
+                                        <span class="text-blue-600 font-mono">₩21,900</span>
+                                    </div>
+                                    <p class="text-xs text-blue-700 mt-1">05:56 首爾站 ➔ 07:40 抵達珍富 (Jinbu)</p>
+                                    <a href="https://drive.google.com/file/d/1WC43XsuMHRPTq_U4jsN2S-fnWnYPZehK/view?usp=sharing" target="_blank" class="text-xs text-blue-600 hover:underline font-bold mt-1 block">
+                                        <i class="fa-brands fa-google-drive mr-1"></i> 開啟 KTX 車票
+                                    </a>
+                                </div>
+
+                                <div class="bg-yellow-50 p-2 rounded border border-yellow-200 flex items-center text-xs text-yellow-800">
+                                    <i class="fa-brands fa-uber mr-2 text-lg"></i>
+                                    <span><strong>交通備案：</strong> 抵達珍富後，若無接駁車，可叫 Uber/Kakao T 至 AM Hotel。</span>
+                                </div>
+
+                                <div class="border-l-2 border-red-500 pl-4 space-y-2">
+                                    <h4 class="font-bold text-red-600">⛷️ 滑雪教練課 (1/3)</h4>
+                                    <p class="text-sm text-slate-700"><strong>時間：</strong> 上午 3 小時</p>
+                                    <div class="bg-red-50 p-2 rounded text-xs text-red-700 font-bold border border-red-200">
+                                        💰 任務：支付現金 66 萬韓元給教練 (尾款+3日票)
+                                    </div>
+                                    <div class="bg-yellow-50 p-2 rounded text-xs text-yellow-800 font-bold border border-yellow-200">
+                                        ⚠️ 官方規定：每日滑雪結束需歸還雪板/雪鞋！
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
+                                    <h4 class="font-bold text-slate-700 text-sm"><i class="fa-solid fa-shirt mr-2"></i>Skizone 租賃</h4>
+                                    <p class="text-xs text-slate-600 mt-1">租賃 <strong>雪服/頭盔</strong> (租 5 天)。</p>
+                                </div>
+                                
+                                <p class="text-sm text-slate-600 text-center italic">晚餐：簡單用餐，早點休息儲備體力。</p>
+                            </div>
+                            ${detailedBusScheduleHTML}
+                        `
+                    },
+                    {
+                        day: 3, date: "12/19 (五)", title: "滑雪特訓 Day 2 & 夜滑", icon: "fa-snowflake",
+                        color: "blue",
+                        tags: ["教練課", "3日券 (2/3)", "夜滑"],
+                        content: `
+                            <div class="space-y-4">
+                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (平昌 AM Hotel)</p>
+                                
+                                <div class="border-l-2 border-blue-500 pl-4 space-y-2">
+                                    <h4 class="font-bold text-blue-600">⛷️ 滑雪教練課 (2/3)</h4>
+                                    <p class="text-sm text-slate-700">上午 3 小時課程。下午自由練習。</p>
+                                    <p class="text-xs text-red-500 font-bold">* 記得歸還雪板/雪鞋。</p>
+                                </div>
+
+                                <div class="bg-deep-navy text-white p-3 rounded-lg flex items-center shadow-md">
+                                    <i class="fa-solid fa-moon text-yellow-400 mr-3 text-xl"></i>
+                                    <div>
+                                        <p class="font-bold text-sm">Night Skiing (夜滑)</p>
+                                        <p class="text-xs text-slate-300">使用 3 日券資格。</p>
+                                    </div>
+                                </div>
+                            </div>
+                            ${detailedBusScheduleHTML}
+                        `
+                    },
+                    {
+                        day: 4, date: "12/20 (六)", title: "特訓最終回 & 韓牛 BBQ", icon: "fa-mountain",
+                        color: "purple",
+                        tags: ["教練課", "韓牛", "發旺山"],
+                        content: `
+                            <div class="space-y-4">
+                                <div class="border-l-2 border-purple-500 pl-4 space-y-2">
+                                    <h4 class="font-bold text-purple-600">⛷️ 滑雪教練課 (3/3)</h4>
+                                    <p class="text-sm text-slate-700">上午 3 小時課程 (畢業考)。</p>
+                                    <p class="text-xs text-red-500 font-bold">* 3 日券最後一天，務必歸還所有教練代租裝備。</p>
+                                </div>
+                                
+                                <div class="bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
+                                    <h4 class="font-bold text-slate-700 mb-2"><i class="fa-solid fa-cable-car mr-2 text-purple-500"></i> 發旺山觀光</h4>
+                                    <p class="text-xs text-slate-600">⚠️ 纜車下行末班：19:00</p>
+                                </div>
+
+                                <div class="bg-red-50 p-3 rounded-lg border border-red-200 mt-2">
+                                    <h4 class="font-bold text-red-700 text-sm"><i class="fa-solid fa-fire mr-2"></i>晚餐：橫溪韓牛 BBQ</h4>
+                                    <p class="text-xs text-red-600 mt-1">滑雪三天辛苦了，今晚吃頓好的犒賞自己！</p>
+                                </div>
+                            </div>
+                            ${detailedBusScheduleHTML}
+                        `
+                    },
+                    {
+                        day: 5, date: "12/21 (日)", title: "天空牧場 & 動物森林", icon: "fa-paw",
+                        color: "green",
+                        tags: ["天空牧場", "Ani-fore"],
+                        content: `
+                            <div class="space-y-4">
+                                <div class="space-y-3">
+                                    <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                        <p class="text-sm font-bold text-blue-800">☀️ 上午：天空牧場 (Sky Ranch)</p>
+                                        <p class="text-xs text-slate-600">搭乘 443 公車。體驗拖拉機與餵羊。</p>
+                                        <a href="https://tour.pc.go.kr/" target="_blank" class="block bg-blue-100 text-blue-700 text-xs font-bold text-center py-1 rounded hover:bg-blue-200 transition mt-2">
+                                            <i class="fa-solid fa-bus mr-1"></i> 平昌觀光官網 (查詢公車時刻)
+                                        </a>
+                                    </div>
+                                    <div class="bg-green-50 p-3 rounded-lg border border-green-100">
+                                        <p class="text-sm font-bold text-green-800">🌤️ 下午：Ani-fore 動物森林</p>
+                                        <p class="text-xs text-slate-600 mb-2">單軌電車 + 羊駝。</p>
+                                        <a href="https://www.trazy.com/zh-TW/experience/detail/yongpyong-anifore-discount-ticket" target="_blank" class="block bg-green-600 text-white text-xs font-bold text-center py-2 rounded hover:bg-green-700 transition">
+                                            <i class="fa-solid fa-ticket mr-1"></i> 購買折扣票 (Trazy)
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            ${detailedBusScheduleHTML}
+                        `
+                    },
+                    {
+                        day: 6, date: "12/22 (一)", title: "Alpensia 全日滑雪", icon: "fa-person-snowboarding",
+                        color: "teal",
+                        tags: ["Alpensia", "Skizone", "全日滑"],
+                        content: `
+                            <div class="space-y-3">
+                                <div class="space-y-2 text-sm">
+                                    <div class="border-l-2 border-teal-500 pl-4">
+                                        <h4 class="font-bold text-teal-700">🏂 Alpensia 全日滑雪</h4>
+                                        <p class="text-sm text-slate-600 mt-1">單獨向 <strong>Skizone</strong> 購買全日票/租賃雪具。</p>
+                                        <a href="https://drive.google.com/file/d/1FMtIMQpojIcsp00nDd1nUT_b0W5w0px7/view?usp=drive_link" target="_blank" class="text-xs text-blue-600 hover:underline font-bold mt-1 block">
+                                            <i class="fa-brands fa-google-drive mr-1"></i> Skizone 價格表
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-100 p-3 rounded border border-slate-200 text-center mt-4">
+                                    <p class="text-xs font-bold text-slate-600">👋 傍晚任務：歸還所有租賃品</p>
+                                    <p class="text-[10px] text-slate-400">Alpensia 裝備 + 雪服 + 頭盔</p>
+                                </div>
+                                <div class="bg-orange-50 text-orange-700 text-xs p-2 rounded">
+                                    📦 晚上請整理好行李，準備明天移動至江陵！
+                                </div>
+                            </div>
+                            ${detailedBusScheduleHTML}
+                        `
+                    },
+                    {
+                        day: 7, date: "12/23 (二)", title: "江陵藝術之旅 & 炸雞", icon: "fa-bus",
+                        color: "indigo",
+                        tags: ["大巴", "Arte", "Uber"],
+                        content: `
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between bg-white p-2 rounded border border-slate-200">
+                                    <span class="text-xs font-bold text-slate-500"><i class="fa-solid fa-bus mr-2"></i>交通</span>
+                                    <div class="text-right">
+                                        <p class="text-sm font-bold">橫溪 ➔ 江陵</p>
+                                        <p class="text-xs text-slate-500">大巴 ₩2,800</p>
+                                    </div>
+                                </div>
+                                <div class="bg-yellow-50 p-2 rounded border border-yellow-200 flex items-center text-xs text-yellow-800">
+                                    <i class="fa-brands fa-uber mr-2 text-lg"></i>
+                                    <span>江陵轉運站 ➔ St. John's Hotel (推薦 Uber)</span>
+                                </div>
+
+                                <div class="space-y-2 text-sm mt-2">
+                                    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-100 space-y-2">
+                                        <h5 class="font-bold text-indigo-800 text-xs border-b border-indigo-200 pb-1 mb-1">江陵必訪</h5>
+                                        <p><strong>1. Arte Museum：</strong> 沉浸式藝術</p>
+                                        <p><strong>2. 草堂豆腐村：</strong> 嫩豆腐冰淇淋</p>
+                                        <p><strong>3. 安木咖啡街：</strong> 海景咖啡</p>
+                                    </div>
+                                </div>
+
+                                <div class="bg-orange-50 p-3 rounded-lg border border-orange-200 mt-2">
+                                    <h4 class="font-bold text-orange-700 text-sm"><i class="fa-solid fa-drumstick-bite mr-2"></i>晚餐推薦：BBQ 炸雞</h4>
+                                    <p class="text-xs text-orange-600 mt-1">可點外賣，或步行至飯店西北邊店面享用。</p>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        day: 8, date: "12/24 (三)", title: "江陵巡禮 & 返回首爾", icon: "fa-gift",
+                        color: "red",
+                        tags: ["KTX 11:28", "必吃早餐"],
+                        content: `
+                            <div class="space-y-3">
+                                <div class="bg-red-50 p-2 rounded border border-red-100 text-center relative overflow-hidden">
+                                    <span class="absolute top-0 right-0 bg-red-500 text-white text-[10px] px-1">推</span>
+                                    <span class="text-red-600 font-bold text-sm">🥞 飯店早餐必吃！ (₩40,000)</span>
+                                </div>
+                                
+                                <div class="bg-blue-50 p-3 rounded border border-blue-100">
+                                    <p class="text-xs font-bold text-blue-600">🚄 KTX 回首爾 (已買)</p>
+                                    <p class="text-sm font-bold text-slate-800">11:28 江陵 ➔ 13:27 首爾</p>
+                                    <div class="mt-2 text-[10px] text-slate-500 bg-white p-2 rounded border border-blue-200">
+                                        <p><strong>Korail 帳號:</strong> warmwater1991@gmail.com</p>
+                                        <p><strong>密碼:</strong> 800827</p>
+                                        <p class="text-blue-600 mt-1">請登入官網出示電子 QR Code 入場</p>
+                                        <a href="https://www.korail.com/global/tw/myReservation" target="_blank" class="text-blue-600 underline font-bold mt-1 block">
+                                            👉 點此登入查票
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-50 p-3 rounded border border-slate-200 space-y-2">
+                                    <h5 class="font-bold text-xs text-slate-700">首爾站寄放 & 景點</h5>
+                                    <ul class="text-xs text-slate-600 list-disc list-inside">
+                                        <li>樂天超市/Outlets 寄放行李</li>
+                                        <li>晚上：光化門首爾燈籠節</li>
+                                    </ul>
+                                </div>
+                                <p class="text-sm font-bold text-center mt-2">✈️ 23:00 航班 TR897 返台</p>
+                            </div>
+                        `
+                    }
+                ]
+            };
+
+            // --- 2. 匯率邏輯 ---
+            async function initExchangeRates() {
+                try {
+                    const res = await fetch('https://api.exchangerate-api.com/v4/latest/KRW');
+                    const data = await res.json();
+                    rates.TWD = data.rates.TWD;
+                    rates.USD = data.rates.USD;
+                    updateBudgetUI();
+                } catch (e) {
+                    console.error("匯率抓取失敗", e);
+                    const rateDisplay = document.getElementById('exchange-rate-display');
+                    if(rateDisplay) rateDisplay.textContent = '匯率更新失敗，使用預設值';
+                }
+            }
+            // 將函數暴露給全域以便按鈕呼叫
+            window.changeCurrency = function(currency) {
+                currentCurrency = currency;
+                // 更新按鈕樣式
+                const buttons = document.querySelectorAll('button[onclick^="changeCurrency"]');
+                buttons.forEach(btn => {
+                    if (btn.textContent === currency) {
+                        btn.className = "text-[10px] bg-blue-600 text-white px-2 py-1 rounded transition";
+                    } else {
+                        btn.className = "text-[10px] bg-slate-200 hover:bg-slate-300 px-2 py-1 rounded transition";
+                    }
+                });
+                updateBudgetUI();
+            };
+
+            // --- 3. 更新預算 UI (圖表、Legend、總金額) ---
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            let budgetChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: tripData.budget.map(i => i.label),
+                    datasets: [{
+                        data: tripData.budget.map(i => i.amount),
+                        backgroundColor: tripData.budget.map(i => i.color),
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: { legend: { display: false } }
+                }
+            });
+
+            function updateBudgetUI() {
+                const legendContainer = document.getElementById('budget-legend');
+                const totalDisplay = document.getElementById('total-budget-display');
+                const rateDisplay = document.getElementById('exchange-rate-display');
+                
+                legendContainer.innerHTML = '';
+                let total = 0;
+                let prefix = '₩';
+                let rate = 1;
+
+                if (currentCurrency === 'TWD') {
+                    prefix = 'NT$ ';
+                    rate = rates.TWD;
+                } else if (currentCurrency === 'USD') {
+                    prefix = '$ ';
+                    rate = rates.USD;
+                }
+
+                tripData.budget.forEach(item => {
+                    const val = Math.round(item.amount * rate);
+                    total += val;
+                    legendContainer.innerHTML += `
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center">
+                                <span class="w-2 h-2 rounded-full mr-2" style="background-color: ${item.color}"></span>
+                                <span>${item.label}</span>
+                            </div>
+                            <span class="font-mono font-bold">${prefix}${val.toLocaleString()}</span>
+                        </div>
+                    `;
+                });
+                
+                if(totalDisplay) totalDisplay.textContent = `${prefix}${total.toLocaleString()}`;
+                
+                if(rateDisplay) {
+                    if (currentCurrency !== 'KRW') {
+                        rateDisplay.textContent = `匯率參考: 1 KRW ≈ ${rate.toFixed(4)} ${currentCurrency}`;
+                    } else {
+                        rateDisplay.textContent = '';
+                    }
+                }
+            }
+
+
+            // --- 4. 渲染每日行程 ---
+            const container = document.getElementById('daily-plan-container');
+            const navContainer = document.getElementById('nav-container');
+
+            tripData.daily.forEach((day, index) => {
+                // 導覽按鈕
+                const navBtn = document.createElement('button');
+                navBtn.className = `shrink-0 px-4 py-2 rounded-full text-xs font-bold border transition ${index === 0 ? 'bg-deep-navy text-white border-deep-navy' : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'}`;
+                navBtn.textContent = day.date.split(' ')[0];
+                navBtn.onclick = () => {
+                    document.getElementById(`day-${day.day}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.querySelectorAll('#nav-container button').forEach(b => {
+                        b.className = 'shrink-0 px-4 py-2 rounded-full text-xs font-bold border bg-white text-slate-600 border-slate-200 hover:bg-slate-50 transition';
+                    });
+                    navBtn.className = 'shrink-0 px-4 py-2 rounded-full text-xs font-bold border bg-deep-navy text-white border-deep-navy transition';
+                };
+                navContainer.appendChild(navBtn);
+
+                // 行程卡片
+                const cardHTML = `
+                    <div id="day-${day.day}" class="relative pl-8 md:pl-0">
+                        <div class="md:hidden timeline-connector"></div>
+                        <div class="glass-card rounded-2xl p-0 overflow-hidden shadow-sm hover:shadow-md transition duration-300 border-t-4 border-${day.color}-500">
+                            <div class="p-4 border-b border-slate-100 bg-white/50 flex justify-between items-start">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full bg-${day.color}-100 text-${day.color}-600 flex items-center justify-center text-lg mr-3 shadow-inner">
+                                        <i class="fa-solid ${day.icon}"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-lg font-bold text-slate-800 leading-tight">${day.title}</h3>
+                                        <p class="text-xs text-slate-500 font-mono mt-0.5">${day.date}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="px-4 pt-3 flex flex-wrap gap-2">
+                                ${day.tags.map(tag => `<span class="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-100 px-2 py-1 rounded-md">#${tag}</span>`).join('')}
+                            </div>
+                            <div class="p-4 text-sm text-slate-600 leading-relaxed">
+                                ${day.content}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+
+            // --- 5. 初始化 ---
+            initExchangeRates();
+        });
+    </script>
 </body>
 </html>
