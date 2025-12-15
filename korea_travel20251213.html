@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 韓國 Solo Trip (旗艦精簡版 V3.9)</title>
+    <title>2025 韓國 Solo Trip (旗艦終極版 V4.0)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -83,7 +83,7 @@
                 <h1 class="text-xl md:text-2xl font-bold text-deep-navy tracking-tight">
                     <i class="fa-regular fa-snowflake text-blue-400 mr-2"></i>2025 韓國 Solo Trip
                 </h1>
-                <p class="text-xs text-slate-500">Flagship Edition v3.9</p>
+                <p class="text-xs text-slate-500">Flagship Edition V4.0</p>
             </div>
             <!-- 簡單的日期顯示或其他資訊 -->
             <div class="text-xs text-slate-500 font-mono">12/17 - 12/25</div>
@@ -194,6 +194,15 @@
                     
                     <!-- Column 1: 交通 -->
                     <div class="space-y-3">
+                         <!-- Flight (Updated) -->
+                         <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 flex justify-between items-center">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-slate-600 px-1.5 py-0.5 rounded">已預訂</span>
+                                <p class="text-sm font-bold text-slate-800">酷航 Scoot</p>
+                                <p class="text-[10px] text-slate-500">去: 10kg手提 | 回: +1託運</p>
+                            </div>
+                            <span class="text-xs font-mono font-bold text-slate-600">TWD 6,983</span>
+                        </div>
                          <!-- AREX (Go) -->
                          <div class="bg-green-50 p-3 rounded-lg border border-green-100 flex justify-between items-center">
                             <div>
@@ -258,7 +267,13 @@
                             </div>
                             <ul class="text-xs text-slate-600 space-y-1">
                                 <li class="flex justify-between"><span>Hotelette (1晚)</span> <span class="font-mono">₩39,447</span></li>
-                                <li class="flex justify-between"><span>AM Hotel (5晚)</span> <span class="font-mono">₩283,911</span></li>
+                                <li class="flex justify-between">
+                                    <span>AM Hotel (5晚)</span> 
+                                    <div class="text-right">
+                                        <span class="font-mono block">₩283,911 + 2K TWD</span>
+                                        <span class="text-[9px] text-slate-400">(Agoda+Booking)</span>
+                                    </div>
+                                </li>
                                 <li class="flex justify-between"><span>St. John's (1晚)</span> <span class="font-mono">₩111,331</span></li>
                             </ul>
                         </div>
@@ -412,7 +427,11 @@
 
                                 <div class="bg-slate-50 p-3 rounded-lg border border-slate-200">
                                     <h4 class="font-bold text-slate-700 text-sm"><i class="fa-solid fa-shirt mr-2"></i>Skizone 租賃</h4>
-                                    <p class="text-xs text-slate-600 mt-1">租賃 <strong>雪服/頭盔</strong> (租 5 天)。</p>
+                                    <p class="text-xs text-slate-600 mt-1">租賃 <strong>雪服/頭盔</strong> (租 5 天 12/18-22)。<br>*若上衣可用衝鋒衣代替，可只租雪褲+頭盔。</p>
+                                    <p class="text-xs text-slate-500 mt-1">預估費用：₩15,000 * 4 (放入雜支預算)</p>
+                                    <a href="https://drive.google.com/file/d/1FMtIMQpojIcsp00nDd1nUT_b0W5w0px7/view" target="_blank" class="text-xs text-blue-600 hover:underline font-bold mt-1 block">
+                                        <i class="fa-brands fa-google-drive mr-1"></i> 參考：Skizone 設備租賃價格表
+                                    </a>
                                 </div>
                                 
                                 <p class="text-sm text-slate-600 text-center italic">晚餐：簡單用餐，早點休息儲備體力。</p>
@@ -523,8 +542,8 @@
                                     <div class="border-l-2 border-teal-500 pl-4">
                                         <h4 class="font-bold text-teal-700">🏂 Alpensia 全日滑雪</h4>
                                         <p class="text-sm text-slate-600 mt-1">單獨向 <strong>Skizone</strong> 購買全日票/租賃雪具。</p>
-                                        <a href="https://drive.google.com/file/d/1FMtIMQpojIcsp00nDd1nUT_b0W5w0px7/view?usp=drive_link" target="_blank" class="text-xs text-blue-600 hover:underline font-bold mt-1 block">
-                                            <i class="fa-brands fa-google-drive mr-1"></i> Skizone 價格表
+                                        <a href="https://drive.google.com/file/d/1FMtIMQpojIcsp00nDd1nUT_b0W5w0px7/view" target="_blank" class="text-xs text-blue-600 hover:underline font-bold mt-1 block">
+                                            <i class="fa-brands fa-google-drive mr-1"></i> 參考：Skizone 設備租賃價格表
                                         </a>
                                     </div>
                                 </div>
@@ -604,13 +623,23 @@
                                 </div>
 
                                 <div class="bg-slate-50 p-3 rounded border border-slate-200 space-y-2">
-                                    <h5 class="font-bold text-xs text-slate-700">首爾站寄放 & 景點</h5>
+                                    <h5 class="font-bold text-xs text-slate-700"><i class="fa-solid fa-suitcase mr-2"></i>首爾站行李寄放</h5>
                                     <ul class="text-xs text-slate-600 list-disc list-inside">
-                                        <li>樂天超市/Outlets 寄放行李</li>
-                                        <li>晚上：光化門首爾燈籠節</li>
+                                        <li><strong>樂天超市:</strong> 左轉走到底 (3hr 免費)</li>
+                                        <li><strong>樂天 Outlets:</strong> Samsonite 櫃台旁 (1hr 免費)</li>
                                     </ul>
+                                    <a href="http://xhslink.com/m/Xmua0fqkyO" target="_blank" class="text-[10px] text-right text-blue-500 hover:underline block mt-1">
+                                        <i class="fa-solid fa-book-open mr-1"></i> 行李寄放攻略
+                                    </a>
                                 </div>
-                                <p class="text-sm font-bold text-center mt-2">✈️ 23:00 航班 TR897 返台</p>
+
+                                <p class="text-sm font-bold text-center text-purple-600">🎄 晚上：光化門首爾燈籠節 <a href="http://xhslink.com/o/JDJ0b0WIFq" target="_blank" class="text-xs font-normal underline ml-1">(小紅書介紹)</a></p>
+                                
+                                <div class="border-t border-slate-200 pt-2">
+                                    <p class="text-xs font-bold text-slate-600">💳 機場貴賓室 (JCB 卡友)</p>
+                                    <p class="text-[10px] text-slate-500">T1 Sky Hub / Matina Lounge (需本人信用卡+登機證)</p>
+                                </div>
+                                <p class="text-sm font-bold text-center mt-2">✈️ 23:00 航班 TR897 (酷航) <br><span class="text-xs font-normal text-slate-500">預計抵達：12/25 00:45</span></p>
                             </div>
                         `
                     }
