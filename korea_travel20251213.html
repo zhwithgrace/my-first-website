@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 韓國 Solo Trip (旗艦精簡版 V3.7)</title>
+    <title>2025 韓國 Solo Trip (旗艦精簡版 V3.9)</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Chart.js -->
@@ -83,7 +83,7 @@
                 <h1 class="text-xl md:text-2xl font-bold text-deep-navy tracking-tight">
                     <i class="fa-regular fa-snowflake text-blue-400 mr-2"></i>2025 韓國 Solo Trip
                 </h1>
-                <p class="text-xs text-slate-500">Flagship Edition v3.7</p>
+                <p class="text-xs text-slate-500">Flagship Edition v3.9</p>
             </div>
             <!-- 簡單的日期顯示或其他資訊 -->
             <div class="text-xs text-slate-500 font-mono">12/17 - 12/25</div>
@@ -194,14 +194,23 @@
                     
                     <!-- Column 1: 交通 -->
                     <div class="space-y-3">
-                         <!-- AREX -->
+                         <!-- AREX (Go) -->
                          <div class="bg-green-50 p-3 rounded-lg border border-green-100 flex justify-between items-center">
                             <div>
                                 <span class="text-[10px] font-bold text-white bg-green-600 px-1.5 py-0.5 rounded">已兌換</span>
-                                <p class="text-sm font-bold text-slate-800">AREX (機場➔首爾)</p>
+                                <p class="text-sm font-bold text-slate-800">AREX (首爾➔機場)</p>
+                                <p class="text-xs text-slate-500">攜程活動 (來回共 CNY 58)</p>
                                 <a href="https://drive.google.com/file/d/1PPAQ8RJLGCzFkThn330rhgneWexkw50D/view?usp=sharing" target="_blank" class="text-xs text-blue-600 hover:underline flex items-center mt-1">
                                     <i class="fa-brands fa-google-drive mr-1"></i> 查看票券 (掃QR入場)
                                 </a>
+                            </div>
+                        </div>
+                         <!-- AREX (Back) -->
+                         <div class="bg-gray-100 p-3 rounded-lg border border-gray-200 flex justify-between items-center opacity-80">
+                            <div>
+                                <span class="text-[10px] font-bold text-white bg-gray-500 px-1.5 py-0.5 rounded">尚未購買</span>
+                                <p class="text-sm font-bold text-slate-700">AREX (機場➔首爾)</p>
+                                <p class="text-xs text-slate-500">代號: 7001650040571</p>
                             </div>
                         </div>
                          <!-- KTX Go -->
@@ -214,6 +223,7 @@
                                     <i class="fa-brands fa-google-drive mr-1"></i> 查看車票
                                 </a>
                             </div>
+                            <span class="text-xs font-mono font-bold text-blue-600">₩21,900</span>
                         </div>
                          <!-- KTX Back -->
                          <div class="bg-blue-50 p-3 rounded-lg border border-blue-100 flex justify-between items-center">
@@ -227,6 +237,7 @@
                                     <a href="https://www.korail.com/global/tw/myReservation" target="_blank" class="text-blue-600 underline">Korail 官網查票</a>
                                 </div>
                             </div>
+                            <span class="text-xs font-mono font-bold text-blue-600">₩27,600</span>
                         </div>
                     </div>
 
@@ -274,23 +285,53 @@
 
         document.addEventListener('DOMContentLoaded', function () {
 
-            // --- 0. 共用 HTML 區塊 (公車時刻表) ---
+            // --- 0. 共用 HTML 區塊 (公車時刻表 - 含站點名稱) ---
             const detailedBusScheduleHTML = `
                 <div class="mt-4 pt-4 border-t border-slate-200">
-                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="flex items-center text-xs font-bold text-slate-500 hover:text-blue-600 transition w-full">
-                        <i class="fa-solid fa-bus mr-2"></i> 點此查看/隱藏：AM Hotel ↔ 龍平 接駁時刻表
+                    <button onclick="this.nextElementSibling.classList.toggle('hidden')" class="flex items-center text-xs font-bold text-slate-500 hover:text-blue-600 transition w-full group">
+                        <i class="fa-solid fa-bus mr-2 text-blue-400 group-hover:text-blue-600"></i> 
+                        點此查看/隱藏：AM Hotel ↔ 龍平 接駁時刻表 & 站點
                         <i class="fa-solid fa-chevron-down ml-auto"></i>
                     </button>
-                    <div class="hidden mt-2 space-y-2 text-xs bg-slate-50 p-3 rounded-lg border border-slate-200">
-                        <div>
-                            <p class="font-bold text-slate-700">【橫溪巴士站 (郵局) → 龍平滑雪場】</p>
-                            <p class="text-slate-500 mt-1">05:20, 06:20, 07:20, 08:00, 08:30, 09:40, 10:20, 12:00, 14:00, 15:30, 16:20, 17:40, 18:50, 20:00, 21:00, 23:30</p>
+                    <div class="hidden mt-2 space-y-4 text-xs bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        
+                        <div class="mb-3">
+                            <a href="https://drive.google.com/file/d/10B_AqrdsNIOYhXNHWYJw2FAZHM3OYrPx/view?usp=sharing" target="_blank" class="text-blue-600 font-bold hover:underline flex items-center">
+                                <i class="fa-brands fa-google-drive mr-1"></i> 查看時刻表原始圖檔 (Backup)
+                            </a>
                         </div>
-                        <div class="border-t border-slate-200 pt-2">
-                            <p class="font-bold text-slate-700">【龍平滑雪場 (Blisshill) → 橫溪巴士站】</p>
-                            <p class="text-slate-500 mt-1">09:00, 10:00, 11:00, 13:00, 15:00, 16:00, 17:00, 18:20, 19:30, 20:30, 21:40, 22:40, 00:30, 00:50</p>
+
+                        <!-- 站點順序 -->
+                        <div class="border-b border-slate-200 pb-3">
+                            <p class="font-bold text-slate-700 mb-2"><i class="fa-solid fa-map-pin mr-1"></i> 行駛路線站點 (循序停靠)：</p>
+                            <ol class="list-decimal list-inside space-y-1 text-slate-600 pl-1">
+                                <li><strong>Yongpyong Resort (용평리조트)</strong> <span class="text-xs bg-slate-200 px-1 rounded text-slate-500">起點</span></li>
+                                <li>Dokgachon (독가촌)</li>
+                                <li>Cheongnokwon (청록원)</li>
+                                <li>Dongbo Apt (동보아파트)</li>
+                                <li>KT Training Center (KT수련관)</li>
+                                <li>Rotary (로타리)</li>
+                                <li class="text-blue-600 font-bold bg-blue-100 p-1 rounded -ml-1">Terminal / Post Office (터미널/우체국) <span class="text-xs font-normal text-blue-500 ml-1">★ AM Hotel 在此下車</span></li>
+                                <li>S-OIL Gas Station (S-OIL 용평주유소)</li>
+                            </ol>
                         </div>
-                        <p class="text-[10px] text-slate-400 mt-1">* 實際班次以現場公告為準 (2019資料參考)</p>
+
+                        <!-- 時刻表 -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">【橫溪巴士站 (郵局) → 龍平滑雪場】</p>
+                                <p class="text-slate-500">05:20, 06:20, 07:20, 08:00, 08:30, 09:40, 10:20, 12:00, 14:00, 15:30, 16:20, 17:40, 18:50, 20:00, 21:00, 23:30</p>
+                            </div>
+                            <div>
+                                <p class="font-bold text-slate-700 mb-1">【龍平滑雪場 (Blisshill) → 橫溪巴士站】</p>
+                                <p class="text-slate-500">09:00, 10:00, 11:00, 13:00, 15:00, 16:00, 17:00, 18:20, 19:30, 20:30, 21:40, 22:40, 00:30, 00:50</p>
+                                <p class="text-red-500 font-bold mt-2 border-t border-red-200 pt-1">
+                                    <i class="fa-solid fa-triangle-exclamation mr-1"></i> 
+                                    警告：請務必確認目的地，不要誤搭到前往江陵 (Gangneung) 的長途巴士！
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-slate-400 mt-1">* 實際班次以現場公告為準</p>
                     </div>
                 </div>
             `;
@@ -385,7 +426,7 @@
                         tags: ["教練課", "3日券 (2/3)", "夜滑"],
                         content: `
                             <div class="space-y-4">
-                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (平昌 AM Hotel)</p>
+                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (AM Hotel)：<span class="font-mono font-bold">₩13,900</span></p>
                                 
                                 <div class="border-l-2 border-blue-500 pl-4 space-y-2">
                                     <h4 class="font-bold text-blue-600">⛷️ 滑雪教練課 (2/3)</h4>
@@ -410,6 +451,8 @@
                         tags: ["教練課", "韓牛", "發旺山"],
                         content: `
                             <div class="space-y-4">
+                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (AM Hotel)：<span class="font-mono font-bold">₩13,900</span></p>
+                                
                                 <div class="border-l-2 border-purple-500 pl-4 space-y-2">
                                     <h4 class="font-bold text-purple-600">⛷️ 滑雪教練課 (3/3)</h4>
                                     <p class="text-sm text-slate-700">上午 3 小時課程 (畢業考)。</p>
@@ -424,6 +467,11 @@
                                 <div class="bg-red-50 p-3 rounded-lg border border-red-200 mt-2">
                                     <h4 class="font-bold text-red-700 text-sm"><i class="fa-solid fa-fire mr-2"></i>晚餐：橫溪韓牛 BBQ</h4>
                                     <p class="text-xs text-red-600 mt-1">滑雪三天辛苦了，今晚吃頓好的犒賞自己！</p>
+                                    <p class="text-xs text-slate-500 mt-2 border-t border-red-100 pt-2">
+                                        <i class="fa-solid fa-map-pin mr-1"></i>附近推薦：<br>
+                                        1. <strong>銀鈴教堂 (Silver Bell Church)</strong><br>
+                                        2. <strong>好吃的 Pizza</strong> (可當宵夜或續攤)
+                                    </p>
                                 </div>
                             </div>
                             ${detailedBusScheduleHTML}
@@ -435,13 +483,21 @@
                         tags: ["天空牧場", "Ani-fore"],
                         content: `
                             <div class="space-y-4">
+                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (AM Hotel)：<span class="font-mono font-bold">₩13,900</span></p>
+
                                 <div class="space-y-3">
                                     <div class="bg-blue-50 p-3 rounded-lg border border-blue-100">
                                         <p class="text-sm font-bold text-blue-800">☀️ 上午：天空牧場 (Sky Ranch)</p>
                                         <p class="text-xs text-slate-600">搭乘 443 公車。體驗拖拉機與餵羊。</p>
-                                        <a href="https://tour.pc.go.kr/" target="_blank" class="block bg-blue-100 text-blue-700 text-xs font-bold text-center py-1 rounded hover:bg-blue-200 transition mt-2">
-                                            <i class="fa-solid fa-bus mr-1"></i> 平昌觀光官網 (查詢公車時刻)
-                                        </a>
+                                        
+                                        <div class="flex space-x-2 mt-2">
+                                            <a href="https://drive.google.com/file/d/1hJz-laXgKQdvpj32E-agQbj63G3QXlso/view?usp=sharing" target="_blank" class="flex-1 bg-blue-100 text-blue-700 text-xs font-bold text-center py-2 rounded hover:bg-blue-200 transition">
+                                                <i class="fa-solid fa-clock mr-1"></i> 443 公車時刻表
+                                            </a>
+                                            <a href="https://tour.pc.go.kr/" target="_blank" class="flex-1 bg-white border border-blue-200 text-blue-700 text-xs font-bold text-center py-2 rounded hover:bg-slate-50 transition">
+                                                <i class="fa-solid fa-globe mr-1"></i> 官網
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="bg-green-50 p-3 rounded-lg border border-green-100">
                                         <p class="text-sm font-bold text-green-800">🌤️ 下午：Ani-fore 動物森林</p>
@@ -461,6 +517,8 @@
                         tags: ["Alpensia", "Skizone", "全日滑"],
                         content: `
                             <div class="space-y-3">
+                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (AM Hotel)：<span class="font-mono font-bold">₩13,900</span></p>
+
                                 <div class="space-y-2 text-sm">
                                     <div class="border-l-2 border-teal-500 pl-4">
                                         <h4 class="font-bold text-teal-700">🏂 Alpensia 全日滑雪</h4>
@@ -488,11 +546,16 @@
                         tags: ["大巴", "Arte", "Uber"],
                         content: `
                             <div class="space-y-3">
+                                <p class="text-xs text-slate-500 text-center bg-slate-100 py-1 rounded">🥞 早餐自費 (AM Hotel)：<span class="font-mono font-bold">₩13,900</span></p>
+
                                 <div class="flex items-center justify-between bg-white p-2 rounded border border-slate-200">
                                     <span class="text-xs font-bold text-slate-500"><i class="fa-solid fa-bus mr-2"></i>交通</span>
                                     <div class="text-right">
                                         <p class="text-sm font-bold">橫溪 ➔ 江陵</p>
                                         <p class="text-xs text-slate-500">大巴 ₩2,800</p>
+                                        <a href="http://xhslink.com/o/5Q2juRa5XLQ" target="_blank" class="text-[10px] text-blue-500 hover:underline">
+                                            <i class="fa-solid fa-book-open mr-1"></i> 小紅書搭乘攻略
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="bg-yellow-50 p-2 rounded border border-yellow-200 flex items-center text-xs text-yellow-800">
