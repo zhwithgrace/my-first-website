@@ -37,14 +37,14 @@
     const Ticket = (p) => <IconWrapper {...p}>🎫</IconWrapper>;
     const Utensils = (p) => <IconWrapper {...p}>🍴</IconWrapper>;
     const Flame = (p) => <IconWrapper {...p}>🔥</IconWrapper>;
+    const Home = (p) => <IconWrapper {...p}>🏠</IconWrapper>;
 
-    // --- 下面接著你原本剩下的程式碼 (從 const OkinawaTrip = ... 開始) --- 
 const OkinawaTrip = () => {
   const [activeTab, setActiveTab] = useState('itinerary');
   const [isTwd, setIsTwd] = useState(false);
   const [exchangeRate, setExchangeRate] = useState(0.215);
   const [modalContent, setModalContent] = useState(null);
- 
+
   useEffect(() => {
     const fetchRate = async () => {
       try {
@@ -59,22 +59,22 @@ const OkinawaTrip = () => {
     };
     fetchRate();
   }, []);
- 
+
   const formatPrice = (jpy) => {
     if (isTwd) {
       return `NT$ ${Math.round(jpy * exchangeRate).toLocaleString()}`;
     }
     return `¥${jpy.toLocaleString()}`;
   };
- 
+
   const openModal = (title, desc, guideTips, link) => {
     setModalContent({ title, desc, guideTips, link });
   };
- 
+
   const closeModal = () => {
     setModalContent(null);
   };
- 
+
   // --- 資料結構 ---
   const itineraryData = [
     {
@@ -190,23 +190,32 @@ const OkinawaTrip = () => {
     {
       day: 4,
       date: "4/27 (一)",
-      title: "北上・海中公園・夜間燈光秀",
+      title: "北上・文化與購物",
       icon: <Car className="w-6 h-6 text-white" />,
       color: "bg-indigo-500",
       events: [
         { time: "10:00", icon: <CheckCircle />, text: "飯店 Check-out", desc: "駕車北上" },
         { 
-          time: "11:00", 
+          time: "10:45", 
           icon: <Camera />, 
-          text: "識名園", 
-          desc: "世界遺產", 
+          text: "識名園 / 首里城", 
+          desc: "世界遺產巡禮", 
           aiTitle: "識名園", 
           aiDesc: "琉球王家別墅，融合中國與琉球風格的迴遊式庭園。", 
           guideTips: "【導遊說書】這是以前國王招待中國外交官的地方。注意看，走進去的路是彎彎曲曲的，這是為了讓別墅看起來比較大，不讓外國人一眼看穿沖繩很小的小心機喔！",
           blogLink: "https://pfse64289.pixnet.net/blog/post/347220449",
           mapLink: "https://www.google.com/maps/search/?api=1&query=Shikinaen"
         },
-        { time: "13:30", icon: <Coffee />, text: "午餐：美國村 (Taco Rice)", desc: "感受美式風情", aiTitle: "塔可飯", aiDesc: "美軍文化影響下的混血美食。", blogLink: "https://anrine910070.pixnet.net/blog/post/227504804", mapLink: "https://www.google.com/maps/search/?api=1&query=American+Village+Okinawa" },
+        { 
+          time: "13:00", 
+          icon: <ShoppingBag />, 
+          text: "AEON MALL 沖繩來客夢", 
+          desc: "午餐與爆買：3coins微波爐套餐、電子鍋、吹風機、Montbell", 
+          aiTitle: "永旺夢樂城沖繩來客夢", 
+          aiDesc: "沖繩最大規模的購物中心，品牌齊全。", 
+          guideTips: "【購物提醒】幫爸媽買電子鍋和吹風機記得去 Kojima x Bic Camera 專區，並且確認電壓適用台灣。Montbell 則是戶外用品必逛！",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=AEON+MALL+Okinawa+Rycom"
+        },
         { 
           time: "16:15", 
           icon: <Camera />, 
@@ -231,7 +240,7 @@ const OkinawaTrip = () => {
           mapLink: "https://www.google.com/maps/search/?api=1&query=Southeast+Botanical+Gardens"
         },
       ],
-      aiTips: "部瀨名海中公園最後入場約 17:00，請準時。晚上去東南植物園車程較遠（名護往返沖繩市），請評估駕駛精神。",
+      aiTips: "AEON MALL 非常大，建議抵達後先看樓層指南分頭行動，中午可直接在商城內的美食街或餐廳解決。部瀨名海中公園最後入場約 17:00，請留意車程時間。",
       weather: "晴朗",
     },
     {
@@ -252,9 +261,18 @@ const OkinawaTrip = () => {
           blogLink: "https://traveler80s.pixnet.net/blog/post/347602421",
           mapLink: "https://www.google.com/maps/search/?api=1&query=Kouri+Island"
         },
-        { time: "13:00", icon: <Coffee />, text: "午餐", desc: "水族館周邊或園區內" },
         { 
-          time: "14:00", 
+          time: "13:00", 
+          icon: <Utensils />, 
+          text: "午餐：阿古豬百年大院 (大家 Ufuya)", 
+          desc: "🔥 提醒：3/28 記得上網搶訂位！",
+          aiTitle: "百年古家 大家 Ufuya", 
+          aiDesc: "由百年古厝改建，能一邊欣賞瀑布庭園造景，一邊享用頂級阿古豬涮涮鍋與沖繩麵。", 
+          guideTips: "【用餐重點】這家環境非常氣派，爸媽一定會喜歡！阿古豬是沖繩特有品種，肉質鮮甜沒有腥味。記得一定要提前訂位，不然現場排隊會非常久。",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Ufuya+Okinawa"
+        },
+        { 
+          time: "15:00", 
           icon: <Camera />, 
           text: "美麗海水族館", 
           desc: "FunPass，黑潮之海", 
@@ -266,27 +284,26 @@ const OkinawaTrip = () => {
         },
         { 
           time: "18:30", 
-          icon: <Flame className="w-4 h-4" />, 
-          text: "晚餐：燒肉五苑 名護店(已訂位）", 
-          desc: "不限時吃到飽 (離飯店10分鐘)", 
-          aiTitle: "燒肉五苑 (Yakiniku Goen)", 
-          aiDesc: "沖繩老牌燒肉吃到飽，以不限時、價格實惠、生啤酒便宜聞名。", 
-          guideTips: "【必吃重點】這家最棒的就是「不限時」！不用吃得很有壓力。點餐用平板(有中文)，除了肉，他們的霜淇淋也是必吃。就在我們名護飯店附近，吃完回去剛好。",
-          blogLink: "https://flyblog.cc/post-48489393/",
-          mapLink: "https://www.google.com/maps/search/?api=1&query=Yakiniku+Goen+Nago"
+          icon: <Coffee />, 
+          text: "晚餐：沖繩家常料理 居酒屋 ゆきの", 
+          desc: "AI推薦：菜色超豐富、長輩友善", 
+          aiTitle: "居酒屋 ゆきの (Yukino)", 
+          aiDesc: "名護在地人氣極高的家庭式居酒屋。菜單極其豐富，從沖繩炒苦瓜、生魚片、定食到串燒應有盡有。", 
+          guideTips: "【必吃重點】為您推薦這家是因為它很適合帶長輩去！不僅有榻榻米座位，而且不吃生食的長輩也能點熱騰騰的定食或沖繩麵，滿足全家人的胃口，離飯店也很近。",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Izakaya+Yukino+Nago"
         },
       ],
-      aiTips: "今天行程最輕鬆，晚餐吃燒肉不限時，可以慢慢享受家族聚餐時光。水族館很大，建議租借輪椅或善用遊園車減少長輩步行。",
+      aiTips: "今天行程圍繞在名護與本部町，步調較為悠閒。阿古豬大院務必設鬧鐘在 3/28 訂位！",
       weather: "晴朗",
     },
     {
       day: 6,
       date: "4/29 (三)",
-      title: "殘波岬・國際通・返程",
-      icon: <Plane className="w-6 h-6 text-white" />,
+      title: "讀谷村・那霸市區・還車",
+      icon: <Car className="w-6 h-6 text-white" />,
       color: "bg-rose-500",
       events: [
-        { time: "09:00", icon: <CheckCircle />, text: "飯店 Check-out", desc: "準時出發南下" },
+        { time: "09:00", icon: <CheckCircle />, text: "飯店 Check-out", desc: "驅車南下" },
         { 
           time: "10:00", 
           icon: <Camera />, 
@@ -299,52 +316,85 @@ const OkinawaTrip = () => {
           mapLink: "https://www.google.com/maps/search/?api=1&query=Cape+Zanpa+Lighthouse"
         },
         { 
-          time: "11:30", 
-          icon: <ShoppingBag />, 
-          text: "國際通 唐吉訶德", 
-          desc: "最後採買", 
-          aiTitle: "國際通", 
-          aiDesc: "奇蹟的一英里，伴手禮的一級戰區。", 
-          blogLink: "https://niniyeh.com/donki-kokusaidori-naha-okinawa/",
-          mapLink: "https://www.google.com/maps/search/?api=1&query=Don+Quijote+Kokusai+Dori"
+          time: "11:00", 
+          icon: <Flame className="w-4 h-4" />, 
+          text: "午餐：燒肉五苑 讀谷店 (已改訂)", 
+          desc: "不限時吃到飽", 
+          aiTitle: "燒肉五苑 (Yakiniku Goen)", 
+          aiDesc: "沖繩老牌燒肉吃到飽，以不限時、價格實惠、生啤酒便宜聞名。", 
+          guideTips: "【必吃重點】這家最棒的就是「不限時」！不用吃得很有壓力。點餐用平板(有中文)，除了肉，他們的霜淇淋也是必吃。",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Yakiniku+Goen+Yomitan"
         },
         { 
-          time: "13:00", 
-          icon: <Utensils />, 
-          text: "午餐：漁師食堂 大ばんぶる舞", 
-          desc: "大統漁 海鮮丼 (現金)", 
-          aiTitle: "漁師食堂 大ばんぶる舞", 
-          aiDesc: "漁港直送的新鮮漁獲，以驚人的大份量和超高CP值聞名。", 
-          guideTips: "【必吃推薦】這家店就在港口旁，特色就是「大」！生魚片多到滿出來，奶油烤魚也是一絕。記得這家通常只收現金，要把剩下的日幣拿出來用喔！",
-          blogLink: "https://plumpyblog.com/ryoshi-shokudo/",
-          mapLink: "https://www.google.com/maps/search/?api=1&query=Ryoushi+Shokudo+Daibanburumai+Kume"
+          time: "13:30", 
+          icon: <Camera />, 
+          text: "美國村 (American Village)", 
+          desc: "感受美式風情，打卡拍照", 
+          mapLink: "https://www.google.com/maps/search/?api=1&query=American+Village+Okinawa" 
         },
-        { time: "14:00", icon: <Car />, text: "還車 (機場附近)", desc: "記得加滿油", mapLink: "https://www.google.com/maps/search/?api=1&query=Naha+Airport+Car+Rental+Return" },
-        { time: "15:00", icon: <Plane />, text: "那霸機場 報到", desc: "OD883 (16:50 起飛)" },
-        { time: "17:30", icon: <MapPin />, text: "抵達台北 (TPE)", desc: "溫暖的家" },
+        { 
+          time: "16:30", 
+          icon: <Home />, 
+          text: "Check-in 沖繩逸之彩酒店", 
+          desc: "Okinawa Hinode Hotel，下行李", 
+          aiTitle: "沖繩逸之彩酒店", 
+          aiDesc: "近單軌牧志站，以免費無限暢飲酒精飲料與宵夜拉麵聞名。",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Okinawa+Hinode+Resort+and+Hot+Spring+Hotel" 
+        },
+        { 
+          time: "17:30", 
+          icon: <Car />, 
+          text: "市區還車", 
+          desc: "記得加滿油，省去飯店停車費", 
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Car+Rental+Return+Naha" 
+        },
+        { 
+          time: "18:30", 
+          icon: <ShoppingBag />, 
+          text: "晚餐＆逛街：國際通 或 東京靴流通中心", 
+          desc: "搭乘單軌前往國際通，或至「赤嶺站」買鞋", 
+          guideTips: "【交通提醒】還車後接下來的行程都靠單軌電車或計程車。赤嶺站周邊除了有東京靴流通中心，也有超市可以做最後採買。",
+          mapLink: "https://www.google.com/maps/search/?api=1&query=Kokusai+Dori" 
+        },
       ],
-      aiTips: "今日車程長且有繞路 (名護->殘波岬->那霸)，請務必注意時間，14:00 前一定要還車。",
+      aiTips: "飯店停車位少且須付費，建議下午先到飯店下行李與長輩，駕駛再去還車。晚上逸之彩飯店有免費生啤酒跟宵夜拉麵，別錯過囉！",
       weather: "多雲",
     },
+    {
+      day: 7,
+      date: "4/30 (四)",
+      title: "平安歸賦",
+      icon: <Plane className="w-6 h-6 text-white" />,
+      color: "bg-fuchsia-500",
+      events: [
+        { time: "08:30", icon: <CheckCircle />, text: "飯店享用早餐 / Check-out", desc: "搭乘單軌前往那霸機場" },
+        { time: "09:30", icon: <Plane />, text: "那霸機場 報到", desc: "中華航空 CI121" },
+        { time: "11:55", icon: <Plane />, text: "搭乘 CI121 起飛", desc: "告別沖繩" },
+        { time: "12:30", icon: <MapPin />, text: "抵達台灣 (TPE)", desc: "降落桃園機場" },
+        { time: "13:30", icon: <Car />, text: "搭乘 UGO 機場接駁", desc: "填爸爸手機，平安返回富岡" },
+      ],
+      aiTips: "長輩若有買免稅品，機場過海關後還有最後的免稅店可以採購。回到富岡後請大家好好休息，結束美好的家族旅行！",
+      weather: "晴朗",
+    },
   ];
- 
+
   const budgetItems = [
     { category: "交通", name: "郵輪船票 (莎倫娜號)", price: 60000, note: "估算 (每人)", paid: false },
-    { category: "交通", name: "租車 5 天 (含保險)", price: 35000, note: "估算", paid: false },
-    { category: "交通", name: "回程機票 (Batik Air OD883)", price: 0, note: "已訂購 (PNR: SMPYNJ)", paid: true, highlight: true },
+    { category: "交通", name: "租車 5 天 (含保險)", price: 35000, note: "估算 (4/29 市區還車)", paid: false },
+    { category: "交通", name: "回程機票 (華航 CI121)", price: 0, note: "已訂購 (4/30 11:55起飛)", paid: true, highlight: true },
+    { category: "交通", name: "UGO 機場接駁 (往富岡)", price: 0, note: "已預約", paid: true, highlight: true },
     { category: "住宿", name: "Yuinchi Hotel 南城 (2晚)", price: 47000, note: "已全額付款 (Trip.com)", paid: true, highlight: true },
     { category: "住宿", name: "TWIN-LINE HOTEL YANBARU (2晚)", price: 62975, note: "已訂購 - 4/21 台新雙幣卡扣款 (Agoda)", paid: true, highlight: true, warning: true },
+    { category: "住宿", name: "沖繩逸之彩酒店 (1晚)", price: 0, note: "4/29 入住，費用待確認", paid: false },
     { category: "門票", name: "Gangala 之谷", price: 2500, note: "需預約", paid: false },
     { category: "門票", name: "Okinawa Fun Pass (3合1)", price: 5025, note: "含水族館+植物園+玉泉洞 (約 NT$1080)", paid: false, highlight: true, link: "https://okinawa.funpass.app/#recommendedItineraryList" },
     { category: "門票", name: "沖繩世界 (玉泉洞)", price: 0, note: "使用 Fun Pass", paid: false },
-    { category: "門票", name: "識名園", price: 400, note: "", paid: false },
-    { category: "門票", name: "部瀨名海中公園 (套票)", price: 2100, note: "", paid: false },
-    { category: "門票", name: "東南植物園 (夜間)", price: 0, note: "使用 Fun Pass", paid: false },
-    { category: "門票", name: "美麗海水族館", price: 0, note: "使用 Fun Pass", paid: false },
-    { category: "餐飲", name: "漁師食堂午餐", price: 1500, note: "現場付 (現金)", paid: false },
-    { category: "餐飲", name: "燒肉五苑 (吃到飽)", price: 4000, note: "現場付 (刷卡/現金)", paid: false },
+    { category: "門票", name: "識名園 / 首里城", price: 800, note: "現場付", paid: false },
+    { category: "門票", name: "部瀨名海中公園 (套票)", price: 2100, note: "現場付", paid: false },
+    { category: "餐飲", name: "燒肉五苑 讀谷店", price: 4000, note: "改訂 4/29 11:00 (刷卡/現金)", paid: false },
+    { category: "餐飲", name: "阿古豬百年大院 (大家)", price: 5000, note: "預計 3/28 搶訂位", paid: false },
   ];
- 
+
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-800 pb-20">
       {/* Hero Header */}
@@ -354,9 +404,9 @@ const OkinawaTrip = () => {
         </div>
         <div className="max-w-3xl mx-auto relative z-10 text-center">
           <div className="inline-flex items-center bg-white/20 backdrop-blur-sm px-4 py-1 rounded-full text-sm font-medium mb-4 border border-white/30">
-            <span>2026/4/24 - 4/29</span>
+            <span>2026/4/24 - 4/30</span>
             <span className="mx-2">•</span>
-            <span>6 天 5 夜</span>
+            <span>7 天 6 夜</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight drop-shadow-md">
             🌺 沖繩蔚藍海岸之旅
@@ -366,19 +416,6 @@ const OkinawaTrip = () => {
           </p>
         </div>
       </div>
-      {/* --- 在這裡插入地圖圖片 --- */}
-      <div className="max-w-4xl mx-auto px-4 -mt-6 relative z-10 mb-6">
-         <img 
-           src="./Okinawa_trip.png" 
-           alt="沖繩旅遊手繪地圖" 
-           className="w-full h-auto rounded-2xl shadow-2xl border-4 border-white" 
-         />
-      </div>
-      {/* ----------------------- */}
-
-
-
-
       
       {/* Tabs Navigation */}
       <div className="max-w-3xl mx-auto px-4 -mt-8 relative z-20">
@@ -405,7 +442,7 @@ const OkinawaTrip = () => {
           </button>
         </div>
       </div>
- 
+
       {/* Main Content */}
       <div className="max-w-3xl mx-auto px-4 mt-8">
         
@@ -423,7 +460,7 @@ const OkinawaTrip = () => {
                 </div>
                 <div className="text-3xl opacity-20 font-black">DAY {day.day}</div>
               </div>
- 
+
               {/* Timeline Content */}
               <div className="p-6">
                 <div className="space-y-6 relative pl-4 border-l-2 border-slate-100 ml-2">
@@ -461,7 +498,7 @@ const OkinawaTrip = () => {
                     </div>
                   ))}
                 </div>
- 
+
                 {/* AI Tips Footer */}
                 <div className="mt-6 bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl">
                   <div className="flex items-start gap-3">
@@ -478,7 +515,7 @@ const OkinawaTrip = () => {
             </div>
           ))}
         </div>
- 
+
         {/* 清單 Tab */}
         <div className={`${activeTab === 'checklist' ? 'block' : 'hidden'}`}>
           <div className="bg-white rounded-3xl shadow-sm border border-slate-100 p-6 sm:p-8">
@@ -497,13 +534,13 @@ const OkinawaTrip = () => {
                 {isTwd ? '顯示日幣 (JPY)' : '顯示台幣 (TWD)'}
               </button>
             </div>
- 
+
             {/* Rate Info */}
             <div className="bg-blue-50 text-blue-700 text-sm px-4 py-2 rounded-lg mb-6 flex items-center gap-2">
               <CreditCard size={16} />
               <span>當前參考匯率: 1 JPY ≈ {exchangeRate.toFixed(3)} TWD</span>
             </div>
- 
+
             {/* List Items */}
             <div className="space-y-6">
               {['交通', '住宿', '門票', '餐飲'].map(cat => (
@@ -550,12 +587,12 @@ const OkinawaTrip = () => {
                 </div>
               ))}
             </div>
- 
+
           </div>
         </div>
- 
+
       </div>
- 
+
       {/* Modal Overlay */}
       {modalContent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm animate-fade-in">
@@ -582,7 +619,7 @@ const OkinawaTrip = () => {
                   </p>
                 </div>
               )}
- 
+
               {modalContent.link && (
                 <a 
                   href={modalContent.link} 
@@ -608,6 +645,9 @@ const OkinawaTrip = () => {
     </div>
   );
 };
- 
-// --- 原本程式碼結束 --- 
-const root = ReactDOM.createRoot(document.getElementById('root')); root.render(<OkinawaTrip />); </script> </body> </html>
+
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<OkinawaTrip />); 
+  </script> 
+</body> 
+</html>
