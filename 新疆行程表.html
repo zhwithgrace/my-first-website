@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>新疆阿勒泰 9天8晚 · 2026</title>
+
+  <!-- =====================================================
+       字型：使用 Google Fonts 的 Noto Serif TC（中文襯線）
+       與 Playfair Display（英文裝飾標題），提升整體質感
+  ====================================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================================================
+       CSS 變數：整體設計語言的核心色盤與尺寸系統
+       以「深色沙漠 × 暖琥珀金」為主調，呼應新疆地景
+    ====================================================== */
+    :root {
+      --bg-deep:      #0e0f13;   /* 主背景 深空色 */
+      --bg-card:      #16181f;   /* 卡片背景 */
+      --bg-card2:     #1e2029;   /* 次層卡片 */
+      --border:       #2a2d38;   /* 邊框線 */
+      --gold:         #c9963a;   /* 主題金色 */
+      --gold-light:   #f0be6a;   /* 亮金色（懸停/重點） */
+      --gold-dim:     rgba(201,150,58,0.15); /* 金色淡底 */
+      --sky:          #4aa8d8;   /* 天空藍（次強調） */
+      --sky-dim:      rgba(74,168,216,0.12);
+      --text-main:    #e8e4da;   /* 主文字 米白 */
+      --text-sub:     #9a9380;   /* 次文字 沙灰 */
+      --text-muted:   #5a5650;   /* 淡文字 */
+      --accent-red:   #d4665a;   /* 警示 暗紅 */
+      --radius-sm:    6px;
+      --radius-md:    12px;
+      --radius-lg:    20px;
+      --shadow:       0 4px 24px rgba(0,0,0,0.5);
+      --transition:   0.28s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* =====================================================
+       基礎重置與全域排版設定
+    ====================================================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 15px;
+      line-height: 1.75;
+      min-height: 100vh;
+      /* 背景裝飾：細緻沙粒紋理 */
+      background-image:
+        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,150,58,0.06) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23ffffff08'/%3E%3C/svg%3E");
+    }
+
+    /* =====================================================
+       頁首 Hero 區塊：標題、日期、人員概覽
+    ====================================================== */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 56px 24px 40px;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    /* 金色光暈裝飾背景 */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 50% -10%, rgba(201,150,58,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* 裝飾性橫線 */
+    .hero-deco {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+    .hero-deco::before, .hero-deco::after {
+      content: '';
+      flex: 1;
+      max-width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', 'Noto Serif TC', serif;
+      font-size: clamp(28px, 6vw, 52px);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--text-main);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+      font-style: italic;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 18px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      color: var(--text-sub);
+      background: var(--bg-card);
+    }
+    .hero-badge .icon { color: var(--gold); font-size: 15px; }
+
+    /* 成員圖示列 */
+    .members-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .member-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      color: var(--text-sub);
+    }
+    .member-chip.male  { border-color: var(--sky);  color: var(--sky); }
+    .member-chip.female{ border-color: var(--gold); color: var(--gold-light); }
+
+    /* =====================================================
+       儲存按鈕（頁首右上角浮動）
+    ====================================================== */
+    .save-btn-wrap {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+    }
+    .save-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gold);
+      background: var(--gold-dim);
+      color: var(--gold-light);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background var(--transition), box-shadow var(--transition);
+    }
+    .save-btn:hover {
+      background: rgba(201,150,58,0.3);
+      box-shadow: 0 0 16px rgba(201,150,58,0.3);
+    }
+
+    /* =====================================================
+       分頁導覽 Tab Bar
+    ====================================================== */
+    .tabs-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-nav::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 88px;
+      padding: 14px 10px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      color: var(--text-muted);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: color var(--transition), border-color var(--transition), background var(--transition);
+      white-space: nowrap;
+    }
+    .tab-btn:hover  { color: var(--text-sub); background: rgba(255,255,255,0.03); }
+    .tab-btn.active { color: var(--gold-light); border-bottom-color: var(--gold); background: var(--gold-dim); }
+
+    /* =====================================================
+       分頁內容容器
+    ====================================================== */
+    .tab-panel { display: none; padding: 32px 16px 60px; max-width: 860px; margin: 0 auto; }
+    .tab-panel.active { display: block; animation: fadeUp 0.35s ease; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================================================
+       編輯按鈕（每個分頁通用）
+    ====================================================== */
+    .panel-toolbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+    .edit-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--sky);
+      background: var(--sky-dim);
+      color: var(--sky);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .edit-btn:hover { background: rgba(74,168,216,0.2); }
+    .edit-btn.saving { border-color: var(--gold); background: var(--gold-dim); color: var(--gold-light); }
+
+    /* 可編輯區塊高亮提示 */
+    .editable-zone[contenteditable="true"] {
+      outline: 2px dashed rgba(74,168,216,0.5);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* =====================================================
+       【行程分頁】每日卡片
+    ====================================================== */
+    .day-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: box-shadow var(--transition);
+    }
+    .day-card:hover { box-shadow: var(--shadow); }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card2);
+    }
+
+    /* 日期徽章圓圈 */
+    .day-badge {
+      flex-shrink: 0;
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1.5px solid var(--gold);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .day-badge .dn  { font-size: 10px; color: var(--gold); letter-spacing: 0.05em; }
+    .day-badge .dd  { font-size: 16px; font-weight: 700; color: var(--gold-light); }
+
+    .day-title-group { flex: 1; }
+    .day-route {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+    .day-sub {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+    .day-km {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-deep);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 2px 10px;
+      flex-shrink: 0;
+    }
+
+    .day-body { padding: 16px 20px; }
+
+    /* =====================================================
+       景點展開/收合（<details> + <summary>）
+    ====================================================== */
+    .spot-details {
+      background: var(--bg-card2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    .spot-summary {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      list-style: none;
+      user-select: none;
+      transition: background var(--transition);
+    }
+    .spot-summary::-webkit-details-marker { display: none; }
+    .spot-summary:hover { background: rgba(255,255,255,0.04); }
+
+    /* 展開箭頭動畫 */
+    .spot-arrow {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--gold);
+      transition: transform var(--transition);
+    }
+    details[open] .spot-arrow { transform: rotate(90deg); }
+
+    .spot-name { font-size: 14px; font-weight: 600; color: var(--text-main); flex: 1; }
+    .spot-tag  {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 100px;
+      background: var(--sky-dim);
+      border: 1px solid rgba(74,168,216,0.3);
+      color: var(--sky);
+    }
+
+    /* 景點詳情內容 */
+    .spot-content {
+      padding: 0 16px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .spot-content p { font-size: 13.5px; color: var(--text-sub); margin-top: 10px; line-height: 1.8; }
+
+    /* 攝影建議區塊 */
+    .photo-tips {
+      margin-top: 12px;
+      padding: 12px 14px;
+      background: rgba(0,0,0,0.3);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+    .photo-tips-title {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .photo-tip-item {
+      display: flex;
+      gap: 8px;
+      margin-top: 5px;
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+    .photo-tip-item .tip-icon { color: var(--gold-light); flex-shrink: 0; margin-top: 1px; }
+
+    /* =====================================================
+       【花費分頁】費用卡片與匯率工具
+    ====================================================== */
+    .cost-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .cost-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      transition: box-shadow var(--transition);
+    }
+    .cost-card:hover { box-shadow: var(--shadow); }
+    .cost-label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+    .cost-value { font-size: 26px; font-weight: 700; color: var(--gold-light); font-family: 'Playfair Display', serif; }
+    .cost-unit  { font-size: 13px; color: var(--text-sub); margin-left: 4px; }
+    .cost-note  { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+    /* 費用包含/不含 清單 */
+    .cost-section { margin-bottom: 24px; }
+    .cost-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .cost-list { list-style: none; }
+    .cost-list li {
+      display: flex;
+      gap: 10px;
+      padding: 6px 0;
+      font-size: 13.5px;
+      color: var(--text-sub);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .cost-list li .ci { color: var(--gold); flex-shrink: 0; }
+    .cost-list.exclude li .ci { color: var(--accent-red); }
+
+    /* 匯率查詢工具 */
+    .rate-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 22px;
+      margin-top: 24px;
+    }
+    .rate-widget-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+    .rate-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .rate-fetch-btn {
+      padding: 9px 20px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--gold);
+      background: var(--gold-dim);
+      color: var(--gold-light);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .rate-fetch-btn:hover:not(:disabled) { background: rgba(201,150,58,0.3); }
+    .rate-fetch-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .rate-result {
+      font-size: 14px;
+      color: var(--text-sub);
+      min-height: 22px;
+    }
+    .rate-result .rate-num { font-size: 22px; font-weight: 700; color: var(--sky); font-family: 'Playfair Display', serif; }
+    .rate-result .rate-time { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+    /* 試算器 */
+    .calc-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .calc-row label { font-size: 13px; color: var(--text-sub); }
+    .calc-row input {
+      width: 110px;
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Noto Serif TC', serif;
+      font-size: 14px;
+    }
+    .calc-row input:focus { outline: none; border-color: var(--sky); }
+    .calc-result-line { font-size: 13px; color: var(--text-sub); }
+    .calc-result-line strong { color: var(--gold-light); font-size: 15px; }
+
+    /* =====================================================
+       【住宿分頁】地址卡片
+    ====================================================== */
+    .hotel-list { display: flex; flex-direction: column; gap: 12px; }
+    .hotel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: box-shadow var(--transition), border-color var(--transition);
+    }
+    .hotel-card:hover { box-shadow: var(--shadow); border-color: rgba(201,150,58,0.3); }
+    .hotel-day-col {
+      flex-shrink: 0;
+      text-align: center;
+      min-width: 48px;
+    }
+    .hotel-day-label { font-size: 10px; color: var(--gold); letter-spacing: 0.1em; }
+    .hotel-day-num   { font-size: 22px; font-weight: 700; color: var(--gold-light); font-family: 'Playfair Display', serif; line-height: 1; }
+    .hotel-day-date  { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .hotel-divider   { width: 1px; background: var(--border); flex-shrink: 0; align-self: stretch; }
+    .hotel-info      { flex: 1; }
+    .hotel-name      { font-size: 15px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; }
+    .hotel-addr      { font-size: 12.5px; color: var(--text-sub); line-height: 1.6; }
+    .hotel-map-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--sky);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(74,168,216,0.4);
+      transition: color var(--transition);
+    }
+    .hotel-map-btn:hover { color: #7ec9ea; }
+
+    /* =====================================================
+       【航班分頁】航班卡片
+    ====================================================== */
+    .flight-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      margin-top: 28px;
+    }
+    .flight-section-title:first-of-type { margin-top: 0; }
+    .flight-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .flight-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 12px;
+      transition: box-shadow var(--transition);
+    }
+    .flight-card:hover { box-shadow: var(--shadow); }
+
+    .flight-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .flight-airline { font-size: 13px; color: var(--text-sub); }
+    .flight-no      { font-size: 17px; font-weight: 700; color: var(--text-main); }
+    .flight-class   {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: var(--gold-dim);
+      border: 1px solid rgba(201,150,58,0.4);
+      color: var(--gold-light);
+    }
+    .flight-class.eco {
+      background: var(--sky-dim);
+      border-color: rgba(74,168,216,0.3);
+      color: var(--sky);
+    }
+
+    .flight-route {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 10px;
+    }
+    .flight-port { }
+    .flight-port.dest { text-align: right; }
+    .flight-time { font-size: 26px; font-weight: 700; color: var(--text-main); font-family: 'Playfair Display', serif; line-height: 1; }
+    .flight-code { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
+    .flight-name { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+    .flight-arrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      color: var(--text-muted);
+    }
+    .flight-arrow-line {
+      height: 1px;
+      width: 60px;
+      background: linear-gradient(90deg, var(--border), var(--gold), var(--border));
+    }
+    .flight-arrow-icon { font-size: 16px; color: var(--gold); }
+
+    .flight-note {
+      margin-top: 12px;
+      padding: 8px 12px;
+      background: rgba(0,0,0,0.25);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* 成員比例圓圈 */
+    .member-section { margin-bottom: 28px; }
+    .member-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .member-grid { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .member-stat-card {
+      flex: 1;
+      min-width: 130px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 18px 16px;
+      text-align: center;
+    }
+    .member-big-num { font-size: 40px; font-weight: 700; line-height: 1; font-family: 'Playfair Display', serif; }
+    .member-big-num.male   { color: var(--sky); }
+    .member-big-num.female { color: var(--gold-light); }
+    .member-big-num.total  { color: var(--text-main); }
+    .member-stat-label { font-size: 12px; color: var(--text-sub); margin-top: 4px; }
+
+    /* SVG 圓餅圖 */
+    .pie-wrap { display: flex; justify-content: center; margin: 20px 0; }
+
+    /* =====================================================
+       通用輔助樣式
+    ====================================================== */
+    .section-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1.5px solid var(--gold);
+      padding-bottom: 2px;
+      margin-bottom: 20px;
+    }
+
+    /* 小標題 */
+    .sub-heading {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    /* 注意事項列表 */
+    .notice-list { list-style: none; }
+    .notice-list li {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      padding: 5px 0 5px 18px;
+      position: relative;
+      line-height: 1.7;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .notice-list li::before {
+      content: '›';
+      position: absolute;
+      left: 4px;
+      color: var(--gold);
+    }
+
+    /* 頁尾 */
+    footer {
+      text-align: center;
+      padding: 28px 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+    }
+    footer span { color: var(--gold); }
+
+    /* =====================================================
+       響應式設計斷點
+    ====================================================== */
+    @media (max-width: 600px) {
+      .hero { padding: 48px 16px 32px; }
+      .save-btn-wrap { top: 10px; right: 10px; }
+      .save-btn span { display: none; }
+      .flight-route { grid-template-columns: 1fr auto 1fr; }
+      .flight-arrow-line { width: 36px; }
+      .tab-btn { padding: 12px 8px; font-size: 13px; }
+      .day-header { padding: 12px 14px; gap: 10px; }
+      .day-body   { padding: 12px 14px; }
+    }
+
+    /* 載入動畫 */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner {
+      display: inline-block;
+      width: 14px; height: 14px;
+      border: 2px solid rgba(74,168,216,0.3);
+      border-top-color: var(--sky);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     頁首 Hero：行程名稱、日期、人員徽章
+====================================================== -->
+<header class="hero">
+  <!-- 右上角：儲存網頁按鈕 -->
+  <div class="save-btn-wrap">
+    <button class="save-btn" onclick="saveHTML()" title="下載此行程表 HTML">
+      💾 <span>儲存網頁</span>
+    </button>
+  </div>
+
+  <div class="hero-deco">Travel Player · 大玩家旅遊</div>
+  <h1>新疆阿勒泰<br/><span>九天八晚</span></h1>
+
+  <div class="hero-meta">
+    <div class="hero-badge"><span class="icon">📅</span> 2026 / 06 / 13 — 06 / 21</div>
+    <div class="hero-badge"><span class="icon">✈</span> 9 天 8 晚</div>
+    <div class="hero-badge"><span class="icon">🗺</span> 北疆經典環線</div>
+  </div>
+
+  <!-- 成員圖示 -->
+  <div class="members-row">
+    <div class="member-chip male">♂ 男生 × 1</div>
+    <div class="member-chip female">♀ 女生 × 5</div>
+    <div class="member-chip">👥 共 6 人 · 獨立包團</div>
+  </div>
+</header>
+
+<!-- =====================================================
+     Tab 導覽列
+====================================================== -->
+<nav class="tabs-nav" role="tablist">
+  <button class="tab-btn active" role="tab" onclick="switchTab(0, this)">📅 行程</button>
+  <button class="tab-btn"        role="tab" onclick="switchTab(1, this)">💰 花費</button>
+  <button class="tab-btn"        role="tab" onclick="switchTab(2, this)">🏨 住宿地址</button>
+  <button class="tab-btn"        role="tab" onclick="switchTab(3, this)">✈ 航班與成員</button>
+</nav>
+
+<!-- ======================================================
+     ① 行程分頁
+====================================================== -->
+<section id="panel-0" class="tab-panel active">
+  <div class="panel-toolbar">
+    <button class="edit-btn" onclick="toggleEdit('panel-0', this)">✏️ 編輯</button>
+  </div>
+
+  <!-- 編輯區塊套上 editable-zone class -->
+  <div class="editable-zone" id="edit-0">
+    <p class="section-tag">每日行程詳情</p>
+
+    <!-- === D1 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D01</span><span class="dd">13</span></div>
+        <div class="day-title-group">
+          <div class="day-route">抵達烏魯木齊</div>
+          <div class="day-sub">06/13（六）· 出發日</div>
+        </div>
+        <div class="day-km">集合日</div>
+      </div>
+      <div class="day-body">
+        <p style="font-size:13.5px;color:var(--text-sub);">自行前往烏魯木齊，辦理入住，建議早到適應時差（台灣時間比新疆快 2 小時）。晚間可前往國際大巴扎附近覓食，體驗維吾爾風情夜市。</p>
+        <details class="spot-details" style="margin-top:10px;">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">烏魯木齊市區自由探索</span>
+            <span class="spot-tag">自由行</span>
+          </summary>
+          <div class="spot-content">
+            <p>烏魯木齊是進入北疆的門戶，天山大巴扎、二道橋市場均可步行抵達，建議準備暖衣以應對夜間溫差（6月氣溫約 15–28°C）。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：日落約 22:00（新疆時間），紅山公園制高點可俯瞰城市與天山輪廓，染橙的天際線層次豐富。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：市區光害較重，可留待後段深山景區拍攝。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從紅山公園向西取景，以天山雪冠為背景，前景帶入城市霓虹，形成「現代 × 自然」的對比構圖。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D2 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D02</span><span class="dd">14</span></div>
+        <div class="day-title-group">
+          <div class="day-route">烏魯木齊 → 阿勒泰（飛機）→ 阿禾公路 → 禾木</div>
+          <div class="day-sub">06/14（日）</div>
+        </div>
+        <div class="day-km">65 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">阿禾公路</span>
+            <span class="spot-tag">公路奇景</span>
+          </summary>
+          <div class="spot-content">
+            <p>連接阿勒泰市與禾木景區的網紅公路，全長約 65 公里，沿途穿越白樺林、草地與河谷，被稱為「新疆最美公路之一」。路面蜿蜒，適合停車取景。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：下午 3–5 點從阿勒泰出發，抵達白樺林段時光線由側面打入，樹幹與草地形成柔和金光，建議公路中段停車拍長鏡頭「壓縮公路消失點」。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：公路沿線人煙稀少，無光害，夜間可原地架腳架拍攝公路銀河構圖（正面朝南天，6月銀河核心已可見）。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：俯視制高點取「S型公路 + 白樺林 + 遠山雪冠」三層次，建議用 24–35mm 廣角捕捉。</span></div>
+            </div>
+          </div>
+        </details>
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">禾木景區</span>
+            <span class="spot-tag">原始村落</span>
+          </summary>
+          <div class="spot-content">
+            <p>圖瓦人居住的原始村落，木屋錯落在丘陵草地之間，秋季紅黃白樺更美，6月白雪消融後草地鮮嫩碧綠，炊煙裊裊宛如世外桃源。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 6:30–8:00（新疆時間），霧氣在禾木河谷蔓延，木屋頂炊煙混入晨霧，站在觀景台可拍攝「雲霧中的仙境」——為行程最佳 Golden Hour！建議提早 30 分鐘爬上觀景台佔位。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：禾木遠離城市，是整個行程最佳暗空地點之一。6月無月夜可見銀河橫跨木屋上方，建議 ISO 3200、f/2.8、25s 曝光，以木屋輪廓為前景。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：觀景台「前景木屋群 × 中景河流反光 × 遠景白雪山頂」三層透視感強，廣角 16mm 是最佳選擇，注意地平線保持水平。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D3 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D03</span><span class="dd">15</span></div>
+        <div class="day-title-group">
+          <div class="day-route">禾木 → 喀納斯（三灣）</div>
+          <div class="day-sub">06/15（一）</div>
+        </div>
+        <div class="day-km">70 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">喀納斯景區（喀納斯三灣）</span>
+            <span class="spot-tag">★ 重點景區</span>
+          </summary>
+          <div class="spot-content">
+            <p>喀納斯湖是中國最深的淡水湖之一（最深 188m），湖水因水深呈現神秘藍綠色。「三灣」指神仙灣、月亮灣、臥龍灣，每處灣區形狀各異，白樺樹倒映湖面，如夢似幻。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 6:00–8:00 三灣霧氣最濃，晨光橙紅照入白樺林，「月亮灣 S 型河道 + 晨霧 + 金光樺樹」是喀納斯的招牌畫面。月亮灣觀景台需步行 20 分鐘，務必早起！</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：喀納斯新村遠離光害，在湖邊架腳架，以雪山為背景拍攝「銀河倒映湖面」，若湖面平靜可達到完美鏡像效果，是行程最推薦的星攝地點。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從觀魚台（海拔 2030m）俯瞰喀納斯湖全景，「S型湖灣 + 兩岸金樺 + 後方雪峰」構圖飽滿，建議用長焦 70–200mm 壓縮遠景雪山。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D4 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D04</span><span class="dd">16</span></div>
+        <div class="day-title-group">
+          <div class="day-route">喀納斯 → 克拉瑪依 → 世界魔鬼城</div>
+          <div class="day-sub">06/16（二）</div>
+        </div>
+        <div class="day-km">490 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">世界魔鬼城（烏爾禾風城）</span>
+            <span class="spot-tag">雅丹地貌</span>
+          </summary>
+          <div class="spot-content">
+            <p>位於克拉瑪依市烏爾禾區，雅丹地貌群延伸逾 10 平方公里，風蝕形成的石柱、石塔如古城廢墟，大風呼嘯時「鬼哭狼嚎」令人膽戰，是新疆最壯觀的地質奇觀之一。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日落黃金時刻</b>：夕陽（約 21:00 新疆時間）斜射時岩石轉為深橘紅色，陰影強化立體感，是雅丹地貌攝影的黃金時段。建議提前抵達，尋找高地俯瞰視角。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：戈壁深處無光害，雅丹岩柱作為剪影前景配上滿天繁星，極具震撼感。需在工作人員允許的範圍內操作，建議魚眼或超廣角 14–16mm。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：低角度仰拍石柱群可強調高聳壯闊感；也可爬至較高觀景平台俯拍「城市廢墟感」的全景，前景帶入木棧道以增加比例感。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D5 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D05</span><span class="dd">17</span></div>
+        <div class="day-title-group">
+          <div class="day-route">魔鬼城 → 獨山子大峽谷 → 精河</div>
+          <div class="day-sub">06/17（三）</div>
+        </div>
+        <div class="day-km">380 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">獨山子大峽谷</span>
+            <span class="spot-tag">峽谷奇景</span>
+          </summary>
+          <div class="spot-content">
+            <p>由泥石流長年侵蝕而成的峽谷群，溝壑深邃、紋路如油畫，有「新疆小科羅拉多大峽谷」之稱，峽谷呈現紅、橙、黃多彩層次，徒步穿越全程約 2–3 小時。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：上午 9–11 點光線從峽谷頂部斜射而下，形成「光柱穿谷」效果。下午 4 點後陰影變長，紋理層次最豐富。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：峽谷內可拍攝「仰望星空 + 峽谷壁夾角」特殊構圖，谷內完全無光，需備強力手電筒。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從峽谷頂端俯瞰，地面紋路如大地畫布，建議無人機（需確認景區規定）或超廣角抓取全幅地貌。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D6 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D06</span><span class="dd">18</span></div>
+        <div class="day-title-group">
+          <div class="day-route">精河 → 賽里木湖（環湖）→ 途經果子溝大橋 → 伊寧</div>
+          <div class="day-sub">06/18（四）</div>
+        </div>
+        <div class="day-km">280 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">賽里木湖</span>
+            <span class="spot-tag">★ 重點景區</span>
+          </summary>
+          <div class="spot-content">
+            <p>海拔 2073 公尺，新疆最大高山冷水湖，素有「大西洋最後一滴眼淚」之美譽。湖水純淨蔚藍，四周雪山環抱，6月野花盛開，藍湖 × 白雪 × 黃花構成絕美彩色畫面。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 7:00–8:30 霧氣消散前，湖面如鏡，雪山倒映其中——為行程中最夢幻的鏡像攝影機會。建議於湖東岸低角度架腳架，納入前景草地野花。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：賽里木湖海拔高、空氣通透，是行程中最佳銀河攝影地點之一。以湖面為「天然反光板」，拍攝星空倒影，ISO 6400 + f/2.8 + 20s，效果壯觀。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：環湖公路設有多個觀景台，建議選擇「湖 + 路 + 山」三角構圖，公路 S 形引導視線延伸至遠方雪峰，長焦壓縮空間感極佳。</span></div>
+            </div>
+          </div>
+        </details>
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">果子溝大橋</span>
+            <span class="spot-tag">工程奇蹟</span>
+          </summary>
+          <div class="spot-content">
+            <p>全球最長的雙塔雙索面鋼箱梁斜拉橋之一，橋面距谷底約 200 公尺，驅車而過可感受懸空通天的壯闊感。周邊果子溝蘋果花在 5–6 月盛開，芳香撲鼻。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：下午 4–6 點從谷底仰拍大橋，逆光剪影效果壯觀，橋身線條俐落，可加入人物比例感。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從觀景台取「橋 + 峽谷 + 遠方雪山」全景，超廣角可一次納入橋墩與谷底植被，強調人類工程與自然的對話。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D7 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D07</span><span class="dd">19</span></div>
+        <div class="day-title-group">
+          <div class="day-route">伊寧 → 那拉提空中草原</div>
+          <div class="day-sub">06/19（五）</div>
+        </div>
+        <div class="day-km">450 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">那拉提空中草原</span>
+            <span class="spot-tag">★ 重點景區</span>
+          </summary>
+          <div class="spot-content">
+            <p>世界四大草原之一，海拔 1800 公尺，「空中草原」因其高踞天山之上、雲霧常繞腳邊而得名。哈薩克牧民轉場季（6月）牛羊成群，氈房炊煙，如詩如畫的草原生活盡現眼前。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日落黃金時刻</b>：傍晚 20:00–21:30 夕陽將草地染成金色，配合牧民趕牧牛羊的剪影，是草原人文攝影的巔峰時刻。需事先與牧民溝通，勿侵擾生活。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：那拉提高原遠離城市，夜間無光害，6 月晴夜可在氈房頂拍銀河，溫馨的氈房燈光作為前景補光，形成「星空下的游牧之夜」情境。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從空中草原最高觀景台俯瞰，「山頂雲海 + 草原牧場 + 蜿蜒河流」三層次俯瞰構圖，建議使用 24mm 超廣角搭配 ND 濾鏡長曝河流。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D8 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D08</span><span class="dd">20</span></div>
+        <div class="day-title-group">
+          <div class="day-route">那拉提 → 獨庫公路（北段）→ 國家大巴扎 → 烏魯木齊</div>
+          <div class="day-sub">06/20（六）</div>
+        </div>
+        <div class="day-km">520 km</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">獨庫公路（北段）</span>
+            <span class="spot-tag">★ 網紅公路</span>
+          </summary>
+          <div class="spot-content">
+            <p>獨山子 → 庫車，全長 562 公里，是中國最壯觀的公路之一。北段穿越天山腹地，翻越數個大坂（山口），路邊有雪山、峽谷、草甸、杉樹林，每 10 分鐘換一種景色，堪稱「一路看遍天山四季」。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：清晨出發（7–9 點）公路光線最柔，霧氣繚繞天山峽谷段，建議在喬爾瑪烈士陵園附近的開闊谷地停車拍攝「晨霧公路消失點」。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：公路沿途人煙極稀，大坂頂部海拔達 3400m，視野開闊無遮擋，是行程中最高海拔的星攝點，注意保暖（夜間接近 0°C）。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：公路蜿蜒進入雪山的「公路盡頭即雪峰」構圖最具衝擊力。建議在公路高點用長焦（200mm）壓縮遠近，讓公路「刺穿」雪山。</span></div>
+            </div>
+          </div>
+        </details>
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">新疆國際大巴扎</span>
+            <span class="spot-tag">人文市集</span>
+          </summary>
+          <div class="spot-content">
+            <p>烏魯木齊的地標性市集，建築融合伊斯蘭圓頂與現代商業，販賣新疆特產、烤饢、羊肉串、葡萄乾、和田玉等。登上巴扎觀光塔可俯瞰城市天際線，是購買手信的最後機會。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃昏黃金時刻</b>：傍晚 21:00 前後，夕陽照射伊斯蘭圓頂與宣禮塔，金光熠熠，是絕佳建築攝影時機。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>人文構圖</b>：以烤饢師傅、擺攤小販的手部特寫為主題，85mm 人像焦距搭配大光圈虛化背景市集喧嚷，呈現溫度與故事感。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- === D9 === -->
+    <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D09</span><span class="dd">21</span></div>
+        <div class="day-title-group">
+          <div class="day-route">烏魯木齊送機 · 返程</div>
+          <div class="day-sub">06/21（日）· 返台日</div>
+        </div>
+        <div class="day-km">旅程終</div>
+      </div>
+      <div class="day-body">
+        <p style="font-size:13.5px;color:var(--text-sub);">早餐後辦理退房，前往天山國際機場（T2 航廈），搭乘 MU8368（09:05）飛往上海浦東，轉搭 MU5005（15:50）返抵桃園國際機場（17:40）。請預留充足過境時間。</p>
+      </div>
+    </div>
+
+  </div><!-- /editable-zone -->
+</section>
+
+<!-- ======================================================
+     ② 花費分頁
+====================================================== -->
+<section id="panel-1" class="tab-panel">
+  <div class="panel-toolbar">
+    <button class="edit-btn" onclick="toggleEdit('panel-1', this)">✏️ 編輯</button>
+  </div>
+
+  <div class="editable-zone" id="edit-1">
+    <p class="section-tag">費用明細</p>
+
+    <!-- 費用總覽卡片 -->
+    <div class="cost-grid">
+      <div class="cost-card" style="border-color:rgba(201,150,58,0.4)">
+        <div class="cost-label">每人費用（6人成團）</div>
+        <div class="cost-value">48,500<span class="cost-unit">NT$</span></div>
+        <div class="cost-note">優惠期：3/31 前報名有效</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-label">老客戶推薦優惠</div>
+        <div class="cost-value" style="color:var(--accent-red)">－8,000<span class="cost-unit">NT$</span></div>
+        <div class="cost-note">每人優惠台幣 NT$8,000 元</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-label">單房差（如需單人房）</div>
+        <div class="cost-value">6,000<span class="cost-unit">NT$</span></div>
+        <div class="cost-note">每人需補單房差</div>
+      </div>
+      <div class="cost-card">
+        <div class="cost-label">歡迎晚宴（贈送）</div>
+        <div class="cost-value" style="color:var(--sky)">500<span class="cost-unit">NT$/人</span></div>
+        <div class="cost-note">訂金 NT$12,000 / 人；尾款出發前 15 天付清</div>
+      </div>
+    </div>
+
+    <!-- 費用包含 -->
+    <div class="cost-section">
+      <div class="cost-section-title">✅ 費用包含</div>
+      <ul class="cost-list">
+        <li><span class="ci">【证件】</span>新疆備案費用</li>
+        <li><span class="ci">【車子】</span>全程 7 座 1+1 座豪華航空座椅旅遊車（油料費、過路費、司機服務費、司機食宿費）</li>
+        <li><span class="ci">【住宿】</span>行程中所列高檔型涉外酒店住宿費用</li>
+        <li><span class="ci">【門票】</span>行程景點門票（含區間車，不含景區自費項目如騎馬、騎駱駝等）</li>
+        <li><span class="ci">【用餐】</span>酒店提供早餐</li>
+        <li><span class="ci">【司機】</span>優秀司機全程服務（含司機食宿費用）</li>
+        <li><span class="ci">【保險】</span>旅行社責任險、車輛座位險、人身意外險</li>
+      </ul>
+    </div>
+
+    <!-- 費用不含 -->
+    <div class="cost-section">
+      <div class="cost-section-title">❌ 費用不含</div>
+      <ul class="cost-list exclude">
+        <li><span class="ci">【交通】</span>出發地至新疆來回交通（提供代訂服務）</li>
+        <li><span class="ci">【用餐】</span>午餐、晚餐（自行點餐、自行付款）</li>
+        <li><span class="ci">【小費】</span>司機服務小費 RMB 30 元 / 人</li>
+        <li><span class="ci">【其他】</span>個人消費、費用包含中未提及的一切費用</li>
+      </ul>
+    </div>
+
+    <!-- 即時匯率工具 -->
+    <div class="rate-widget">
+      <div class="rate-widget-title">💱 即時匯率查詢（人民幣 CNY → 新台幣 TWD）</div>
+      <div class="rate-row">
+        <button class="rate-fetch-btn" id="rate-btn" onclick="fetchRate()">查詢最新匯率</button>
+        <div class="rate-result" id="rate-result">點擊按鈕取得即時匯率</div>
+      </div>
+      <!-- 費用換算小工具 -->
+      <div class="calc-row" id="calc-row" style="display:none">
+        <label>輸入人民幣金額（RMB）：</label>
+        <input type="number" id="rmb-input" placeholder="如：500" oninput="calcRate()" />
+        <span class="calc-result-line" id="calc-out"></span>
+      </div>
+    </div>
+
+  </div><!-- /editable-zone -->
+</section>
+
+<!-- ======================================================
+     ③ 住宿地址分頁
+====================================================== -->
+<section id="panel-2" class="tab-panel">
+  <div class="panel-toolbar">
+    <button class="edit-btn" onclick="toggleEdit('panel-2', this)">✏️ 編輯</button>
+  </div>
+
+  <div class="editable-zone" id="edit-2">
+    <p class="section-tag">住宿資訊</p>
+
+    <div class="hotel-list">
+
+      <!-- D1 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">01</div>
+          <div class="hotel-day-date">06/13</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">烏魯木齊新旅逸格酒店</div>
+          <div class="hotel-addr">新疆烏魯木齊天山區紅山路 106 號</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆烏魯木齊天山區紅山路106號" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D2 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">02</div>
+          <div class="hotel-day-date">06/14</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">禾木御園</div>
+          <div class="hotel-addr">新疆布爾津禾木鄉禾木村入口服務區</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆布爾津禾木鄉禾木村入口服務區" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D3 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">03</div>
+          <div class="hotel-day-date">06/15</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">喀納斯悠然山莊</div>
+          <div class="hotel-addr">新疆阿勒泰地區布爾津喀納斯新村 95 號</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆阿勒泰地區布爾津喀納斯新村95號" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D4 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">04</div>
+          <div class="hotel-day-date">06/16</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">烏爾禾西域別苑酒店</div>
+          <div class="hotel-addr">新疆克拉瑪依市烏爾禾區揚州路與廣東街交叉路口</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆克拉瑪依市烏爾禾區揚州路廣東街" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D5 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">05</div>
+          <div class="hotel-day-date">06/17</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">精河迎賓館</div>
+          <div class="hotel-addr">新疆精河縣伊犁路河畔麗景 B 區</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆精河縣伊犁路河畔麗景B區" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D6 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">06</div>
+          <div class="hotel-day-date">06/18</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">伊寧億達觀瀾酒店</div>
+          <div class="hotel-addr">新疆伊寧市森怡翡翠城 12 號樓 1 樓</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆伊寧市森怡翡翠城12號樓" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D7 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">07</div>
+          <div class="hotel-day-date">06/19</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">那拉提又見青山</div>
+          <div class="hotel-addr">新疆新源縣那拉提鎮</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆新源縣那拉提鎮" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+      <!-- D8 -->
+      <div class="hotel-card">
+        <div class="hotel-day-col">
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">08</div>
+          <div class="hotel-day-date">06/20</div>
+        </div>
+        <div class="hotel-divider"></div>
+        <div class="hotel-info">
+          <div class="hotel-name">烏魯木齊新旅逸格酒店</div>
+          <div class="hotel-addr">新疆烏魯木齊天山區紅山路 106 號</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆烏魯木齊天山區紅山路106號" target="_blank" rel="noopener">
+            🗺 在地圖中開啟
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /hotel-list -->
+  </div><!-- /editable-zone -->
+</section>
+
+<!-- ======================================================
+     ④ 航班與成員分頁
+====================================================== -->
+<section id="panel-3" class="tab-panel">
+  <div class="panel-toolbar">
+    <button class="edit-btn" onclick="toggleEdit('panel-3', this)">✏️ 編輯</button>
+  </div>
+
+  <div class="editable-zone" id="edit-3">
+
+    <!-- 成員比例 -->
+    <div class="member-section">
+      <div class="member-section-title">👥 成員組成</div>
+      <div class="member-grid">
+        <div class="member-stat-card">
+          <div class="member-big-num total">6</div>
+          <div class="member-stat-label">總人數</div>
+        </div>
+        <div class="member-stat-card">
+          <div class="member-big-num male">1</div>
+          <div class="member-stat-label">♂ 男生</div>
+        </div>
+        <div class="member-stat-card">
+          <div class="member-big-num female">5</div>
+          <div class="member-stat-label">♀ 女生</div>
+        </div>
+      </div>
+
+      <!-- SVG 圓餅圖 -->
+      <div class="pie-wrap">
+        <svg width="160" height="160" viewBox="0 0 160 160">
+          <!-- 女生 5/6 ≈ 300° 的扇形；男生 1/6 ≈ 60° -->
+          <!-- 圓心 80,80 半徑 60 -->
+          <!-- 女生扇形：從 -90° 順時針到 210°（300°） -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#2a2d38" stroke-width="26"/>
+          <!-- 女生部分（金色，5/6） -->
+          <circle cx="80" cy="80" r="60" fill="none"
+                  stroke="#c9963a"
+                  stroke-width="26"
+                  stroke-dasharray="314.16"
+                  stroke-dashoffset="52.36"
+                  transform="rotate(-90 80 80)"
+                  opacity="0.85"/>
+          <!-- 男生部分（藍色，1/6） -->
+          <circle cx="80" cy="80" r="60" fill="none"
+                  stroke="#4aa8d8"
+                  stroke-width="26"
+                  stroke-dasharray="314.16"
+                  stroke-dashoffset="261.8"
+                  transform="rotate(210 80 80)"
+                  opacity="0.85"/>
+          <!-- 中心標籤 -->
+          <text x="80" y="76" text-anchor="middle" fill="#e8e4da" font-size="22" font-family="Playfair Display, serif" font-weight="700">6</text>
+          <text x="80" y="94" text-anchor="middle" fill="#9a9380" font-size="11" font-family="Noto Serif TC, serif">人</text>
+          <!-- 圖例 -->
+          <rect x="10" y="148" width="10" height="10" fill="#c9963a" rx="2"/>
+          <text x="24" y="157" fill="#9a9380" font-size="11" font-family="Noto Serif TC, serif">女生 83%</text>
+          <rect x="90" y="148" width="10" height="10" fill="#4aa8d8" rx="2"/>
+          <text x="104" y="157" fill="#9a9380" font-size="11" font-family="Noto Serif TC, serif">男生 17%</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 去程 -->
+    <div class="flight-section-title">🛫 去程航班</div>
+
+    <!-- 去程 1 -->
+    <div class="flight-card">
+      <div class="flight-top">
+        <div>
+          <div class="flight-airline">中國東方航空 · 2026-06-12</div>
+          <div class="flight-no">MU 5098</div>
+        </div>
+        <div class="flight-class">商務艙 C</div>
+      </div>
+      <div class="flight-route">
+        <div class="flight-port">
+          <div class="flight-time">17:15</div>
+          <div class="flight-code">TSA</div>
+          <div class="flight-name">台北松山機場</div>
+        </div>
+        <div class="flight-arrow">
+          <div class="flight-arrow-line"></div>
+          <div class="flight-arrow-icon">✈</div>
+          <div class="flight-arrow-line"></div>
+        </div>
+        <div class="flight-port dest">
+          <div class="flight-time">18:55</div>
+          <div class="flight-code">SHA</div>
+          <div class="flight-name">上海虹橋機場</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 去程 2 -->
+    <div class="flight-card">
+      <div class="flight-top">
+        <div>
+          <div class="flight-airline">中國東方航空 · 2026-06-13</div>
+          <div class="flight-no">MU 6205</div>
+        </div>
+        <div class="flight-class">商務艙 J</div>
+      </div>
+      <div class="flight-route">
+        <div class="flight-port">
+          <div class="flight-time">08:30</div>
+          <div class="flight-code">SHA</div>
+          <div class="flight-name">上海虹橋機場</div>
+        </div>
+        <div class="flight-arrow">
+          <div class="flight-arrow-line"></div>
+          <div class="flight-arrow-icon">✈</div>
+          <div class="flight-arrow-line"></div>
+        </div>
+        <div class="flight-port dest">
+          <div class="flight-time">13:55</div>
+          <div class="flight-code">AAT</div>
+          <div class="flight-name">阿勒泰機場</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 回程 -->
+    <div class="flight-section-title">🛬 回程航班</div>
+
+    <!-- 回程 1 -->
+    <div class="flight-card">
+      <div class="flight-top">
+        <div>
+          <div class="flight-airline">中國東方航空（實際由上海航空執飛）· 2026-06-21</div>
+          <div class="flight-no">MU 8368</div>
+        </div>
+        <div class="flight-class eco">經濟艙 M</div>
+      </div>
+      <div class="flight-route">
+        <div class="flight-port">
+          <div class="flight-time">09:05</div>
+          <div class="flight-code">URC T2</div>
+          <div class="flight-name">烏魯木齊天山國際機場（T2）</div>
+        </div>
+        <div class="flight-arrow">
+          <div class="flight-arrow-line"></div>
+          <div class="flight-arrow-icon">✈</div>
+          <div class="flight-arrow-line"></div>
+        </div>
+        <div class="flight-port dest">
+          <div class="flight-time">13:55</div>
+          <div class="flight-code">PVG T1</div>
+          <div class="flight-name">上海浦東機場（T1）</div>
+        </div>
+      </div>
+      <div class="flight-note">機型：波音 7M8（787-8）· 實際由上海航空執飛，請注意值機航廈</div>
+    </div>
+
+    <!-- 回程 2 -->
+    <div class="flight-card">
+      <div class="flight-top">
+        <div>
+          <div class="flight-airline">中國東方航空 · 2026-06-21</div>
+          <div class="flight-no">MU 5005</div>
+        </div>
+        <div class="flight-class eco">經濟艙 M</div>
+      </div>
+      <div class="flight-route">
+        <div class="flight-port">
+          <div class="flight-time">15:50</div>
+          <div class="flight-code">PVG</div>
+          <div class="flight-name">上海浦東機場</div>
+        </div>
+        <div class="flight-arrow">
+          <div class="flight-arrow-line"></div>
+          <div class="flight-arrow-icon">✈</div>
+          <div class="flight-arrow-line"></div>
+        </div>
+        <div class="flight-port dest">
+          <div class="flight-time">17:40</div>
+          <div class="flight-code">TPE</div>
+          <div class="flight-name">桃園國際機場</div>
+        </div>
+      </div>
+      <div class="flight-note">上海浦東轉機過境時間約 115 分鐘，建議盡快前往登機口</div>
+    </div>
+
+  </div><!-- /editable-zone -->
+</section>
+
+<!-- =====================================================
+     頁尾
+====================================================== -->
+<footer>
+  <span>新疆阿勒泰 9天8晚</span> · 大玩家旅遊 Travel Player · 2026 年 6 月<br/>
+  本頁面由 AI 輔助生成，詳細以旅行社最終確認為準。
+</footer>
+
+<!-- =====================================================
+     JavaScript 核心邏輯
+====================================================== -->
+<script>
+  /* ============================================================
+     1. Tab 分頁切換
+     利用 display 屬性控制顯示哪個 panel，並更新 active 樣式
+  ============================================================ */
+  function switchTab(index, btn) {
+    // 移除所有 panel 的 active
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    // 移除所有 tab 按鈕的 active
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+
+    // 啟用選中的 panel 與按鈕
+    document.getElementById('panel-' + index).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  /* ============================================================
+     2. 可編輯切換（contenteditable）
+     每個分頁有獨立的「編輯 / 儲存」按鈕
+     點擊後切換 .editable-zone 的 contenteditable 屬性
+  ============================================================ */
+  function toggleEdit(panelId, btn) {
+    const zone = document.getElementById('edit-' + panelId.split('-')[1]);
+    const isEditing = zone.getAttribute('contenteditable') === 'true';
+
+    if (isEditing) {
+      // 儲存並鎖定
+      zone.removeAttribute('contenteditable');
+      btn.textContent = '✏️ 編輯';
+      btn.classList.remove('saving');
+    } else {
+      // 進入編輯模式
+      zone.setAttribute('contenteditable', 'true');
+      zone.focus();
+      btn.textContent = '💾 儲存';
+      btn.classList.add('saving');
+    }
+  }
+
+  /* ============================================================
+     3. 即時匯率查詢
+     使用 fetch() 呼叫免費的 exchangerate-api.com 公開接口
+     取得 CNY/TWD 匯率，不需 API Key
+  ============================================================ */
+  let currentRate = null; // 儲存最新匯率供試算使用
+
+  async function fetchRate() {
+    const btn    = document.getElementById('rate-btn');
+    const result = document.getElementById('rate-result');
+
+    // 禁用按鈕、顯示載入中
+    btn.disabled = true;
+    result.innerHTML = '<span class="spinner"></span>查詢中，請稍候…';
+
+    try {
+      // 使用 open.er-api.com（完全免費，無需 Key）
+      const res  = await fetch('https://open.er-api.com/v6/latest/CNY');
+      const data = await res.json();
+
+      if (data && data.rates && data.rates.TWD) {
+        currentRate = data.rates.TWD;
+        const time  = new Date(data.time_last_update_utc).toLocaleString('zh-Hant-TW');
+
+        result.innerHTML = `
+          1 CNY&nbsp;≈&nbsp;<span class="rate-num">${currentRate.toFixed(4)}</span>&nbsp;TWD
+          <div class="rate-time">資料更新：${time}（UTC）</div>
+        `;
+
+        // 顯示試算工具
+        document.getElementById('calc-row').style.display = 'flex';
+        calcRate(); // 若已有輸入值就自動計算
+      } else {
+        throw new Error('回傳資料格式異常');
+      }
+    } catch (err) {
+      // 備援方案：提示使用者並說明原因
+      result.innerHTML = `
+        <span style="color:var(--accent-red)">⚠️ 無法取得匯率，請確認網路連線後再試。</span>
+        <div class="rate-time">（${err.message}）</div>
+      `;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  /* 即時試算：RMB → TWD */
+  function calcRate() {
+    if (!currentRate) return;
+    const input = document.getElementById('rmb-input');
+    const out   = document.getElementById('calc-out');
+    const rmb   = parseFloat(input.value);
+
+    if (!isNaN(rmb) && rmb > 0) {
+      const twd = (rmb * currentRate).toFixed(0);
+      out.innerHTML = `≈ <strong>NT$ ${Number(twd).toLocaleString()}</strong> 元`;
+    } else {
+      out.innerHTML = '';
+    }
+  }
+
+  /* ============================================================
+     4. 儲存網頁（另存 HTML）
+     抓取當前 document 的最新 HTML（含所有 contenteditable 修改）
+     並透過 Blob + <a> 觸發下載為 .html 檔案
+  ============================================================ */
+  function saveHTML() {
+    // 取得完整 HTML 字串（包含使用者修改後的內容）
+    const htmlContent = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    // 建立 Blob 物件（MIME 類型：text/html，UTF-8 編碼）
+    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+
+    // 建立暫時的下載連結並觸發點擊
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href     = url;
+    link.download = '新疆行程表.html';
+    document.body.appendChild(link);
+    link.click();
+
+    // 清理暫時資源
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
+</script>
+
+</body>
+</html>
