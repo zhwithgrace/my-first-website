@@ -15,35 +15,29 @@
 
   <style>
 /* =====================================================
-       CSS 變數：全新明亮風格「晨光雪山 × 喀納斯湖綠」
-       以乾淨俐落的淺色系為主，提升閱讀舒適度，並點綴晨昏光影
+       CSS 變數：整體設計語言的核心色盤與尺寸系統
+       以「晨光雪山 × 喀納斯湖綠」為主調的明亮風格
     ====================================================== */
     :root {
-      /* 背景色系：白雪與雲朵般的乾淨層次 */
-      --bg-deep:      #f4f6f8;   /* 網頁底色 淺灰雲白 */
-      --bg-card:      #ffffff;   /* 卡片主體 純白 */
-      --bg-card2:     #f0fdfa;   /* 次層卡片 帶微湖水綠的透白 */
-      --border:       #e2e8f0;   /* 邊框線 淺灰 */
-
-      /* 強調色：晨昏光線與湖水（維持原有變數名稱以防牽動其他程式碼） */
-      --gold:         #d97706;   /* 日落暖金 */
-      --gold-light:   #f59e0b;   /* 晨曦亮橘 */
-      --gold-dim:     rgba(245, 158, 11, 0.1);
-      --sky:          #0d9488;   /* 喀納斯湖水綠 */
-      --sky-dim:      rgba(13, 148, 136, 0.1);
-
-      /* 文字色系：高對比、易讀 */
-      --text-main:    #1e293b;   /* 主標題 深岩灰 */
-      --text-sub:     #475569;   /* 內文 灰藍 */
-      --text-muted:   #94a3b8;   /* 註解 淡灰 */
-      --accent-red:   #e11d48;   /* 警示 櫻桃紅 */
-
-      /* 圓角與陰影：現代化輕盈感 */
-      --radius-sm:    8px;
-      --radius-md:    16px;
-      --radius-lg:    24px;
-      --shadow:       0 8px 30px rgba(0, 0, 0, 0.04);
-      --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg-deep:      #f5f7f8;   /* 主背景：清晨雪山的透白 */
+      --bg-card:      #ffffff;   /* 卡片背景：純白 */
+      --bg-card2:     #eef2f3;   /* 次層卡片：極淺灰綠 */
+      --border:       #d8e0df;   /* 邊框線：柔和淺灰綠 */
+      --gold:         #df8e3f;   /* 主題金色：晨曦暖橘金 */
+      --gold-light:   #f4b06b;   /* 亮金色（懸停/重點） */
+      --gold-dim:     rgba(223, 142, 63, 0.12); /* 暖金淡底 */
+      --sky:          #24726d;   /* 喀納斯湖綠：深邃的藍綠色 */
+      --sky-dim:      rgba(36, 114, 109, 0.12); /* 湖綠淡底 */
+      --text-main:    #2d3635;   /* 主文字：深岩灰，確保高對比易讀 */
+      --text-sub:     #6b7775;   /* 次文字：中灰色 */
+      --text-muted:   #9ca8a6;   /* 淡文字：淺灰綠 */
+      --accent-red:   #d45d50;   /* 警示色：偏暖的暗紅 */
+      --radius-sm:    6px;
+      --radius-md:    12px;
+      --radius-lg:    20px;
+      /* 陰影大幅減輕，並帶有一點點湖綠色調，避免白底顯髒 */
+      --shadow:       0 6px 20px rgba(36, 114, 109, 0.06); 
+      --transition:   0.28s cubic-bezier(0.4,0,0.2,1);
     }
 
     /* =====================================================
@@ -56,13 +50,15 @@
     body {
       background-color: var(--bg-deep);
       color: var(--text-main);
-      /* 改用黑體/無襯線字體，現代感更強，在手機上閱讀更清晰 */
-      font-family: 'PingFang TC', 'Heiti TC', 'Noto Sans TC', sans-serif;
+      font-family: 'Noto Serif TC', serif;
       font-size: 15px;
-      line-height: 1.8;
+      line-height: 1.75;
       min-height: 100vh;
-      /* 背景裝飾：頂部漸層模擬清晨天空光線，乾淨不干擾閱讀 */
-      background-image: linear-gradient(180deg, #ffffff 0%, #f4f6f8 15vh);
+      /* 背景裝飾：頂部帶有晨曦暖橘的微透漸層，模擬日出灑在雪山上的光影 */
+      background-image:
+        radial-gradient(ellipse 100% 50% at 50% 0%, rgba(223, 142, 63, 0.08) 0%, transparent 70%);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
     /* =====================================================
