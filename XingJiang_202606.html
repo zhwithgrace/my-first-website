@@ -14,29 +14,36 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
 
   <style>
-    /* =====================================================
-       CSS 變數：整體設計語言的核心色盤與尺寸系統
-       以「深色沙漠 × 暖琥珀金」為主調，呼應新疆地景
+/* =====================================================
+       CSS 變數：全新明亮風格「晨光雪山 × 喀納斯湖綠」
+       以乾淨俐落的淺色系為主，提升閱讀舒適度，並點綴晨昏光影
     ====================================================== */
     :root {
-      --bg-deep:      #0e0f13;   /* 主背景 深空色 */
-      --bg-card:      #16181f;   /* 卡片背景 */
-      --bg-card2:     #1e2029;   /* 次層卡片 */
-      --border:       #2a2d38;   /* 邊框線 */
-      --gold:         #c9963a;   /* 主題金色 */
-      --gold-light:   #f0be6a;   /* 亮金色（懸停/重點） */
-      --gold-dim:     rgba(201,150,58,0.15); /* 金色淡底 */
-      --sky:          #4aa8d8;   /* 天空藍（次強調） */
-      --sky-dim:      rgba(74,168,216,0.12);
-      --text-main:    #e8e4da;   /* 主文字 米白 */
-      --text-sub:     #9a9380;   /* 次文字 沙灰 */
-      --text-muted:   #5a5650;   /* 淡文字 */
-      --accent-red:   #d4665a;   /* 警示 暗紅 */
-      --radius-sm:    6px;
-      --radius-md:    12px;
-      --radius-lg:    20px;
-      --shadow:       0 4px 24px rgba(0,0,0,0.5);
-      --transition:   0.28s cubic-bezier(0.4,0,0.2,1);
+      /* 背景色系：白雪與雲朵般的乾淨層次 */
+      --bg-deep:      #f4f6f8;   /* 網頁底色 淺灰雲白 */
+      --bg-card:      #ffffff;   /* 卡片主體 純白 */
+      --bg-card2:     #f0fdfa;   /* 次層卡片 帶微湖水綠的透白 */
+      --border:       #e2e8f0;   /* 邊框線 淺灰 */
+
+      /* 強調色：晨昏光線與湖水（維持原有變數名稱以防牽動其他程式碼） */
+      --gold:         #d97706;   /* 日落暖金 */
+      --gold-light:   #f59e0b;   /* 晨曦亮橘 */
+      --gold-dim:     rgba(245, 158, 11, 0.1);
+      --sky:          #0d9488;   /* 喀納斯湖水綠 */
+      --sky-dim:      rgba(13, 148, 136, 0.1);
+
+      /* 文字色系：高對比、易讀 */
+      --text-main:    #1e293b;   /* 主標題 深岩灰 */
+      --text-sub:     #475569;   /* 內文 灰藍 */
+      --text-muted:   #94a3b8;   /* 註解 淡灰 */
+      --accent-red:   #e11d48;   /* 警示 櫻桃紅 */
+
+      /* 圓角與陰影：現代化輕盈感 */
+      --radius-sm:    8px;
+      --radius-md:    16px;
+      --radius-lg:    24px;
+      --shadow:       0 8px 30px rgba(0, 0, 0, 0.04);
+      --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* =====================================================
@@ -49,14 +56,13 @@
     body {
       background-color: var(--bg-deep);
       color: var(--text-main);
-      font-family: 'Noto Serif TC', serif;
+      /* 改用黑體/無襯線字體，現代感更強，在手機上閱讀更清晰 */
+      font-family: 'PingFang TC', 'Heiti TC', 'Noto Sans TC', sans-serif;
       font-size: 15px;
-      line-height: 1.75;
+      line-height: 1.8;
       min-height: 100vh;
-      /* 背景裝飾：細緻沙粒紋理 */
-      background-image:
-        radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,150,58,0.06) 0%, transparent 60%),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='1' height='1' fill='%23ffffff08'/%3E%3C/svg%3E");
+      /* 背景裝飾：頂部漸層模擬清晨天空光線，乾淨不干擾閱讀 */
+      background-image: linear-gradient(180deg, #ffffff 0%, #f4f6f8 15vh);
     }
 
     /* =====================================================
@@ -800,318 +806,291 @@
      ① 行程分頁
 ====================================================== -->
 <section id="panel-0" class="tab-panel active">
-  <div class="panel-toolbar">
-    <button class="edit-btn" onclick="toggleEdit('panel-0', this)">✏️ 編輯</button>
-  </div>
+  <div class="panel-toolbar">
+    <button class="edit-btn" onclick="toggleEdit('panel-0', this)">✏️ 編輯</button>
+  </div>
 
-  <!-- 編輯區塊套上 editable-zone class -->
-  <div class="editable-zone" id="edit-0">
-    <p class="section-tag">每日行程詳情</p>
+    <div class="editable-zone" id="edit-0">
+    <p class="section-tag">每日行程詳情</p>
 
-    <!-- === D1 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D01</span><span class="dd">13</span></div>
-        <div class="day-title-group">
-          <div class="day-route">抵達烏魯木齊</div>
-          <div class="day-sub">06/13（六）· 出發日</div>
-        </div>
-        <div class="day-km">集合日</div>
-      </div>
-      <div class="day-body">
-        <p style="font-size:13.5px;color:var(--text-sub);">自行前往烏魯木齊，辦理入住，建議早到適應時差（台灣時間比新疆快 2 小時）。晚間可前往國際大巴扎附近覓食，體驗維吾爾風情夜市。</p>
-        <details class="spot-details" style="margin-top:10px;">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">烏魯木齊市區自由探索</span>
-            <span class="spot-tag">自由行</span>
-          </summary>
-          <div class="spot-content">
-            <p>烏魯木齊是進入北疆的門戶，天山大巴扎、二道橋市場均可步行抵達，建議準備暖衣以應對夜間溫差（6月氣溫約 15–28°C）。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：日落約 22:00（新疆時間），紅山公園制高點可俯瞰城市與天山輪廓，染橙的天際線層次豐富。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：市區光害較重，可留待後段深山景區拍攝。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從紅山公園向西取景，以天山雪冠為背景，前景帶入城市霓虹，形成「現代 × 自然」的對比構圖。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D01</span><span class="dd">13</span></div>
+        <div class="day-title-group">
+          <div class="day-route">阿勒泰雪都機場接機 [cite: 68]</div>
+          <div class="day-sub">06/13（六）· 出發日</div>
+        </div>
+        <div class="day-km">集合日</div>
+      </div>
+      <div class="day-body">
+        <p style="font-size:13.5px;color:var(--text-sub);">搭乘航班抵達阿勒泰雪都機場，由專車接機後前往阿勒泰市區飯店辦理入住 [cite: 68]。建議好好休息適應時差（台灣時間比新疆快 2 小時），為接下來豐富的北疆旅程儲備體力。</p>
+      </div>
+    </div>
 
-    <!-- === D2 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D02</span><span class="dd">14</span></div>
-        <div class="day-title-group">
-          <div class="day-route">烏魯木齊 → 阿勒泰（飛機）→ 阿禾公路 → 禾木</div>
-          <div class="day-sub">06/14（日）</div>
-        </div>
-        <div class="day-km">65 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">阿禾公路</span>
-            <span class="spot-tag">公路奇景</span>
-          </summary>
-          <div class="spot-content">
-            <p>連接阿勒泰市與禾木景區的網紅公路，全長約 65 公里，沿途穿越白樺林、草地與河谷，被稱為「新疆最美公路之一」。路面蜿蜒，適合停車取景。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：下午 3–5 點從阿勒泰出發，抵達白樺林段時光線由側面打入，樹幹與草地形成柔和金光，建議公路中段停車拍長鏡頭「壓縮公路消失點」。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：公路沿線人煙稀少，無光害，夜間可原地架腳架拍攝公路銀河構圖（正面朝南天，6月銀河核心已可見）。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：俯視制高點取「S型公路 + 白樺林 + 遠山雪冠」三層次，建議用 24–35mm 廣角捕捉。</span></div>
-            </div>
-          </div>
-        </details>
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">禾木景區</span>
-            <span class="spot-tag">原始村落</span>
-          </summary>
-          <div class="spot-content">
-            <p>圖瓦人居住的原始村落，木屋錯落在丘陵草地之間，秋季紅黃白樺更美，6月白雪消融後草地鮮嫩碧綠，炊煙裊裊宛如世外桃源。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 6:30–8:00（新疆時間），霧氣在禾木河谷蔓延，木屋頂炊煙混入晨霧，站在觀景台可拍攝「雲霧中的仙境」——為行程最佳 Golden Hour！建議提早 30 分鐘爬上觀景台佔位。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：禾木遠離城市，是整個行程最佳暗空地點之一。6月無月夜可見銀河橫跨木屋上方，建議 ISO 3200、f/2.8、25s 曝光，以木屋輪廓為前景。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：觀景台「前景木屋群 × 中景河流反光 × 遠景白雪山頂」三層透視感強，廣角 16mm 是最佳選擇，注意地平線保持水平。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D02</span><span class="dd">14</span></div>
+        <div class="day-title-group">
+          <div class="day-route">阿勒泰 → 阿禾公路 → 禾木 [cite: 68]</div>
+          <div class="day-sub">06/14（日）</div>
+        </div>
+        <div class="day-km">65 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">阿禾公路 [cite: 68]</span>
+            <span class="spot-tag">公路奇景</span>
+          </summary>
+          <div class="spot-content">
+            <p>連接阿勒泰市與禾木景區的網紅公路，沿途穿越白樺林、草地與河谷，被稱為「新疆最美公路之一」。路面蜿蜒，適合停車取景。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：下午 3–5 點從阿勒泰出發，抵達白樺林段時光線由側面打入，樹幹與草地形成柔和金光，建議公路中段停車拍長鏡頭「壓縮公路消失點」。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：公路沿線人煙稀少，無光害，夜間可原地架腳架拍攝公路銀河構圖（正面朝南天，6月銀河核心已可見）。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：俯視制高點取「S型公路 + 白樺林 + 遠山雪冠」三層次，建議用 24–35mm 廣角捕捉。</span></div>
+            </div>
+          </div>
+        </details>
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">禾木景區 [cite: 68]</span>
+            <span class="spot-tag">原始村落</span>
+          </summary>
+          <div class="spot-content">
+            <p>圖瓦人居住的原始村落，木屋錯落在丘陵草地之間，秋季紅黃白樺更美，6月白雪消融後草地鮮嫩碧綠，炊煙裊裊宛如世外桃源。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 6:30–8:00（新疆時間），霧氣在禾木河谷蔓延，木屋頂炊煙混入晨霧，站在觀景台可拍攝「雲霧中的仙境」——為行程最佳 Golden Hour！建議提早 30 分鐘爬上觀景台佔位。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：禾木遠離城市，是整個行程最佳暗空地點之一。6月無月夜可見銀河橫跨木屋上方，建議 ISO 3200、f/2.8、25s 曝光，以木屋輪廓為前景。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：觀景台「前景木屋群 × 中景河流反光 × 遠景白雪山頂」三層透視感強，廣角 16mm 是最佳選擇，注意地平線保持水平。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D3 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D03</span><span class="dd">15</span></div>
-        <div class="day-title-group">
-          <div class="day-route">禾木 → 喀納斯（三灣）</div>
-          <div class="day-sub">06/15（一）</div>
-        </div>
-        <div class="day-km">70 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">喀納斯景區（喀納斯三灣）</span>
-            <span class="spot-tag">★ 重點景區</span>
-          </summary>
-          <div class="spot-content">
-            <p>喀納斯湖是中國最深的淡水湖之一（最深 188m），湖水因水深呈現神秘藍綠色。「三灣」指神仙灣、月亮灣、臥龍灣，每處灣區形狀各異，白樺樹倒映湖面，如夢似幻。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 6:00–8:00 三灣霧氣最濃，晨光橙紅照入白樺林，「月亮灣 S 型河道 + 晨霧 + 金光樺樹」是喀納斯的招牌畫面。月亮灣觀景台需步行 20 分鐘，務必早起！</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：喀納斯新村遠離光害，在湖邊架腳架，以雪山為背景拍攝「銀河倒映湖面」，若湖面平靜可達到完美鏡像效果，是行程最推薦的星攝地點。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從觀魚台（海拔 2030m）俯瞰喀納斯湖全景，「S型湖灣 + 兩岸金樺 + 後方雪峰」構圖飽滿，建議用長焦 70–200mm 壓縮遠景雪山。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D03</span><span class="dd">15</span></div>
+        <div class="day-title-group">
+          <div class="day-route">禾木 → 喀納斯（三灣）[cite: 68]</div>
+          <div class="day-sub">06/15（一）</div>
+        </div>
+        <div class="day-km">70 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">喀納斯景區（喀納斯三灣）[cite: 68]</span>
+            <span class="spot-tag">★ 重點景區</span>
+          </summary>
+          <div class="spot-content">
+            <p>喀納斯湖是中國最深的淡水湖之一（最深 188m），湖水因水深呈現神秘藍綠色。「三灣」指神仙灣、月亮灣、臥龍灣，每處灣區形狀各異，白樺樹倒映湖面，如夢似幻。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 6:00–8:00 三灣霧氣最濃，晨光橙紅照入白樺林，「月亮灣 S 型河道 + 晨霧 + 金光樺樹」是喀納斯的招牌畫面。月亮灣觀景台需步行 20 分鐘，務必早起！</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：喀納斯新村遠離光害，在湖邊架腳架，以雪山為背景拍攝「銀河倒映湖面」，若湖面平靜可達到完美鏡像效果，是行程最推薦的星攝地點。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從觀魚台（海拔 2030m）俯瞰喀納斯湖全景，「S型湖灣 + 兩岸金樺 + 後方雪峰」構圖飽滿，建議用長焦 70–200mm 壓縮遠景雪山。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D4 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D04</span><span class="dd">16</span></div>
-        <div class="day-title-group">
-          <div class="day-route">喀納斯 → 克拉瑪依 → 世界魔鬼城</div>
-          <div class="day-sub">06/16（二）</div>
-        </div>
-        <div class="day-km">490 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">世界魔鬼城（烏爾禾風城）</span>
-            <span class="spot-tag">雅丹地貌</span>
-          </summary>
-          <div class="spot-content">
-            <p>位於克拉瑪依市烏爾禾區，雅丹地貌群延伸逾 10 平方公里，風蝕形成的石柱、石塔如古城廢墟，大風呼嘯時「鬼哭狼嚎」令人膽戰，是新疆最壯觀的地質奇觀之一。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日落黃金時刻</b>：夕陽（約 21:00 新疆時間）斜射時岩石轉為深橘紅色，陰影強化立體感，是雅丹地貌攝影的黃金時段。建議提前抵達，尋找高地俯瞰視角。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：戈壁深處無光害，雅丹岩柱作為剪影前景配上滿天繁星，極具震撼感。需在工作人員允許的範圍內操作，建議魚眼或超廣角 14–16mm。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：低角度仰拍石柱群可強調高聳壯闊感；也可爬至較高觀景平台俯拍「城市廢墟感」的全景，前景帶入木棧道以增加比例感。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D04</span><span class="dd">16</span></div>
+        <div class="day-title-group">
+          <div class="day-route">喀納斯 → 克拉瑪依 → 世界魔鬼城 [cite: 68]</div>
+          <div class="day-sub">06/16（二）</div>
+        </div>
+        <div class="day-km">490 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">世界魔鬼城（烏爾禾風城）[cite: 68]</span>
+            <span class="spot-tag">雅丹地貌</span>
+          </summary>
+          <div class="spot-content">
+            <p>位於克拉瑪依市烏爾禾區，雅丹地貌群延伸逾 10 平方公里，風蝕形成的石柱、石塔如古城廢墟，大風呼嘯時「鬼哭狼嚎」令人膽戰，是新疆最壯觀的地質奇觀之一。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日落黃金時刻</b>：夕陽（約 21:00 新疆時間）斜射時岩石轉為深橘紅色，陰影強化立體感，是雅丹地貌攝影的黃金時段。建議提前抵達，尋找高地俯瞰視角。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：戈壁深處無光害，雅丹岩柱作為剪影前景配上滿天繁星，極具震撼感。需在工作人員允許的範圍內操作，建議魚眼或超廣角 14–16mm。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：低角度仰拍石柱群可強調高聳壯闊感；也可爬至較高觀景平台俯拍「城市廢墟感」的全景，前景帶入木棧道以增加比例感。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D5 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D05</span><span class="dd">17</span></div>
-        <div class="day-title-group">
-          <div class="day-route">魔鬼城 → 獨山子大峽谷 → 精河</div>
-          <div class="day-sub">06/17（三）</div>
-        </div>
-        <div class="day-km">380 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">獨山子大峽谷</span>
-            <span class="spot-tag">峽谷奇景</span>
-          </summary>
-          <div class="spot-content">
-            <p>由泥石流長年侵蝕而成的峽谷群，溝壑深邃、紋路如油畫，有「新疆小科羅拉多大峽谷」之稱，峽谷呈現紅、橙、黃多彩層次，徒步穿越全程約 2–3 小時。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：上午 9–11 點光線從峽谷頂部斜射而下，形成「光柱穿谷」效果。下午 4 點後陰影變長，紋理層次最豐富。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：峽谷內可拍攝「仰望星空 + 峽谷壁夾角」特殊構圖，谷內完全無光，需備強力手電筒。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從峽谷頂端俯瞰，地面紋路如大地畫布，建議無人機（需確認景區規定）或超廣角抓取全幅地貌。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D05</span><span class="dd">17</span></div>
+        <div class="day-title-group">
+          <div class="day-route">魔鬼城 → 獨山子大峽谷 → 精河 [cite: 68]</div>
+          <div class="day-sub">06/17（三）</div>
+        </div>
+        <div class="day-km">380 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">獨山子大峽谷 [cite: 68]</span>
+            <span class="spot-tag">峽谷奇景</span>
+          </summary>
+          <div class="spot-content">
+            <p>由泥石流長年侵蝕而成的峽谷群，溝壑深邃、紋路如油畫，有「新疆小科羅拉多大峽谷」之稱，峽谷呈現紅、橙、黃多彩層次，徒步穿越全程約 2–3 小時。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：上午 9–11 點光線從峽谷頂部斜射而下，形成「光柱穿谷」效果。下午 4 點後陰影變長，紋理層次最豐富。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：峽谷內可拍攝「仰望星空 + 峽谷壁夾角」特殊構圖，谷內完全無光，需備強力手電筒。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從峽谷頂端俯瞰，地面紋路如大地畫布，建議無人機（需確認景區規定）或超廣角抓取全幅地貌。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D6 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D06</span><span class="dd">18</span></div>
-        <div class="day-title-group">
-          <div class="day-route">精河 → 賽里木湖（環湖）→ 途經果子溝大橋 → 伊寧</div>
-          <div class="day-sub">06/18（四）</div>
-        </div>
-        <div class="day-km">280 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">賽里木湖</span>
-            <span class="spot-tag">★ 重點景區</span>
-          </summary>
-          <div class="spot-content">
-            <p>海拔 2073 公尺，新疆最大高山冷水湖，素有「大西洋最後一滴眼淚」之美譽。湖水純淨蔚藍，四周雪山環抱，6月野花盛開，藍湖 × 白雪 × 黃花構成絕美彩色畫面。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 7:00–8:30 霧氣消散前，湖面如鏡，雪山倒映其中——為行程中最夢幻的鏡像攝影機會。建議於湖東岸低角度架腳架，納入前景草地野花。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：賽里木湖海拔高、空氣通透，是行程中最佳銀河攝影地點之一。以湖面為「天然反光板」，拍攝星空倒影，ISO 6400 + f/2.8 + 20s，效果壯觀。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：環湖公路設有多個觀景台，建議選擇「湖 + 路 + 山」三角構圖，公路 S 形引導視線延伸至遠方雪峰，長焦壓縮空間感極佳。</span></div>
-            </div>
-          </div>
-        </details>
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">果子溝大橋</span>
-            <span class="spot-tag">工程奇蹟</span>
-          </summary>
-          <div class="spot-content">
-            <p>全球最長的雙塔雙索面鋼箱梁斜拉橋之一，橋面距谷底約 200 公尺，驅車而過可感受懸空通天的壯闊感。周邊果子溝蘋果花在 5–6 月盛開，芳香撲鼻。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：下午 4–6 點從谷底仰拍大橋，逆光剪影效果壯觀，橋身線條俐落，可加入人物比例感。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從觀景台取「橋 + 峽谷 + 遠方雪山」全景，超廣角可一次納入橋墩與谷底植被，強調人類工程與自然的對話。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D06</span><span class="dd">18</span></div>
+        <div class="day-title-group">
+          <div class="day-route">精河 → 賽里木湖（環湖）→ 途經果子溝大橋 → 伊寧 [cite: 68]</div>
+          <div class="day-sub">06/18（四）</div>
+        </div>
+        <div class="day-km">280 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">賽里木湖 [cite: 68]</span>
+            <span class="spot-tag">★ 重點景區</span>
+          </summary>
+          <div class="spot-content">
+            <p>海拔 2073 公尺，新疆最大高山冷水湖，素有「大西洋最後一滴眼淚」之美譽。湖水純淨蔚藍，四周雪山環抱，6月野花盛開，藍湖 × 白雪 × 黃花構成絕美彩色畫面。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日出黃金時刻</b>：清晨 7:00–8:30 霧氣消散前，湖面如鏡，雪山倒映其中——為行程中最夢幻的鏡像攝影機會。建議於湖東岸低角度架腳架，納入前景草地野花。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：賽里木湖海拔高、空氣通透，是行程中最佳銀河攝影地點之一。以湖面為「天然反光板」，拍攝星空倒影，ISO 6400 + f/2.8 + 20s，效果壯觀。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：環湖公路設有多個觀景台，建議選擇「湖 + 路 + 山」三角構圖，公路 S 形引導視線延伸至遠方雪峰，長焦壓縮空間感極佳。</span></div>
+            </div>
+          </div>
+        </details>
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">果子溝大橋 [cite: 68]</span>
+            <span class="spot-tag">工程奇蹟</span>
+          </summary>
+          <div class="spot-content">
+            <p>全球最長的雙塔雙索面鋼箱梁斜拉橋之一，橋面距谷底約 200 公尺，驅車而過可感受懸空通天的壯闊感。周邊果子溝蘋果花在 5–6 月盛開，芳香撲鼻。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：下午 4–6 點從谷底仰拍大橋，逆光剪影效果壯觀，橋身線條俐落，可加入人物比例感。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從觀景台取「橋 + 峽谷 + 遠方雪山」全景，超廣角可一次納入橋墩與谷底植被，強調人類工程與自然的對話。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D7 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D07</span><span class="dd">19</span></div>
-        <div class="day-title-group">
-          <div class="day-route">伊寧 → 那拉提空中草原</div>
-          <div class="day-sub">06/19（五）</div>
-        </div>
-        <div class="day-km">450 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">那拉提空中草原</span>
-            <span class="spot-tag">★ 重點景區</span>
-          </summary>
-          <div class="spot-content">
-            <p>世界四大草原之一，海拔 1800 公尺，「空中草原」因其高踞天山之上、雲霧常繞腳邊而得名。哈薩克牧民轉場季（6月）牛羊成群，氈房炊煙，如詩如畫的草原生活盡現眼前。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日落黃金時刻</b>：傍晚 20:00–21:30 夕陽將草地染成金色，配合牧民趕牧牛羊的剪影，是草原人文攝影的巔峰時刻。需事先與牧民溝通，勿侵擾生活。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：那拉提高原遠離城市，夜間無光害，6 月晴夜可在氈房頂拍銀河，溫馨的氈房燈光作為前景補光，形成「星空下的游牧之夜」情境。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從空中草原最高觀景台俯瞰，「山頂雲海 + 草原牧場 + 蜿蜒河流」三層次俯瞰構圖，建議使用 24mm 超廣角搭配 ND 濾鏡長曝河流。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D07</span><span class="dd">19</span></div>
+        <div class="day-title-group">
+          <div class="day-route">伊寧 → 那拉提草原 [cite: 68]</div>
+          <div class="day-sub">06/19（五）</div>
+        </div>
+        <div class="day-km">450 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">那拉提空中草原 [cite: 68]</span>
+            <span class="spot-tag">★ 重點景區</span>
+          </summary>
+          <div class="spot-content">
+            <p>世界四大草原之一，海拔 1800 公尺，「空中草原」因其高踞天山之上、雲霧常繞腳邊而得名。哈薩克牧民轉場季（6月）牛羊成群，氈房炊煙，如詩如畫的草原生活盡現眼前。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>日落黃金時刻</b>：傍晚 20:00–21:30 夕陽將草地染成金色，配合牧民趕牧牛羊的剪影，是草原人文攝影的巔峰時刻。需事先與牧民溝通，勿侵擾生活。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：那拉提高原遠離城市，夜間無光害，6 月晴夜可在氈房頂拍銀河，溫馨的氈房燈光作為前景補光，形成「星空下的游牧之夜」情境。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：從空中草原最高觀景台俯瞰，「山頂雲海 + 草原牧場 + 蜿蜒河流」三層次俯瞰構圖，建議使用 24mm 超廣角搭配 ND 濾鏡長曝河流。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D8 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D08</span><span class="dd">20</span></div>
-        <div class="day-title-group">
-          <div class="day-route">那拉提 → 獨庫公路（北段）→ 國家大巴扎 → 烏魯木齊</div>
-          <div class="day-sub">06/20（六）</div>
-        </div>
-        <div class="day-km">520 km</div>
-      </div>
-      <div class="day-body">
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">獨庫公路（北段）</span>
-            <span class="spot-tag">★ 網紅公路</span>
-          </summary>
-          <div class="spot-content">
-            <p>獨山子 → 庫車，全長 562 公里，是中國最壯觀的公路之一。北段穿越天山腹地，翻越數個大坂（山口），路邊有雪山、峽谷、草甸、杉樹林，每 10 分鐘換一種景色，堪稱「一路看遍天山四季」。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：清晨出發（7–9 點）公路光線最柔，霧氣繚繞天山峽谷段，建議在喬爾瑪烈士陵園附近的開闊谷地停車拍攝「晨霧公路消失點」。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：公路沿途人煙極稀，大坂頂部海拔達 3400m，視野開闊無遮擋，是行程中最高海拔的星攝點，注意保暖（夜間接近 0°C）。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：公路蜿蜒進入雪山的「公路盡頭即雪峰」構圖最具衝擊力。建議在公路高點用長焦（200mm）壓縮遠近，讓公路「刺穿」雪山。</span></div>
-            </div>
-          </div>
-        </details>
-        <details class="spot-details">
-          <summary class="spot-summary">
-            <span class="spot-arrow">▶</span>
-            <span class="spot-name">新疆國際大巴扎</span>
-            <span class="spot-tag">人文市集</span>
-          </summary>
-          <div class="spot-content">
-            <p>烏魯木齊的地標性市集，建築融合伊斯蘭圓頂與現代商業，販賣新疆特產、烤饢、羊肉串、葡萄乾、和田玉等。登上巴扎觀光塔可俯瞰城市天際線，是購買手信的最後機會。</p>
-            <div class="photo-tips">
-              <div class="photo-tips-title">📷 攝影建議</div>
-              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃昏黃金時刻</b>：傍晚 21:00 前後，夕陽照射伊斯蘭圓頂與宣禮塔，金光熠熠，是絕佳建築攝影時機。</span></div>
-              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>人文構圖</b>：以烤饢師傅、擺攤小販的手部特寫為主題，85mm 人像焦距搭配大光圈虛化背景市集喧嚷，呈現溫度與故事感。</span></div>
-            </div>
-          </div>
-        </details>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D08</span><span class="dd">20</span></div>
+        <div class="day-title-group">
+          <div class="day-route">那拉提 → 獨庫公路（北段）→ 烏魯木齊 [cite: 68]</div>
+          <div class="day-sub">06/20（六）</div>
+        </div>
+        <div class="day-km">520 km [cite: 68]</div>
+      </div>
+      <div class="day-body">
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">獨庫公路（北段）[cite: 68]</span>
+            <span class="spot-tag">★ 網紅公路</span>
+          </summary>
+          <div class="spot-content">
+            <p>獨山子 → 庫車，全長 562 公里，是中國最壯觀的公路之一。北段穿越天山腹地，翻越數個大坂（山口），路邊有雪山、峽谷、草甸、杉樹林，每 10 分鐘換一種景色，堪稱「一路看遍天山四季」。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃金時刻</b>：清晨出發（7–9 點）公路光線最柔，霧氣繚繞天山峽谷段，建議在喬爾瑪烈士陵園附近的開闊谷地停車拍攝「晨霧公路消失點」。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🌌</span><span><b>暗空星攝</b>：公路沿途人煙極稀，大坂頂部海拔達 3400m，視野開闊無遮擋，是行程中最高海拔的星攝點，注意保暖（夜間接近 0°C）。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>大景構圖</b>：公路蜿蜒進入雪山的「公路盡頭即雪峰」構圖最具衝擊力。建議在公路高點用長焦（200mm）壓縮遠近，讓公路「刺穿」雪山。</span></div>
+            </div>
+          </div>
+        </details>
+        <details class="spot-details">
+          <summary class="spot-summary">
+            <span class="spot-arrow">▶</span>
+            <span class="spot-name">國家大巴扎 [cite: 68]</span>
+            <span class="spot-tag">人文市集</span>
+          </summary>
+          <div class="spot-content">
+            <p>烏魯木齊的地標性市集，建築融合伊斯蘭圓頂與現代商業，販賣新疆特產、烤饢、羊肉串、葡萄乾、和田玉等。登上巴扎觀光塔可俯瞰城市天際線，是購買手信的最後機會。</p>
+            <div class="photo-tips">
+              <div class="photo-tips-title">📷 攝影建議</div>
+              <div class="photo-tip-item"><span class="tip-icon">🌅</span><span><b>黃昏黃金時刻</b>：傍晚 21:00 前後，夕陽照射伊斯蘭圓頂與宣禮塔，金光熠熠，是絕佳建築攝影時機。</span></div>
+              <div class="photo-tip-item"><span class="tip-icon">🖼</span><span><b>人文構圖</b>：以烤饢師傅、擺攤小販的手部特寫為主題，85mm 人像焦距搭配大光圈虛化背景市集喧嚷，呈現溫度與故事感。</span></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
 
-    <!-- === D9 === -->
-    <div class="day-card">
-      <div class="day-header">
-        <div class="day-badge"><span class="dn">D09</span><span class="dd">21</span></div>
-        <div class="day-title-group">
-          <div class="day-route">烏魯木齊送機 · 返程</div>
-          <div class="day-sub">06/21（日）· 返台日</div>
-        </div>
-        <div class="day-km">旅程終</div>
-      </div>
-      <div class="day-body">
-        <p style="font-size:13.5px;color:var(--text-sub);">早餐後辦理退房，前往天山國際機場（T2 航廈），搭乘 MU8368（09:05）飛往上海浦東，轉搭 MU5005（15:50）返抵桃園國際機場（17:40）。請預留充足過境時間。</p>
-      </div>
-    </div>
+        <div class="day-card">
+      <div class="day-header">
+        <div class="day-badge"><span class="dn">D09</span><span class="dd">21</span></div>
+        <div class="day-title-group">
+          <div class="day-route">烏魯木齊送機 · 返程 [cite: 68]</div>
+          <div class="day-sub">06/21（日）· 返台日</div>
+        </div>
+        <div class="day-km">旅程終</div>
+      </div>
+      <div class="day-body">
+        <p style="font-size:13.5px;color:var(--text-sub);">早餐後辦理退房，前往天山國際機場（T2 航廈），搭乘 MU8368（09:05）飛往上海浦東，轉搭 MU5005（15:50）返抵桃園國際機場（17:40）。請預留充足過境時間。</p>
+      </div>
+    </div>
 
-  </div><!-- /editable-zone -->
-</section>
+  </div></section>
 
 <!-- ======================================================
      ② 花費分頁
