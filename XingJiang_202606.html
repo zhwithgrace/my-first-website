@@ -866,8 +866,6 @@ footer span { color: var(--sky); font-weight: 700; }
   </div>
 
   <div class="members-row">
-    <div class="member-chip male">♂ 男生 × 1</div>
-    <div class="member-chip female">♀ 女生 × 5</div>
     <div class="member-chip">👥 共 6 人 · 獨立包團</div>
   </div>
 </header>
@@ -877,9 +875,9 @@ footer span { color: var(--sky); font-weight: 700; }
 ====================================================== -->
 <nav class="tabs-nav" role="tablist">
   <button class="tab-btn active" role="tab" onclick="switchTab(0, this)">📅 行程</button>
-  <button class="tab-btn"        role="tab" onclick="switchTab(1, this)">💰 花費</button>
+  <button class="tab-btn"        role="tab" onclick="switchTab(1, this)" style="display:none">💰 花費</button>
   <!-- 住宿分頁暫時隱藏（尚未確定），保留於 HTML 中，待確認後可移除此 style -->
-  <button class="tab-btn" role="tab" onclick="switchTab(2, this)" style="display:none">🏨 住宿地址</button>
+  <button class="tab-btn" role="tab" onclick="switchTab(2, this)" >🏨 住宿地址</button>
   <button class="tab-btn"        role="tab" onclick="switchTab(3, this)">✈ 航班與成員</button>
 </nav>
 
@@ -1421,7 +1419,7 @@ footer span { color: var(--sky); font-weight: 700; }
     <p class="section-tag">個人航班資訊</p>
     <div class="person-selector">
       <button class="person-chip active" onclick="switchPerson('lilian', this)">
-        <span class="person-avatar">L</span> Lilian
+        <span class="person-avatar">L</span> Lillian
       </button>
       <button class="person-chip" onclick="switchPerson('cindy', this)">
         <span class="person-avatar">C</span> Cindy
