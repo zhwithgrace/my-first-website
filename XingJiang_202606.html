@@ -1249,124 +1249,257 @@ footer span { color: var(--sky); font-weight: 700; }
      ③ 住宿地址分頁（尚未確定，暫時隱藏）
      注意：本分頁內容以 HTML 備註隱藏，待確認後可取消備註
 ====================================================== -->
+<!-- ======================================================
+     ③ 住宿地址分頁
+====================================================== -->
 <section id="panel-2" class="tab-panel">
   <div class="panel-toolbar">
     <button class="edit-btn" onclick="toggleEdit('panel-2', this)">✏️ 編輯</button>
   </div>
-  <div class="editable-zone" id="edit-2">
-    <!-- =====================================================
-         住宿資訊（尚未確定，暫時備註隱藏）
-         待確認後將下方 HTML 備註取消，即可恢復顯示
-         =====================================================
 
+  <div class="editable-zone" id="edit-2">
     <p class="section-tag">住宿資訊</p>
+
+    <!-- =====================================================
+         房間分配說明卡
+    ====================================================== -->
+    <div style="
+      background: var(--bg-card2);
+      border: 1px solid rgba(201,150,58,0.35);
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    ">
+      <div style="font-size:12px;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;">
+        🛏 每晚房間分配
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;">
+        <div style="background:var(--bg-deep);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">標間 A</div>
+          <div style="font-size:14px;color:var(--text-main);font-weight:600;">女① ＋ 女②</div>
+        </div>
+        <div style="background:var(--bg-deep);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">標間 B</div>
+          <div style="font-size:14px;color:var(--text-main);font-weight:600;">女③ ＋ 女④</div>
+        </div>
+        <div style="background:var(--bg-deep);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">標間 C</div>
+          <div style="font-size:14px;color:var(--text-main);font-weight:600;">女⑤ ＋ 男①</div>
+        </div>
+        <div style="background:var(--bg-deep);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">司陪床</div>
+          <div style="font-size:14px;color:var(--sky);font-weight:600;">司機</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =====================================================
+         飯店列表
+    ====================================================== -->
     <div class="hotel-list">
 
+      <!-- D1 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">01</div><div class="hotel-day-date">06/13</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">01</div>
+          <div class="hotel-day-date">06/13</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
-          <div class="hotel-name">烏魯木齊新旅逸格酒店</div>
-          <div class="hotel-addr">新疆烏魯木齊天山區紅山路 106 號</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆烏魯木齊天山區紅山路106號" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-name">阿勒泰瀾景酒店</div>
+          <div class="hotel-addr">📍 阿勒泰市建業街 19 號</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--text-sub);">📞 0906-7505555</span>
+            <span style="font-size:12px;color:var(--text-sub);">📞 0906-7685555</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=阿勒泰市建業街19號" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D2 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">02</div><div class="hotel-day-date">06/14</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">02</div>
+          <div class="hotel-day-date">06/14</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
-          <div class="hotel-name">禾木御園</div>
-          <div class="hotel-addr">新疆布爾津禾木鄉禾木村入口服務區</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆布爾津禾木鄉禾木村入口服務區" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-name">禾木御園山莊</div>
+          <div class="hotel-addr">📍 布爾津禾木鄉禾木村入口服務區</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--text-sub);">📞 17397820999</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=布爾津禾木鄉禾木村" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D3 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">03</div><div class="hotel-day-date">06/15</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">03</div>
+          <div class="hotel-day-date">06/15</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
           <div class="hotel-name">喀納斯悠然山莊</div>
-          <div class="hotel-addr">新疆阿勒泰地區布爾津喀納斯新村 95 號</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆阿勒泰地區布爾津喀納斯新村95號" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-addr">📍 布爾津喀納斯新村 95 號</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--accent-red);">📞 暫未公開，請出發前向旅行社確認</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=布爾津喀納斯新村95號" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D4 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">04</div><div class="hotel-day-date">06/16</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">04</div>
+          <div class="hotel-day-date">06/16</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
           <div class="hotel-name">烏爾禾西域別苑酒店</div>
-          <div class="hotel-addr">新疆克拉瑪依市烏爾禾區揚州路與廣東街交叉路口</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆克拉瑪依市烏爾禾區揚州路廣東街" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-addr">📍 克拉瑪依市烏爾禾區揚州路與廣東街交叉口</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--text-sub);">📞 15709907808</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=克拉瑪依市烏爾禾區揚州路廣東街" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D5 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">05</div><div class="hotel-day-date">06/17</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">05</div>
+          <div class="hotel-day-date">06/17</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
-          <div class="hotel-name">精河迎賓館</div>
-          <div class="hotel-addr">新疆精河縣伊犁路河畔麗景 B 區</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆精河縣伊犁路河畔麗景B區" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-name">精河溫州大酒店</div>
+          <div class="hotel-addr">📍 精河火車南站以北烏伊東路 312 國道</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--text-sub);">📞 0909-5338555</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=精河縣烏伊東路312國道" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D6 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">06</div><div class="hotel-day-date">06/18</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">06</div>
+          <div class="hotel-day-date">06/18</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
           <div class="hotel-name">伊寧億達觀瀾酒店</div>
-          <div class="hotel-addr">新疆伊寧市森怡翡翠城 12 號樓 1 樓</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆伊寧市森怡翡翠城12號樓" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-addr">📍 伊寧市森怡翡翠城 12 號樓 1 樓</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--text-sub);">📞 0999-8888788</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=伊寧市森怡翡翠城12號樓" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D7 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">07</div><div class="hotel-day-date">06/19</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">07</div>
+          <div class="hotel-day-date">06/19</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
-          <div class="hotel-name">那拉提又見青山</div>
-          <div class="hotel-addr">新疆新源縣那拉提鎮</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆新源縣那拉提鎮" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-name">那拉提又見青山民宿</div>
+          <div class="hotel-addr">📍 新源縣那拉提鎮阿爾善村</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--accent-red);">📞 暫未公開，請出發前向旅行社確認</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間B：女③＋女④</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間C：女⑤＋男①</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--sky-dim);border:1px solid rgba(74,168,216,0.3);color:var(--sky);">司陪床：司機</span>
+          </div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=新源縣那拉提鎮阿爾善村" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
+      <!-- D8 -->
       <div class="hotel-card">
         <div class="hotel-day-col">
-          <div class="hotel-day-label">D</div><div class="hotel-day-num">08</div><div class="hotel-day-date">06/20</div>
+          <div class="hotel-day-label">D</div>
+          <div class="hotel-day-num">08</div>
+          <div class="hotel-day-date">06/20</div>
         </div>
         <div class="hotel-divider"></div>
         <div class="hotel-info">
-          <div class="hotel-name">烏魯木齊新旅逸格酒店</div>
-          <div class="hotel-addr">新疆烏魯木齊天山區紅山路 106 號</div>
-          <a class="hotel-map-btn" href="https://maps.google.com/?q=新疆烏魯木齊天山區紅山路106號" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
+          <div class="hotel-name">烏魯木齊新旅逸格酒店（紅山公園 CCMALL）</div>
+          <div class="hotel-addr">📍 烏魯木齊市天山區紅山路 106 號</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;">
+            <span style="font-size:12px;color:var(--text-sub);">📞 0991-8105888</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">微信：無公開官方微信，建議電話聯繫</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">標間A：女①＋女②＋女③＋女④＋女⑤（拼房彈性）</span>
+            <span style="font-size:11px;padding:2px 9px;border-radius:100px;background:var(--gold-dim);border:1px solid rgba(201,150,58,0.3);color:var(--gold-light);">男①：同住</span>
+          </div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:5px;">⚠️ D8 為返程前夜，依實際訂房間數安排</div>
+          <a class="hotel-map-btn" href="https://maps.google.com/?q=烏魯木齊市天山區紅山路106號" target="_blank" rel="noopener">🗺 在地圖中開啟</a>
         </div>
       </div>
 
-    </div>
-
-    =====================================================
-         以上為住宿資訊備註結束
-    ===================================================== -->
-    <p style="text-align:center;color:var(--text-muted);padding:40px 0;font-size:14px;">
-      🏨 住宿資訊尚未確定，確認後將更新此頁面。
-    </p>
-  </div>
+    </div><!-- /hotel-list -->
+  </div><!-- /editable-zone -->
 </section>
 
 <!-- ======================================================
